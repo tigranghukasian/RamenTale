@@ -36,6 +36,6 @@ public class UIManager : MonoBehaviour
 
     private void UpdateCoinsBalanceText(int amount)
     {
-        coinsBalanceText.text = amount.ToString();
+        //coinsBalanceText.text = amount.ToString();
     }
 }

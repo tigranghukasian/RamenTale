@@ -9,9 +9,7 @@ public class PartPlacer : DragCreator
     [SerializeField] private Part part;
 
     public Part Part => part;
-
     
-    private bool _isDragging;
 
     private void Start()
     {

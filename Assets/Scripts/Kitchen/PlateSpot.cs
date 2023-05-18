@@ -16,6 +16,7 @@ public class PlateSpot : MonoBehaviour, IDropHandler
             currentDish = Instantiate(dishPrefab, transform).GetComponent<Dish>();
             currentDish.transform.position = transform.position;
             currentDish.Init();
+            KitchenManager.Instance.SetCompleteButton(true);
         }
     }
 }

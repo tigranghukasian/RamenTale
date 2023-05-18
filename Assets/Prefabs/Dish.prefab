@@ -133,6 +133,7 @@ MonoBehaviour:
   soupDropChecker: {fileID: 7501395158644769086}
   noodleImage: {fileID: 522752419524903481}
   ingredientsParent: {fileID: 4734539493803039481}
+  soupAnimator: {fileID: 1150250868219473203}
 --- !u!95 &1150250868219473203
 Animator:
   serializedVersion: 5

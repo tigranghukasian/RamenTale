@@ -23,7 +23,7 @@ public class DragCreator : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         _isDragging = true;
         _spawnedItem = Instantiate(moveableGraphic, KitchenManager.Instance.Canvas.transform).GetComponent<Moveable>();
-        
+
         _spawnedItemRectTransform = _spawnedItem.GetComponent<RectTransform>();
         _spawnedItem.transform.position = eventData.position;
         _spawnedItem.GetComponent<CanvasGroup>().blocksRaycasts = false;

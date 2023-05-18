@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 841169412989723008}
   - component: {fileID: 3549116047714483342}
   - component: {fileID: -6808352070108845602}
-  - component: {fileID: -4437315691018998374}
+  - component: {fileID: 5299755038207042679}
   m_Layer: 5
   m_Name: Scoop
   m_TagString: Untagged
@@ -137,7 +137,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &-4437315691018998374
+--- !u!114 &5299755038207042679
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,9 +146,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3824637215406562711}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7644fc382f5663542a2a069ad644f520, type: 3}
+  m_Script: {fileID: 11500000, guid: 34228e9c36ae28b4ea8dbc8eefea06ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoopSoup: {fileID: 4201294458408416560}
 --- !u!1 &7085710538175224234
 GameObject:
   m_ObjectHideFlags: 0

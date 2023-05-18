@@ -13,6 +13,10 @@ public class GameManager : Singleton<GameManager>
 
     [SerializeField] private CustomerManager customerManager;
 
+    [Title("Canvases")] 
+    [SerializeField] private Canvas kitchenCanvas;
+    [SerializeField] private Canvas cafeCanvas;
+
     public DialogueManager DialogueManager => dialogueManager;
 
 
@@ -29,6 +33,8 @@ public class GameManager : Singleton<GameManager>
     public void SetView(View view)
     {
         CurrentView = view;
+        kitchenCanvas.gameObject.SetActive(view == View.Kitchen);
+        cafeCanvas.gameObject.SetActive(view == View.Cafe);
     }
 
     public void Restart()

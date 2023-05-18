@@ -12,6 +12,8 @@ public class Dish : Moveable, IDropHandler
     [SerializeField] private Image noodleImage;
     [SerializeField] private Transform ingredientsParent;
 
+    [SerializeField] private Animator soupAnimator;
+
     private DishData.Builder _dishDataBuilder;
 
     public void Init()
@@ -26,10 +28,16 @@ public class Dish : Moveable, IDropHandler
     {
         if (pointerDrag.TryGetComponent(out IngredientBox ingredientBox) && onSoup)
         {
-            _dishDataBuilder.AddIngredient(ingredientBox.SpawnedComponent.Ingredient);
-            ingredientBox.SpawnedComponent.transform.SetParent(ingredientsParent);
-            ingredientBox.SpawnedComponent.Placed = true;
-            UpdateIngredientsOrder();
+            if (!ingredientBox.IngredientData.isCuttable || ingredientBox.IngredientData.isCut)
+            {
+                AddIngredient(ingredientBox.SpawnedComponent);
+            }
+        }
+        if (pointerDrag.TryGetComponent(out IngredientComponent ingredientComponent) && onSoup)
+        {
+            AddIngredient(ingredientComponent);
+            ingredientComponent.GetComponent<Image>().raycastTarget = false;
+            ingredientComponent.GetComponent<DraggableIngredientComponent>().Placed = true;
         }
         if (pointerDrag.TryGetComponent(out PartPlacer partPlacer))
         {
@@ -45,10 +53,20 @@ public class Dish : Moveable, IDropHandler
         }
     }
 
+    private void AddIngredient(IngredientComponent ingredientComponent)
+    {
+        _dishDataBuilder.AddIngredient(ingredientComponent.IngredientData);
+        ingredientComponent.transform.SetParent(ingredientsParent);
+        ingredientComponent.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        ingredientComponent.Placed = true;
+        UpdateIngredientsOrder();
+    }
+
     private void SetSoupVisuals(Soup soup)
     {
         soupImage.color = soup.color;
         soupImage.gameObject.SetActive(true);
+        soupAnimator.Play("soupFill");
         soupDropChecker.SetActive(true);
     }
     private void SetNoodleVisuals(Noodle noodle)

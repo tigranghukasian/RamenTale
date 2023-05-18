@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Parts/Ingredient")]
 public class Ingredient : Part
 {
-    public bool IsCut { get; set; }
+    public Sprite sprite;
+    public bool isCut;
+    public bool isCuttable;
+    [ShowIf("isCuttable")]
+    public Ingredient CutVersion;
 }

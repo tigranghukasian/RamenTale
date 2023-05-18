@@ -3,18 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class IngredientBox : DragCreator
 {
     [SerializeField] private Ingredient ingredientData;
     [SerializeField] private bool infinite;
+    [SerializeField] private Image cuttableKnife;
+    [SerializeField] private Transform ingredientParent;
 
     private IngredientComponent _spawnedComponent;
     public IngredientComponent SpawnedComponent => _spawnedComponent;
+    public Ingredient IngredientData => ingredientData;
 
     public Action<int> OnCountChanged;
-
-    private bool _isDragging;
 
     public int Count { get; set; } = 100;
 
@@ -23,8 +25,12 @@ public class IngredientBox : DragCreator
         if (ingredientData != null)
         {
             moveableGraphic = ingredientData.componentToSpawn;
+            IngredientComponent visual = Instantiate(ingredientData.componentToSpawn, ingredientParent).GetComponent<IngredientComponent>();
+            visual.IngredientData = ingredientData;
+            visual.Init();
+            cuttableKnife.gameObject.SetActive(ingredientData.isCuttable);
         }
-       
+
     }
 
     public bool HasAmount(int amount)
@@ -53,6 +59,7 @@ public class IngredientBox : DragCreator
     {
         base.OnBeginDrag(eventData);
         _spawnedComponent = (IngredientComponent)SpawnedItem;
+        _spawnedComponent.IngredientData = ingredientData;
         _spawnedComponent.Init();
 
     }

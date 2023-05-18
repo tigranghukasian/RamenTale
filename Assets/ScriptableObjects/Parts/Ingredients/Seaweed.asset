@@ -10,7 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d520548c33c2b2c4a82ff59e9f471080, type: 3}
-  m_Name: Seaweed
+  m_Name: seaweed
   m_EditorClassIdentifier: 
   price: 0
-  componentToSpawn: {fileID: 2995801428070327201, guid: 48dd9fe9499573f4d9f31196845b369d, type: 3}
+  componentToSpawn: {fileID: 3383843870424405853, guid: e36d008dce0e73745b3d478119494b6e, type: 3}
+  sprite: {fileID: 21300000, guid: 17734ab52f0f0a24a819a3b3222cdc83, type: 3}
+  isCut: 0
+  isCuttable: 0
+  CutVersion: {fileID: 0}
