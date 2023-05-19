@@ -21,6 +21,7 @@ public class DraggableIngredientComponent : MonoBehaviour, IBeginDragHandler, ID
         GetComponent<Image>().raycastTarget = false;
         GetComponent<CanvasGroup>().blocksRaycasts = false;
         GetComponent<CanvasGroup>().interactable = false;
+        Placed = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -43,8 +44,10 @@ public class DraggableIngredientComponent : MonoBehaviour, IBeginDragHandler, ID
             transform.SetParent(_initialParent);
             GetComponent<Image>().raycastTarget = true;
             transform.position = _initialPosition;
+            transform.parent.GetComponent<CuttingBoard>().UpdateIngredientsOrder();
             GetComponent<CanvasGroup>().blocksRaycasts = true;
         }
         
     }
+    
 }

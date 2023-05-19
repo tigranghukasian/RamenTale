@@ -22,12 +22,13 @@ public class IngredientComponent : Moveable, IPointerClickHandler
 
     private int _clickedCount;
     private int _amountToClickForCut = 3;
-    private float offsetAmount = 30f;
+    private float offsetAmount = 20f;
     
     
     public void Init()
     {
         SetSprite();
+        GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
     }
 
     private void SetSprite()
@@ -60,11 +61,12 @@ public class IngredientComponent : Moveable, IPointerClickHandler
             IngredientComponent cutIngredient = Instantiate(ingredientData.CutVersion.componentToSpawn, transform.parent).GetComponent<IngredientComponent>();
             cutIngredient.ingredientData = ingredientData.CutVersion;
             cutIngredient.Init();
-            cutIngredient.transform.position = transform.position += new Vector3(Random.Range(-offsetAmount, offsetAmount), Random.Range(-offsetAmount, offsetAmount), 0);
+            cutIngredient.transform.position = transform.position += new Vector3(-offsetAmount * Mathf.Pow(-1, i), offsetAmount * Mathf.Pow(-1, i), 0);
             cutIngredient.GetComponent<Image>().raycastTarget = true;
         }
         transform.parent.GetComponent<CuttingBoard>().UpdateIngredientsOrder();
         
         Destroy(gameObject);
     }
+    
 }
