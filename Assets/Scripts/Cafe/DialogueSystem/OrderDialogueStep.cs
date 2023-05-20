@@ -14,9 +14,6 @@ public class OrderDialogueStep : DialogueStep
         StepText = order.orderText;
     }
     
-    public void SetCustomAction(Action action)
-    {
-        OnConfirmStepCustomAction += action;
-    }
-    
+
+
 }
