@@ -7,16 +7,21 @@ public class CurrencyManager : Singleton<CurrencyManager>
 {
     private Currency coins = new Currency("Coins");
 
-    public Action<int> OnCoinsChanged;
+    public Action<float> OnCoinsChanged;
     
 
-    public void AddCoins(int amount)
+    public void AddCoins(float amount)
     {
         coins.Add(amount);
         OnCoinsChanged?.Invoke(coins.Balance);
     }
 
-    public void SubtractCoins(int amount)
+    public bool HasCoin(float amount)
+    {
+        return coins.Balance >= amount;
+    }
+
+    public void SubtractCoins(float amount)
     {
         coins.Subtract(amount);
         OnCoinsChanged?.Invoke(coins.Balance);
@@ -35,13 +40,13 @@ public class CurrencyManager : Singleton<CurrencyManager>
 
     private void LoadCurrencyInfo()
     {
-        coins.Balance = PlayerPrefs.GetInt("coins", 100);
+        coins.Balance = PlayerPrefs.GetFloat("coins", 100);
         OnCoinsChanged?.Invoke(coins.Balance);
     }
 
     private void SaveCurrencyInfo()
     {
-        PlayerPrefs.SetInt("coins", coins.Balance);
+        PlayerPrefs.SetFloat("coins", coins.Balance);
         PlayerPrefs.Save();
     }
 }
@@ -49,22 +54,30 @@ public class CurrencyManager : Singleton<CurrencyManager>
 public class Currency
 {
     public string name;
-    public int Balance { get; set; }
+    public float Balance { get; set; }
+
+    public Action OnBalanceZero;
 
     public Currency(string name)
     {
         this.name = name;
         Balance = 0;;
     }
+    
 
-    public void Add(int amount)
+    public void Add(float amount)
     {
         Balance += amount;
     }
 
-    public void Subtract(int amount)
+    public void Subtract(float amount)
     {
         Balance -= amount;
+        if (Balance < 0)
+        {
+            Balance = 0;
+            OnBalanceZero();
+        }
     }
 }
 

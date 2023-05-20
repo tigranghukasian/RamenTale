@@ -10,10 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca7b424bd094b7a4aa33e1666cf64f99, type: 3}
-  m_Name: SimpleDialogue
+  m_Name: FirstOpenedDialogue
   m_EditorClassIdentifier: 
   steps:
-  - Hello, I like this shop that you have opened.
-  - I have enjoyed Ramen since I was very little.
-  - I will definitely tell my friends about this place!
+  - _stepType: 0
+    stepText: Hey there! I really like this shop
+  - _stepType: 0
+    stepText: It looks very cosy, and it is just on the other side of the street
+      from where I work
+  - _stepType: 0
+    stepText: I hope many people will find out about this place and you will get
+      lots of customers!
   rarity: 1

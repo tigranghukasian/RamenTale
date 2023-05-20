@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,45 +16,112 @@ public class DialogueManager : MonoBehaviour {
      [SerializeField]
      private List<Dialogue> availableDialogues;
 
-     private Dialogue _currentDialogue;
-     private int _currentStep;
-
-     public void StartDialogue(Customer customer)
-     {
-          _currentDialogue = RarityFunctions.GenerateItem(availableDialogues);
-          _currentStep = 0;
-          speechBubble.gameObject.SetActive(true);
-          customerImage.gameObject.SetActive(true);
-          DisplayStep();
-     }
+     private Queue<DialogueStep> _dialogueSteps = new Queue<DialogueStep>();
      
-     private void DisplayStep()
+     
+     private DialogueStep _currentStep;
+
+     private void Start()
      {
-          string stepText = _currentDialogue.GetStep(_currentStep);
-          speechBubble.SetText(stepText);
+          GameManager.Instance.DialogueManager.SpeechBubble.gameObject.SetActive(false);
+          GameManager.Instance.DialogueManager.CustomerImage.gameObject.SetActive(false);
+          GameManager.Instance.CustomerManager.OnCustomerGenerated += GenerateDialogue;
      }
 
-     private void DisplayCustomStep(string stepText)
+     private void EnqueueStep(DialogueStep step)
      {
-          speechBubble.SetText(stepText);
+          _dialogueSteps.Enqueue(step);
      }
 
      public void NextStep()
      {
-          if (_currentDialogue.HasStep(_currentStep+1))
+          if (_dialogueSteps.Count > 0)
           {
-               _currentStep++;
-               DisplayStep();
+               ConfirmCurrentStep();
+               _currentStep = _dialogueSteps.Dequeue();
+               ProcessCurrentStep();
           }
           else
           {
-               TellOrder();
+               GameManager.Instance.DialogueManager.SpeechBubble.gameObject.SetActive(false);
+               GameManager.Instance.DialogueManager.CustomerImage.gameObject.SetActive(false);
+               GameManager.Instance.CustomerManager.GetNextCustomer();
+               Debug.Log("DIALOGUE ENDED");
           }
      }
 
-     private void TellOrder()
+     public void ProcessCurrentStep()
      {
-          Order newOrder = OrderManager.Instance.GenerateNewOrder();
-          DisplayCustomStep(newOrder.orderText);
+          speechBubble.gameObject.SetActive(true);
+          speechBubble.SetText(_currentStep.StepText);
+          if (_currentStep.StepText == string.Empty)
+          {
+               speechBubble.gameObject.SetActive(false);
+          }
+          // switch (_currentStep.StepType)
+          // {
+          //      case DialogueStepType.Speech:
+          //           
+          //           break;
+          //      case DialogueStepType.Order:
+          //           
+          //           break;
+          //      case DialogueStepType.Feedback:
+          //           break;
+          // }
      }
+
+     public void ConfirmCurrentStep()
+     {
+          if (_currentStep == null)
+          {
+               return;
+          }
+          if (_currentStep.OnConfirmStepCustomAction != null)
+          {
+               _currentStep.OnConfirmStepCustomAction?.Invoke();
+          }
+
+          if (_currentStep is OrderDialogueStep)
+          {
+               speechBubble.gameObject.SetActive(false);
+          }
+     }
+
+     public void AddFeedback(string feedbackText)
+     {
+          DialogueStep feedbackDialogueText = new DialogueStep
+          {
+               StepText = feedbackText
+          };
+          EnqueueStep(feedbackDialogueText);
+     }
+     public void GenerateDialogue(Customer customer)
+     {
+          Dialogue dialogue = RarityFunctions.GenerateItem(availableDialogues);
+          for (int i = 0; i < dialogue.StepCount(); i++)
+          {
+               EnqueueStep(dialogue.GetStep(i));
+          }
+
+          Order newOrder = OrderManager.Instance.GenerateNewOrder();
+          
+          OrderDialogueStep orderDialogueStep = new OrderDialogueStep(newOrder);
+          orderDialogueStep.SetCustomAction(GameManager.Instance.MoveToKitchenToPrepareFood);
+          EnqueueStep(orderDialogueStep);
+
+          DialogueStep waitDialogueStep = new DialogueStep
+          {
+               StepText = string.Empty
+          };
+          EnqueueStep(waitDialogueStep);
+          
+          speechBubble.gameObject.SetActive(true);
+          customerImage.gameObject.SetActive(true);
+          customerImage.sprite = customer.Sprite;
+          _currentStep = _dialogueSteps.Dequeue();
+          ProcessCurrentStep();
+          
+     }
+     
 }

@@ -34,8 +34,8 @@ public class UIManager : MonoBehaviour
         orderTicketAnimator.Play("ticket_open");
     }
 
-    private void UpdateCoinsBalanceText(int amount)
+    private void UpdateCoinsBalanceText(float amount)
     {
-        //coinsBalanceText.text = amount.ToString();
+        coinsBalanceText.text = amount.ToString();
     }
 }

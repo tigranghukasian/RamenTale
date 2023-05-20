@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,11 +8,11 @@ public class CustomerManager : MonoBehaviour
     [SerializeField] private List<Customer> customers;
     public Customer CurrentCustomer { get; private set; }
 
+    public Action<Customer> OnCustomerGenerated;
+
     private void Start()
     {
-        GameManager.Instance.DialogueManager.SpeechBubble.gameObject.SetActive(false);
-        GameManager.Instance.DialogueManager.CustomerImage.gameObject.SetActive(false);
-        GetNextCustomer();
+        
     }
 
     public void GetNextCustomer()
@@ -29,6 +30,7 @@ public class CustomerManager : MonoBehaviour
     private void GenerateCustomer()
     {
         CurrentCustomer = RarityFunctions.GenerateItem(customers);
-        GameManager.Instance.DialogueManager.StartDialogue(CurrentCustomer);
+        OnCustomerGenerated?.Invoke(CurrentCustomer);
+
     }
 }

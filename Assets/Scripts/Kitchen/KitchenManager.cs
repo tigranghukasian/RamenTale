@@ -7,6 +7,7 @@ public class KitchenManager : Singleton<KitchenManager>
 {
     [SerializeField] private Canvas canvas;
     [SerializeField] private Image completeButton;
+    [SerializeField] private PlateSpot plateSpot;
 
     [SerializeField] private Color completeButtonEnabledColor;
     [SerializeField] private Color completeButtonDisabledColor;
@@ -22,6 +23,7 @@ public class KitchenManager : Singleton<KitchenManager>
     public void CompleteDish()
     {
         SetCompleteButton(false);
-        GameManager.Instance.SetView(GameManager.View.Cafe);
+        GameManager.Instance.CompleteDish(plateSpot.CurrentDish);
+        GameManager.Instance.OpenCafe();
     }
 }

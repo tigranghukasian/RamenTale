@@ -15,6 +15,7 @@ public class Dish : Moveable, IDropHandler
     [SerializeField] private Animator soupAnimator;
 
     private DishData.Builder _dishDataBuilder;
+    public DishData.Builder DishDataBuilder => _dishDataBuilder;
 
     public void Init()
     {
@@ -62,6 +63,51 @@ public class Dish : Moveable, IDropHandler
         UpdateIngredientsOrder();
     }
 
+    public void SetChildrenAnchorsToCorners()
+    {
+        RectTransform parentRect = transform as RectTransform;
+
+        foreach (Transform child in ingredientsParent)
+        {
+            RectTransform childRect = child as RectTransform;
+            
+            if (childRect != null)
+            {
+
+                // Vector2 newAnchorsMin = new Vector2(childRect.localPosition.x / parentRect.rect.width + .5f - childRect.rect.width / parentRect.rect.width * childRect.pivot.x, 
+                //     childRect.localPosition.y / parentRect.rect.height + .5f - childRect.rect.height / parentRect.rect.height * childRect.pivot.y);
+                // Vector2 newAnchorsMax = new Vector2(childRect.localPosition.x / parentRect.rect.width + .5f + childRect.rect.width / parentRect.rect.width * (1 - childRect.pivot.x), 
+                //     childRect.localPosition.y / parentRect.rect.height + .5f + childRect.rect.height / parentRect.rect.height * (1 - childRect.pivot.y));
+                //
+                // childRect.anchorMin = newAnchorsMin;
+                // childRect.anchorMax = newAnchorsMax;
+                // childRect.anchoredPosition = Vector2.zero;
+                // childRect.sizeDelta = Vector2.zero;
+                
+
+                Vector2 min = new Vector2(
+                    (childRect.localPosition.x - childRect.rect.width * childRect.pivot.x) / parentRect.rect.width + 0.5f,
+                    (childRect.localPosition.y - childRect.rect.height * childRect.pivot.y) / parentRect.rect.height + 0.5f);
+                Vector2 max = new Vector2(
+                    (childRect.localPosition.x + childRect.rect.width * (1 - childRect.pivot.x)) / parentRect.rect.width + 0.5f,
+                    (childRect.localPosition.y + childRect.rect.height * (1 - childRect.pivot.y)) / parentRect.rect.height + 0.5f);
+
+                childRect.anchorMin = min;
+                childRect.anchorMax = max;
+
+                childRect.offsetMin = new Vector2(
+                    (childRect.offsetMin.x - childRect.offsetMin.y) / parentRect.rect.width,
+                    (childRect.offsetMin.y - childRect.offsetMin.y) / parentRect.rect.height);
+                childRect.offsetMax = new Vector2(
+                    (childRect.offsetMax.x - childRect.offsetMax.y) / parentRect.rect.width,
+                    (childRect.offsetMax.y - childRect.offsetMax.y) / parentRect.rect.height);
+
+                childRect.pivot = new Vector2(0.5f, 0.5f);
+                childRect.anchoredPosition = Vector2.zero;
+            }
+        }
+    }
+
     private void SetSoupVisuals(Soup soup)
     {
         soupImage.color = soup.color;
@@ -98,9 +144,11 @@ public class Dish : Moveable, IDropHandler
 
 public class DishData
 {
-    private Soup _soup;
-    private Noodle _noodle;
-    private List<Ingredient> _ingredients = new List<Ingredient>();
+    public Soup Soup { get; private set; }
+
+    public Noodle Noodle { get; private set; }
+
+    public List<Ingredient> Ingredients { get; } = new List<Ingredient>();
 
     public class Builder
     {
@@ -117,21 +165,21 @@ public class DishData
 
         public Builder SetSoup(Soup soup)
         {
-            _dishData._soup = soup;
+            _dishData.Soup = soup;
             OnSoupSet?.Invoke(soup);
             return this;
         }
 
         public Builder SetNoodle(Noodle noodle)
         {
-            _dishData._noodle = noodle;
+            _dishData.Noodle = noodle;
             OnNoodleSet?.Invoke(noodle);
             return this;
         }
 
         public Builder AddIngredient(Ingredient ingredient)
         {
-            _dishData._ingredients.Add(ingredient);
+            _dishData.Ingredients.Add(ingredient);
             OnIngredientAdded?.Invoke();
             return this;
         }
@@ -143,12 +191,12 @@ public class DishData
 
         public bool HasSoup()
         {
-            return _dishData._soup != null;
+            return _dishData.Soup != null;
         }
 
         public bool HasNoodle()
         {
-            return _dishData._noodle != null;
+            return _dishData.Noodle != null;
         }
     }
 }

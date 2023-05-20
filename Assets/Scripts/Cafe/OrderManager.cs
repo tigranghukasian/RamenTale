@@ -10,11 +10,9 @@ public class OrderManager : Singleton<OrderManager>
 
 
     [SerializeField] private List<Order> availableOrders;
-
-    private void Start()
-    {
-
-    }
+    [SerializeField] private string correctOrderText;
+    [SerializeField] private string incorrectOrderText;
+    
 
     public Order GenerateNewOrder()
     {
@@ -27,24 +25,22 @@ public class OrderManager : Singleton<OrderManager>
 
     public void ServeDish(Dish dish)
     {
-        // Debug.Log("SERVE DISH " + CurrentOrder);
-        // if (dishOld.CompareWithOrder(CurrentOrder))
-        // {
-        //     CurrencyManager.Instance.AddCoins(20);
-        //     CompleteOrder();
-        // }
-        // else
-        // {
-        //     CompleteOrder();
-        //     Debug.Log("THE DISH IS WRONG");
-        // }
+        if(CurrentOrder.CompareWithDish(dish))
+        {
+            CurrencyManager.Instance.AddCoins(20);
+            CompleteOrder(true);
+        }
+        else
+        {
+            CompleteOrder(false);
+        }
     }
-
-    public void CompleteOrder()
+    
+    
+    private void CompleteOrder(bool isCorrect)
     {
-        //GameManager.Instance.DialogueManager.customerImage.gameObject.SetActive(false);
-       // GameManager.Instance.DialogueManager.SpeechBubble.gameObject.SetActive(false);
-       // GameManager.Instance.CustomerManager.GetNextCustomer();
-        GenerateNewOrder();
+        var feedbackText = isCorrect ? correctOrderText : incorrectOrderText;
+        GameManager.Instance.DialogueManager.AddFeedback(feedbackText);
+        GameManager.Instance.DialogueManager.NextStep();
     }
 }
