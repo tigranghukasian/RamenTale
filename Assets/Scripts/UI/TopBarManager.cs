@@ -14,6 +14,6 @@ public class TopBarManager : MonoBehaviour
     }
     private void UpdateCoinsBalanceText(float amount)
     {
-        coinsBalanceText.text = amount.ToString();
+        coinsBalanceText.text = amount.ToString("F1");
     }
 }

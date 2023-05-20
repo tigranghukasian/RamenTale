@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CuttingBoard : MonoBehaviour, IDropHandler
+public class CuttingBoard : MonoBehaviour, IDropHandler, IDragHandler
 {
     public void OnDrop(PointerEventData eventData)
     {
@@ -43,5 +43,10 @@ public class CuttingBoard : MonoBehaviour, IDropHandler
         {
             uiElements[i].SetSiblingIndex(i);
         }
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        
     }
 }

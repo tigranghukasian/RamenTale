@@ -11,6 +11,7 @@ public class KitchenManager : Singleton<KitchenManager>
 
     [SerializeField] private Color completeButtonEnabledColor;
     [SerializeField] private Color completeButtonDisabledColor;
+    [SerializeField] private KitchenUIManager kitchenUIManager;
 
     public Canvas Canvas => canvas;
 
@@ -25,5 +26,10 @@ public class KitchenManager : Singleton<KitchenManager>
         SetCompleteButton(false);
         GameManager.Instance.CompleteDish(plateSpot.CurrentDish);
         GameManager.Instance.OpenCafe();
+    }
+
+    public void SetOrder()
+    {
+        kitchenUIManager.SetOrder(OrderManager.Instance.CurrentOrder);
     }
 }

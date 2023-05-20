@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c47fa470dfc4eb49a6e912368c9eb07, type: 3}
+  m_Name: MisoFishcake
+  m_EditorClassIdentifier: 
+  rarity: 5
+  orderText: Can I get miso ramen please? Egg noodles and fish cake!! I am so hungry!
+  soup: {fileID: 11400000, guid: 31852429408f37c44a63ca01e53c3712, type: 2}
+  noodle: {fileID: 11400000, guid: 37ffb7f07e8eee94ab1e673671c4ff4c, type: 2}
+  _orderIngredients:
+  - amount: 2
+    ingredient: {fileID: 11400000, guid: 8a40c79eda7f6e54c9d573163379ad6a, type: 2}
+  - amount: 1
+    ingredient: {fileID: 11400000, guid: 53bc455afe97a9541af73880d49935fd, type: 2}
+  - amount: 3
+    ingredient: {fileID: 11400000, guid: a9d09f3fffac3004cbcaba0bd9dd9da8, type: 2}

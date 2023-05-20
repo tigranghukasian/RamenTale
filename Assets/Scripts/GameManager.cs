@@ -26,6 +26,7 @@ public class GameManager : Singleton<GameManager>
 
     public DialogueManager DialogueManager => dialogueManager;
     public CustomerManager CustomerManager => customerManager;
+    
 
     public Canvas CafeCanvas => cafeCanvas;
 
@@ -48,6 +49,7 @@ public class GameManager : Singleton<GameManager>
         kitchenCanvas.gameObject.SetActive(true);
         kitchenAnimator.SetTrigger(OPEN);
         StartCoroutine(DisableCanvasAfterDelay(cafeCanvas, 1.0f)); // Assumes the animation takes 1 second
+        KitchenManager.Instance.SetOrder();
     }
 
     public void OpenCafe()

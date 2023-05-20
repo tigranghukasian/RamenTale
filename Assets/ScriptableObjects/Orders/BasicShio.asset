@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c47fa470dfc4eb49a6e912368c9eb07, type: 3}
   m_Name: BasicShio
   m_EditorClassIdentifier: 
-  rarity: 1
-  orderText: Hi, I want a ramen with 2 eggs, 3 pork. put a seaweed in it too. Thank
-    you!!
+  rarity: 5
+  orderText: Can I get shio ramen please? Thank you!
   soup: {fileID: 11400000, guid: 8b6455057acc90c40a23540e606e8c3e, type: 2}
   noodle: {fileID: 11400000, guid: a3c34542432800845a66f068d442c68f, type: 2}
   _orderIngredients:

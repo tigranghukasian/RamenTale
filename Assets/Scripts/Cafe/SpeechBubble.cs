@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,9 +13,13 @@ public class SpeechBubble : MonoBehaviour
         text.text = message;
     }
 
-    public void OnTap()
+    private void Update()
     {
-        GameManager.Instance.DialogueManager.NextStep();
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameManager.Instance.DialogueManager.NextStep();
+        }
     }
+    
     
 }

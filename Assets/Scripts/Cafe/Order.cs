@@ -23,6 +23,10 @@ public class Order : ScriptableObject, IRarity
 
     [SerializeField]
     private List<OrderIngredient> _orderIngredients = new List<OrderIngredient>();
+
+    public List<OrderIngredient> OrderIngredients => _orderIngredients;
+    public Noodle Noodle => noodle;
+    public Soup Soup => soup;
     
     public bool CompareWithDish(Dish dish)
     {
