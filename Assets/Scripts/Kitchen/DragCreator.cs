@@ -52,6 +52,6 @@ public class DragCreator : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         {
             Destroy(_spawnedItem.gameObject);
         }
-        
+
     }
 }

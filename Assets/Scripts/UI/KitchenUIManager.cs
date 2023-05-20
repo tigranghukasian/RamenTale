@@ -4,18 +4,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class KitchenUIManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI coinsBalanceText;
+
     [SerializeField] private GameObject orderTicket;
     [SerializeField] private Animator orderTicketAnimator;
     private bool _isOrderTicketOpen;
 
-    private void Awake()
-    {
-        CurrencyManager.Instance.OnCoinsChanged += UpdateCoinsBalanceText;
-        
-    }
+    
 
     private void Update()
     {
@@ -34,8 +30,5 @@ public class UIManager : MonoBehaviour
         orderTicketAnimator.Play("ticket_open");
     }
 
-    private void UpdateCoinsBalanceText(float amount)
-    {
-        coinsBalanceText.text = amount.ToString();
-    }
+   
 }

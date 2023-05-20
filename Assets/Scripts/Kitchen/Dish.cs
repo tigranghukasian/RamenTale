@@ -44,11 +44,24 @@ public class Dish : Moveable, IDropHandler
         {
             if (partPlacer.Part is Soup && !_dishDataBuilder.HasSoup())
             {
-                _dishDataBuilder.SetSoup((Soup)partPlacer.Part);
+                Soup soup = (Soup)partPlacer.Part;
+                if (CurrencyManager.Instance.HasCoin(soup.price))
+                {
+                    _dishDataBuilder.SetSoup(soup);
+                    CurrencyManager.Instance.SubtractCoins(soup.price);
+                }
+                
             }
             else if (partPlacer.Part is Noodle && _dishDataBuilder.HasSoup() && !_dishDataBuilder.HasNoodle())
             {
-                _dishDataBuilder.SetNoodle((Noodle)partPlacer.Part);
+                Noodle noodle = (Noodle)partPlacer.Part;
+                if (CurrencyManager.Instance.HasCoin(noodle.price))
+                {
+                    _dishDataBuilder.SetNoodle(noodle);
+                    CurrencyManager.Instance.SubtractCoins(noodle.price);
+                }
+
+                
             }
             
         }

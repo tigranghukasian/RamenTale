@@ -12,4 +12,9 @@ public class SoupPlacer : PartPlacer
         Soup soup = (Soup)Part;
         _spawnedItem.GetComponent<Scoop>().SetColor(soup.color);
     }
+
+    public override void OnEndDrag(PointerEventData eventData)
+    {
+        base.OnEndDrag(eventData);
+    }
 }

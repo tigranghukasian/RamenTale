@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90aa39c8caf00354ea626169a6ea18f4, type: 3}
   m_Name: Egg
   m_EditorClassIdentifier: 
-  price: 0
+  price: 1
   componentToSpawn: {fileID: 8390604163204701208, guid: 2385ba8be89d22448b36116b905fe67a, type: 3}
   color: {r: 1, g: 0.9960785, b: 0.9215687, a: 1}
