@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PartPlacer : DragCreator
+public class PartPlacer : DragCreator, IPointerClickHandler
 {
     [SerializeField] private Part part;
 
@@ -14,5 +14,11 @@ public class PartPlacer : DragCreator
     private void Start()
     {
         moveableGraphic = part.componentToSpawn;
+    }
+
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        KitchenManager.Instance.UIManager.ShowSoupAndNoodleNames();
     }
 }

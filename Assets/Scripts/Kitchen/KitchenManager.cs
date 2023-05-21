@@ -13,6 +13,8 @@ public class KitchenManager : Singleton<KitchenManager>
     [SerializeField] private Color completeButtonDisabledColor;
     [SerializeField] private KitchenUIManager kitchenUIManager;
 
+    public KitchenUIManager UIManager => kitchenUIManager;
+
     public Canvas Canvas => canvas;
 
     public void SetCompleteButton(bool state)

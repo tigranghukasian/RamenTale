@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class CurrencyManager : Singleton<CurrencyManager>
@@ -8,7 +9,12 @@ public class CurrencyManager : Singleton<CurrencyManager>
     private Currency coins = new Currency("Coins");
 
     public Action<float> OnCoinsChanged;
-    
+
+    [Button]
+    public void Give100Coins()
+    {
+        AddCoins(100);
+    }
 
     public void AddCoins(float amount)
     {
