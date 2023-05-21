@@ -50,6 +50,7 @@ public class GameManager : Singleton<GameManager>
         kitchenAnimator.SetTrigger(OPEN);
         StartCoroutine(DisableCanvasAfterDelay(cafeCanvas, 1.0f)); // Assumes the animation takes 1 second
         KitchenManager.Instance.SetOrder();
+        CustomerManager.StartSatisfactionTimer();
     }
 
     public void OpenCafe()
@@ -57,7 +58,10 @@ public class GameManager : Singleton<GameManager>
         cafeCanvas.gameObject.SetActive(true);
         kitchenAnimator.SetTrigger(CLOSE);
         StartCoroutine(DisableCanvasAfterDelay(kitchenCanvas, 1.0f)); // Assumes the animation takes 1 second
+        customerManager.StopSatisfactionTimer();
     }
+    
+   
 
     public void CompleteDish(Dish dish)
     {
@@ -66,6 +70,7 @@ public class GameManager : Singleton<GameManager>
         dish.AddComponent<DraggableDishComponent>();
         dish.GetComponent<RectTransform>().sizeDelta = new Vector2(150f, 150f);
         dish.transform.position = cafeDishSpot.transform.position;
+        CustomerManager.StopSatisfactionTimer();
     }
 
     IEnumerator DisableCanvasAfterDelay(Canvas canvas, float delay)

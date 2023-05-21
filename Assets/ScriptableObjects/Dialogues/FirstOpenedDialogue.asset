@@ -14,11 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   steps:
   - _stepType: 0
-    stepText: Hey there! I really like this shop
+    stepText: Hey there! I really like this shop, It looks very cosy.
   - _stepType: 0
-    stepText: It looks very cosy, and it is just on the other side of the street
-      from where I work
-  - _stepType: 0
-    stepText: I hope many people will find out about this place and you will get
-      lots of customers!
+    stepText: I'll tell my friends to also visit
   rarity: 1

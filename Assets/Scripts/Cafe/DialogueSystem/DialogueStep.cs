@@ -24,11 +24,11 @@ public class DialogueStep
     //     StepText = text;
     // }
     
-    public void SetConfirmStepAction(Action action)
+    public void AddConfirmAction(Action action)
     {
         OnConfirmStepCustomAction += action;
     }
-    public void SetBeginStepAction(Action action)
+    public void AddBeginStepAction(Action action)
     {
         OnBeginStepAction += action;
     }

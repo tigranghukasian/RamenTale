@@ -27,7 +27,7 @@ public class OrderManager : Singleton<OrderManager>
     {
         if(CurrentOrder.CompareWithDish(dish))
         {
-            CurrencyManager.Instance.AddCoins(20);
+            CurrencyManager.Instance.AddCoins(CurrentOrder.CalculateProfit());
             CompleteOrder(true);
         }
         else
@@ -35,8 +35,8 @@ public class OrderManager : Singleton<OrderManager>
             CompleteOrder(false);
         }
     }
-    
-    
+
+
     private void CompleteOrder(bool isCorrect)
     {
         var feedbackText = isCorrect ? correctOrderText : incorrectOrderText;

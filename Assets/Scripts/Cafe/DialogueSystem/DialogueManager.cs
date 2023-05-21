@@ -111,7 +111,7 @@ public class DialogueManager : MonoBehaviour {
           {
                StepText = feedbackText
           };
-          feedbackDialogueText.SetBeginStepAction(OnDialogueEnded);
+          feedbackDialogueText.AddBeginStepAction(OnDialogueEnded);
           EnqueueStep(feedbackDialogueText);
      }
      public void GenerateDialogue(Customer customer)
@@ -125,7 +125,8 @@ public class DialogueManager : MonoBehaviour {
           Order newOrder = OrderManager.Instance.GenerateNewOrder();
           
           OrderDialogueStep orderDialogueStep = new OrderDialogueStep(newOrder);
-          orderDialogueStep.SetConfirmStepAction(GameManager.Instance.MoveToKitchenToPrepareFood);
+          orderDialogueStep.AddConfirmAction(GameManager.Instance.MoveToKitchenToPrepareFood);
+          orderDialogueStep.AddConfirmAction(GameManager.Instance.CustomerManager.StartSatisfactionTimer);
           EnqueueStep(orderDialogueStep);
 
           DialogueStep waitDialogueStep = new DialogueStep

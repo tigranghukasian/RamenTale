@@ -19,3 +19,5 @@ MonoBehaviour:
   _orderIngredients:
   - amount: 8
     ingredient: {fileID: 11400000, guid: 8a40c79eda7f6e54c9d573163379ad6a, type: 2}
+  profitMargin: 4
+  timeToMake: 100

@@ -9,6 +9,8 @@ public class CurrencyManager : Singleton<CurrencyManager>
     private Currency coins = new Currency("Coins");
 
     public Action<float> OnCoinsChanged;
+    public Action<float> OnCoinIncreased;
+    public Action<float> OnCoinDecreased;
 
     [Button]
     public void Give100Coins()
@@ -19,6 +21,7 @@ public class CurrencyManager : Singleton<CurrencyManager>
     public void AddCoins(float amount)
     {
         coins.Add(amount);
+        OnCoinIncreased?.Invoke(amount);
         OnCoinsChanged?.Invoke(coins.Balance);
     }
 
@@ -30,6 +33,7 @@ public class CurrencyManager : Singleton<CurrencyManager>
     public void SubtractCoins(float amount)
     {
         coins.Subtract(amount);
+        OnCoinDecreased?.Invoke(amount);
         OnCoinsChanged?.Invoke(coins.Balance);
     }
 
