@@ -23,6 +23,7 @@ public class CurrencyManager : Singleton<CurrencyManager>
         coins.Add(amount);
         OnCoinIncreased?.Invoke(amount);
         OnCoinsChanged?.Invoke(coins.Balance);
+        AudioManager.Instance.PlayCashIncomeClip();
     }
 
     public bool HasCoin(float amount)

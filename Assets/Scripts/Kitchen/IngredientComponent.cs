@@ -40,6 +40,7 @@ public class IngredientComponent : Moveable, IPointerClickHandler
     {
         if (IsOnBoard)
         {
+            AudioManager.Instance.PlayKnifeClip();
             _clickedCount++;
             CheckIfCut();
         }

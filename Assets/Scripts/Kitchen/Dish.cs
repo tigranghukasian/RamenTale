@@ -48,6 +48,7 @@ public class Dish : Moveable, IDropHandler
                 if (CurrencyManager.Instance.HasCoin(soup.price))
                 {
                     _dishDataBuilder.SetSoup(soup);
+                    AudioManager.Instance.PlayDishSoupPourClip();
                     CurrencyManager.Instance.SubtractCoins(soup.price);
                 }
                 
@@ -74,6 +75,7 @@ public class Dish : Moveable, IDropHandler
         ingredientComponent.GetComponent<CanvasGroup>().blocksRaycasts = false;
         ingredientComponent.Placed = true;
         UpdateIngredientsOrder();
+        AudioManager.Instance.PlayDishIngredientAddClip();
     }
 
     public void SetChildrenAnchorsToCorners()

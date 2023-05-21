@@ -26,11 +26,11 @@ public class TopBarManager : MonoBehaviour
 
     private void ShowCoinIncrease(float amount)
     {
-        coinsIncreaseText.gameObject.SetActive(true);
+        coinsIncreaseText.transform.parent.gameObject.SetActive(true);
         coinsIncreaseText.text = "+" + amount.ToString("F1");
         topBarManagerAnimator.Play("coinIncrease");
         StopAllCoroutines();
-        StartCoroutine(DisableGameObjectAfterDelay(coinsIncreaseText.gameObject, 0.5f));
+        StartCoroutine(DisableGameObjectAfterDelay(coinsIncreaseText.transform.parent.gameObject, 1f));
     }
 
     public void UpdateCustomerSatisfactionText(float amount)
