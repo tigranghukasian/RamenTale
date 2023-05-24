@@ -19,7 +19,7 @@ public class DraggableDishComponent : MonoBehaviour, IDragHandler, IBeginDragHan
 
     public void OnDrag(PointerEventData eventData)
     {
-        _rectTransform.anchoredPosition += eventData.delta/ GameManager.Instance.CafeCanvas.scaleFactor;
+        _rectTransform.anchoredPosition += eventData.delta/ GameSceneManager.Instance.CafeCanvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)

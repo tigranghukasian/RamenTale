@@ -45,7 +45,8 @@ public class CustomerManager : MonoBehaviour
             OnCustomerSatisfactionChanged?.Invoke(satisfaction);
             if (satisfactionTimer >= OrderManager.Instance.CurrentOrder.TimeToMake)
             {
-                GameManager.Instance.OpenCafe();
+                GameSceneManager.Instance.OpenCafe();
+                DepartCustomer();
                 GetNextCustomer();
             }
         }
@@ -53,12 +54,19 @@ public class CustomerManager : MonoBehaviour
 
     }
 
+    public void DepartCustomer()
+    {
+        GameSceneManager.Instance.DialogueManager.SpeechBubble.gameObject.SetActive(false);
+        GameSceneManager.Instance.DialogueManager.CustomerImage.gameObject.SetActive(false);
+    }
+
     public void GetNextCustomer()
     {
+        DayManager.Instance.Enabled = true;
         satisfaction = 1f;
         satisfactionTimer = 0;
         OnCustomerSatisfactionChanged?.Invoke(satisfaction);
-        StartCoroutine(GenerateCustomerAfterDelay(1f));
+        StartCoroutine(GenerateCustomerAfterDelay(2f));
     }
     
 

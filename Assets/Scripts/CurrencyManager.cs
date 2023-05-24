@@ -4,13 +4,19 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class CurrencyManager : Singleton<CurrencyManager>
+public class CurrencyManager : PersistentSingleton<CurrencyManager>
 {
     private Currency coins = new Currency("Coins");
 
     public Action<float> OnCoinsChanged;
     public Action<float> OnCoinIncreased;
     public Action<float> OnCoinDecreased;
+
+    private float _revenue;
+    private float _tips;
+    private float _suppliesUsed;
+    private float _totalProfit;
+    
 
     [Button]
     public void Give100Coins()

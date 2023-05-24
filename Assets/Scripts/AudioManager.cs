@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : Singleton<AudioManager>
+public class AudioManager : PersistentSingleton<AudioManager>
 {
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip dishIngredientAddClip;

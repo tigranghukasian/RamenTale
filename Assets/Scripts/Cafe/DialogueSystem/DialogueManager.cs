@@ -23,9 +23,9 @@ public class DialogueManager : MonoBehaviour {
 
      private void Start()
      {
-          GameManager.Instance.DialogueManager.SpeechBubble.gameObject.SetActive(false);
-          GameManager.Instance.DialogueManager.CustomerImage.gameObject.SetActive(false);
-          GameManager.Instance.CustomerManager.OnCustomerGenerated += GenerateDialogue;
+          GameSceneManager.Instance.DialogueManager.SpeechBubble.gameObject.SetActive(false);
+          GameSceneManager.Instance.DialogueManager.CustomerImage.gameObject.SetActive(false);
+          GameSceneManager.Instance.CustomerManager.OnCustomerGenerated += GenerateDialogue;
      }
 
      private void EnqueueStep(DialogueStep step)
@@ -43,20 +43,24 @@ public class DialogueManager : MonoBehaviour {
           }
           else
           {
-               
                Debug.Log("DIALOGUE ENDED");
           }
      }
 
      public void BeginCurrentStep()
      {
+          
           speechBubble.gameObject.SetActive(true);
           speechBubble.SetText(_currentStep.StepText);
           if (_currentStep.StepText == string.Empty)
           {
                speechBubble.gameObject.SetActive(false);
           }
-
+          else
+          {
+               DayManager.Instance.Enabled = false;
+          }
+          
           if (_currentStep.OnBeginStepAction != null)
           {
                _currentStep.OnBeginStepAction?.Invoke();
@@ -75,7 +79,7 @@ public class DialogueManager : MonoBehaviour {
           // }
      }
 
-     private void OnDialogueEnded()
+     private void OnDialogueFinished()
      {
           StartCoroutine(GetNextCustomerAfterDelay(2f));
      }
@@ -83,9 +87,10 @@ public class DialogueManager : MonoBehaviour {
      private IEnumerator GetNextCustomerAfterDelay(float seconds)
      {
           yield return new WaitForSeconds(seconds);
-          GameManager.Instance.DialogueManager.SpeechBubble.gameObject.SetActive(false);
-          GameManager.Instance.DialogueManager.CustomerImage.gameObject.SetActive(false);
-          GameManager.Instance.CustomerManager.GetNextCustomer();
+          GameSceneManager.Instance.DialogueManager.SpeechBubble.gameObject.SetActive(false);
+          GameSceneManager.Instance.DialogueManager.CustomerImage.gameObject.SetActive(false);
+          
+          GameSceneManager.Instance.CustomerManager.GetNextCustomer();
      }
 
      public void ConfirmCurrentStep()
@@ -111,7 +116,7 @@ public class DialogueManager : MonoBehaviour {
           {
                StepText = feedbackText
           };
-          feedbackDialogueText.AddBeginStepAction(OnDialogueEnded);
+          feedbackDialogueText.AddBeginStepAction(OnDialogueFinished);
           EnqueueStep(feedbackDialogueText);
      }
      public void GenerateDialogue(Customer customer)
@@ -125,8 +130,8 @@ public class DialogueManager : MonoBehaviour {
           Order newOrder = OrderManager.Instance.GenerateNewOrder();
           
           OrderDialogueStep orderDialogueStep = new OrderDialogueStep(newOrder);
-          orderDialogueStep.AddConfirmAction(GameManager.Instance.MoveToKitchenToPrepareFood);
-          orderDialogueStep.AddConfirmAction(GameManager.Instance.CustomerManager.StartSatisfactionTimer);
+          orderDialogueStep.AddConfirmAction(GameSceneManager.Instance.MoveToKitchenToPrepareFood);
+          orderDialogueStep.AddConfirmAction(GameSceneManager.Instance.CustomerManager.StartSatisfactionTimer);
           EnqueueStep(orderDialogueStep);
 
           DialogueStep waitDialogueStep = new DialogueStep

@@ -7,86 +7,78 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : PersistentSingleton<GameManager>
 {
-    [Title("Managers")] 
-    [SerializeField] private DialogueManager dialogueManager;
-
-    [SerializeField] private CustomerManager customerManager;
-
-    [Title("Canvases")] 
-    [SerializeField] private Canvas kitchenCanvas;
-    [SerializeField] private Canvas cafeCanvas;
-
-    [SerializeField] private Transform cafeDishSpot;
-
-    [SerializeField] private Animator kitchenAnimator;
-    private static readonly int CLOSE = Animator.StringToHash("Close");
-    private static readonly int OPEN = Animator.StringToHash("Open");
-
-    public DialogueManager DialogueManager => dialogueManager;
-    public CustomerManager CustomerManager => customerManager;
+    private int _dayNumber;
     
-
-    public Canvas CafeCanvas => cafeCanvas;
-
-
-    public enum View { Cafe, Kitchen}
-    
-    public View CurrentView { get; private set; }
-
-    private void Awake()
-    {
-        //QualitySettings.vSyncCount = 0;
-    }
+    [Header("Scene Management")]
+    [SerializeField] private float transitionSpeed = 1f;
+    [SerializeField] private Image transitionImage;
 
     private void Start()
     {
-        customerManager.GetNextCustomer();
-    }
-    public void OpenKitchen()
-    {
-        kitchenCanvas.gameObject.SetActive(true);
-        kitchenAnimator.SetTrigger(OPEN);
-        StartCoroutine(DisableCanvasAfterDelay(cafeCanvas, 1.0f)); // Assumes the animation takes 1 second
-        KitchenManager.Instance.SetOrder();
-        CustomerManager.StartSatisfactionTimer();
+        QualitySettings.vSyncCount = 0;
     }
 
-    public void OpenCafe()
+    public void GoToGameScene()
     {
-        cafeCanvas.gameObject.SetActive(true);
-        kitchenAnimator.SetTrigger(CLOSE);
-        StartCoroutine(DisableCanvasAfterDelay(kitchenCanvas, 1.0f)); // Assumes the animation takes 1 second
-        customerManager.StopSatisfactionTimer();
+        ChangeScene(StringConstants.GAME_SCENE_NAME);
+    }
+
+    public void GoToDayScene()
+    {
+        ChangeScene(StringConstants.DAY_SCENE_NAME);
     }
     
-   
-
-    public void CompleteDish(Dish dish)
-    {
-        dish.transform.SetParent(cafeDishSpot);
-        dish.SetChildrenAnchorsToCorners();
-        dish.AddComponent<DraggableDishComponent>();
-        dish.GetComponent<RectTransform>().sizeDelta = new Vector2(150f, 150f);
-        dish.transform.position = cafeDishSpot.transform.position;
-        CustomerManager.StopSatisfactionTimer();
-    }
-
-    IEnumerator DisableCanvasAfterDelay(Canvas canvas, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        canvas.gameObject.SetActive(false);
-    }
-    
-    public void MoveToKitchenToPrepareFood()
-    {
-        OpenKitchen();
-    }
-    
-
     public void Restart()
     {
-        SceneManager.LoadScene(0);
+        ChangeScene(StringConstants.DAY_SCENE_NAME);
+    }
+    
+    public void ChangeScene(string sceneName, Action onSceneChanged = null)
+    {
+        StartCoroutine(ChangeSceneAsync(sceneName, onSceneChanged));
+    }
+
+    public void EndDay()
+    {
+        _dayNumber++;
+        ChangeScene(StringConstants.DAY_SCENE_NAME, () =>
+        {
+            DaySceneManager daySceneManager = FindObjectOfType<DaySceneManager>();
+            daySceneManager.ShowEndDayCanvas();
+        });
+    }
+
+    private IEnumerator ChangeSceneAsync(string sceneName, Action onSceneChanged)
+    {
+        enabled = false;
+        transitionImage.gameObject.SetActive(true);
+        
+        for (float t = 0; t < 1; t += Time.deltaTime * transitionSpeed)
+        {
+            transitionImage.color = new Color(transitionImage.color.r, transitionImage.color.g, transitionImage.color.b, t);
+            yield return null;
+        }
+
+
+        // Load the new scene
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneName);
+
+        // Wait until the new scene is loaded
+        while (!asyncOperation.isDone)
+        {
+            yield return null;
+        }
+        onSceneChanged?.Invoke();
+        
+        for (float t = 1; t > 0; t -= Time.deltaTime * transitionSpeed)
+        {
+            transitionImage.color = new Color(transitionImage.color.r, transitionImage.color.g, transitionImage.color.b, t);
+            yield return null;
+        }
+        transitionImage.color = new Color(transitionImage.color.r, transitionImage.color.g, transitionImage.color.b, 0);
+        transitionImage.gameObject.SetActive(false);
+        
     }
 }

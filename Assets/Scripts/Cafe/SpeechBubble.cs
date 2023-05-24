@@ -17,7 +17,7 @@ public class SpeechBubble : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            GameManager.Instance.DialogueManager.NextStep();
+            GameSceneManager.Instance.DialogueManager.NextStep();
         }
     }
     

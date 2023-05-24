@@ -26,8 +26,8 @@ public class KitchenManager : Singleton<KitchenManager>
     public void CompleteDish()
     {
         SetCompleteButton(false);
-        GameManager.Instance.CompleteDish(plateSpot.CurrentDish);
-        GameManager.Instance.OpenCafe();
+        GameSceneManager.Instance.CompleteDish(plateSpot.CurrentDish);
+        GameSceneManager.Instance.OpenCafe();
     }
 
     public void SetOrder()

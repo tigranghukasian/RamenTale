@@ -40,7 +40,7 @@ public class OrderManager : Singleton<OrderManager>
     private void CompleteOrder(bool isCorrect)
     {
         var feedbackText = isCorrect ? correctOrderText : incorrectOrderText;
-        GameManager.Instance.DialogueManager.AddFeedback(feedbackText);
-        GameManager.Instance.DialogueManager.NextStep();
+        GameSceneManager.Instance.DialogueManager.AddFeedback(feedbackText);
+        GameSceneManager.Instance.DialogueManager.NextStep();
     }
 }
