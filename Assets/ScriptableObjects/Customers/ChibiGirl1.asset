@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1e7a54eb72979746856057262cf9b0e, type: 3}
   m_Name: ChibiGirl1
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 2d2d51472807b4944af172e28ca3bff4, type: 3}
+  sprite: {fileID: 21300000, guid: 7f9e967b774f8b44bb0ada64b0b4c40c, type: 3}
   rarity: 1

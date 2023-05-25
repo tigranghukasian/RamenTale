@@ -20,7 +20,6 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
     
     private void Start()
     {
-        base.Awake();
         CurrencyManager.Instance.OnCoinsChanged += UpdateCoinsBalanceText;
         CurrencyManager.Instance.OnCoinIncreased += ShowCoinIncrease;
         CurrencyManager.Instance.OnCoinDecreased += ShowCoinDecrease;
@@ -41,7 +40,6 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
 
         if (scene.name == StringConstants.DAY_SCENE_NAME)
         {
-            timeOfDayText.text = "08:00";
             satisfactionBar.gameObject.SetActive(false);
         }
     }

@@ -38,6 +38,7 @@ public class GameSceneManager : Singleton<GameSceneManager>
     {
         kitchenCanvas.gameObject.SetActive(false);
         customerManager.GetNextCustomer();
+        DayCycleManager.Instance.ResetGameTime();
     }
     public void OpenKitchen()
     {
@@ -45,7 +46,7 @@ public class GameSceneManager : Singleton<GameSceneManager>
         kitchenAnimator.SetTrigger(OPEN);
         StartCoroutine(DisableCanvasAfterDelay(cafeCanvas, 1.0f)); // Assumes the animation takes 1 second
         KitchenManager.Instance.SetOrder();
-        DayManager.Instance.Enabled = true;
+        DayCycleManager.Instance.Enabled = true;
         CustomerManager.StartSatisfactionTimer();
     }
 
@@ -78,6 +79,6 @@ public class GameSceneManager : Singleton<GameSceneManager>
 
     public void EndDay()
     {
-        DayManager.Instance.Enabled = false;
+        DayCycleManager.Instance.Enabled = false;
     }
 }

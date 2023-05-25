@@ -44,10 +44,9 @@ public class CurrencyManager : PersistentSingleton<CurrencyManager>
         OnCoinsChanged?.Invoke(coins.Balance);
     }
 
-    private void Start()
+    private void Awake()
     {
         LoadCurrencyInfo();
-        
     }
 
     private void OnDisable()
@@ -55,15 +54,21 @@ public class CurrencyManager : PersistentSingleton<CurrencyManager>
         SaveCurrencyInfo();
     }
 
+    public override void OnApplicationQuit()
+    {
+        base.OnApplicationQuit();
+        SaveCurrencyInfo();
+    }
+
     private void LoadCurrencyInfo()
     {
-        coins.Balance = PlayerPrefs.GetFloat("coins", 100);
+        coins.Balance = PlayerPrefs.GetFloat(StringConstants.SAVE_COINS, 100);
         OnCoinsChanged?.Invoke(coins.Balance);
     }
 
     private void SaveCurrencyInfo()
     {
-        PlayerPrefs.SetFloat("coins", coins.Balance);
+        PlayerPrefs.SetFloat(StringConstants.SAVE_COINS, coins.Balance);
         PlayerPrefs.Save();
     }
 }

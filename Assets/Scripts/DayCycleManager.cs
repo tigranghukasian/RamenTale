@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DayManager : Singleton<DayManager>
+public class DayCycleManager : Singleton<DayCycleManager>
 {
     private float gameTime;
     [SerializeField]
@@ -13,14 +13,19 @@ public class DayManager : Singleton<DayManager>
     
     [SerializeField] private TextMeshProUGUI timeOfDayText;
 
+    public void ResetGameTime()
+    {
+        gameTime = 0;
+    }
     private void Update()
     {
-
-        float oldGameTime = gameTime;
-        if (Enabled)
+        if (!Enabled)
         {
-            gameTime += Time.deltaTime * timeSpeed;
+            return;
+           
         }
+        float oldGameTime = gameTime;
+        gameTime += Time.deltaTime * timeSpeed;
         
         gameTime %= 1; // keeps gameTime between 0-1
         
@@ -47,9 +52,9 @@ public class DayManager : Singleton<DayManager>
         float totalMinutes = gameTime * (23f - 8f) * 60f; // Convert gameTime to total minutes within shop working hours.
         totalMinutes = Mathf.Round(totalMinutes / 15f) * 15f;
         
-        if (totalMinutes >= (23f - 8f) * 60f)
+        if (totalMinutes > (23f - 8f) * 60f)
         {
-            totalMinutes = (23f - 8f) * 60f - 15f;
+            totalMinutes = (23f - 8f) * 60f;
         }
         
         int hours = 8 + (int)(totalMinutes / 60f); // calculate hours

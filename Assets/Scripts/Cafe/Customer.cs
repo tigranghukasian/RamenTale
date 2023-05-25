@@ -14,6 +14,9 @@ public class Customer : ScriptableObject, IRarity
     public Sprite Sprite => sprite;
 
     public float Rarity => rarity;
+    
+    public Order Order { get; set; }
+    public Dialogue Dialogue { get; set; }
     //image
     //name
     //other info

@@ -573,6 +573,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endDayCanvas: {fileID: 1603623615}
+  dayNumberText: {fileID: 2106456848}
+  endDayNumberText: {fileID: 1949340715}
 --- !u!1 &304232127
 GameObject:
   m_ObjectHideFlags: 0
@@ -1228,7 +1230,7 @@ RectTransform:
   m_GameObject: {fileID: 699451098}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9928067, y: 1.0707, z: 1.0707}
+  m_LocalScale: {x: 1.2648357, y: 1.364072, z: 1.364072}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 763174880}
@@ -4323,10 +4325,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3370841411628166936, guid: 9ab3cfdd2a6199b4ea7c6ee2853c5067, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5797659765332977320, guid: 9ab3cfdd2a6199b4ea7c6ee2853c5067, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

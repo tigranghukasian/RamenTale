@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class OrderManager : Singleton<OrderManager>
 {
-    public Order CurrentOrder { get; private set; }
+    public Order CurrentOrder { get; set; }
 
 
     [SerializeField] private List<Order> availableOrders;
@@ -16,7 +16,6 @@ public class OrderManager : Singleton<OrderManager>
 
     public Order GenerateNewOrder()
     {
-        
         CurrentOrder = RarityFunctions.GenerateItem(availableOrders);
         return CurrentOrder;
         

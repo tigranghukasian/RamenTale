@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca7b424bd094b7a4aa33e1666cf64f99, type: 3}
-  m_Name: AnotherDialogue
+  m_Script: {fileID: 11500000, guid: c1e7a54eb72979746856057262cf9b0e, type: 3}
+  m_Name: ChibiGirlHead
   m_EditorClassIdentifier: 
-  steps:
-  - _stepType: 0
-    stepText: Hey there! I am really hungry!
+  sprite: {fileID: 21300000, guid: 2d2d51472807b4944af172e28ca3bff4, type: 3}
   rarity: 1

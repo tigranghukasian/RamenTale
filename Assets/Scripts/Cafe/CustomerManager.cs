@@ -12,9 +12,11 @@ public class CustomerManager : MonoBehaviour
 
     public Action<float> OnCustomerSatisfactionChanged;
 
-    private float satisfaction;
-    private float satisfactionTimer;
-    private bool satisfactionTimerEnabled;
+    private float _satisfaction;
+    private float _satisfactionTimer;
+    private bool _satisfactionTimerEnabled;
+
+    private int _customerIndex;
 
     private void Start()
     {
@@ -23,27 +25,27 @@ public class CustomerManager : MonoBehaviour
 
     public void StartSatisfactionTimer()
     {
-        satisfactionTimerEnabled = true;
+        _satisfactionTimerEnabled = true;
     }
 
     public void StopSatisfactionTimer()
     {
-        satisfactionTimerEnabled = false;
+        _satisfactionTimerEnabled = false;
     }
 
     public void ResetSatisfactionTimer()
     {
-        satisfactionTimer = 0;
+        _satisfactionTimer = 0;
     }
 
     private void Update()
     {
-        if (satisfactionTimerEnabled && OrderManager.Instance.CurrentOrder != null)
+        if (_satisfactionTimerEnabled && OrderManager.Instance.CurrentOrder != null)
         {
-            satisfactionTimer += Time.deltaTime;
-            satisfaction = 1 - (satisfactionTimer / OrderManager.Instance.CurrentOrder.TimeToMake);
-            OnCustomerSatisfactionChanged?.Invoke(satisfaction);
-            if (satisfactionTimer >= OrderManager.Instance.CurrentOrder.TimeToMake)
+            _satisfactionTimer += Time.deltaTime;
+            _satisfaction = 1 - (_satisfactionTimer / OrderManager.Instance.CurrentOrder.TimeToMake);
+            OnCustomerSatisfactionChanged?.Invoke(_satisfaction);
+            if (_satisfactionTimer >= OrderManager.Instance.CurrentOrder.TimeToMake)
             {
                 GameSceneManager.Instance.OpenCafe();
                 DepartCustomer();
@@ -54,6 +56,7 @@ public class CustomerManager : MonoBehaviour
 
     }
 
+
     public void DepartCustomer()
     {
         GameSceneManager.Instance.DialogueManager.SpeechBubble.gameObject.SetActive(false);
@@ -62,25 +65,41 @@ public class CustomerManager : MonoBehaviour
 
     public void GetNextCustomer()
     {
-        DayManager.Instance.Enabled = true;
-        satisfaction = 1f;
-        satisfactionTimer = 0;
-        OnCustomerSatisfactionChanged?.Invoke(satisfaction);
-        StartCoroutine(GenerateCustomerAfterDelay(2f));
+        DayCycleManager.Instance.Enabled = true;
+        _satisfaction = 1f;
+        _satisfactionTimer = 0;
+        OnCustomerSatisfactionChanged?.Invoke(_satisfaction);
+        StartCoroutine(CreateCustomerAfterDelay(2f));
     }
     
 
-    public IEnumerator GenerateCustomerAfterDelay(float delay)
+    public IEnumerator CreateCustomerAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        GenerateCustomer();
+        CreateCustomer();
     }
 
-    private void GenerateCustomer()
+    private void CreateCustomer()
     {
+        if (Utilities.IsIndexValid(GameManager.Instance.CurrentDay().Visits, _customerIndex))
+        {
+            Visit currentVisit = GameManager.Instance.CurrentDay().Visits[_customerIndex];
+            
+            if (currentVisit.customer != null)
+            {
+                CurrentCustomer = Instantiate(currentVisit.customer);
+                CurrentCustomer.Order = currentVisit.order;
+                CurrentCustomer.Dialogue = currentVisit.dialogue;
+                OnCustomerGenerated?.Invoke(CurrentCustomer);
+                _customerIndex++;
+                return;
+            }
+        }
         
-        CurrentCustomer = RarityFunctions.GenerateItem(customers);
+        
+        CurrentCustomer = Instantiate(RarityFunctions.GenerateItem(customers));
         OnCustomerGenerated?.Invoke(CurrentCustomer);
+        _customerIndex++;
 
     }
 }

@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 757d2eca629deff499d53257b04133d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  days:
+  - visits:
+    - customer: {fileID: 11400000, guid: 96f20c25f6b6c9a4b80c9a68147becab, type: 2}
+      dialogue: {fileID: 11400000, guid: c50f6c1ca0278a5419762d03cb260b71, type: 2}
+      order: {fileID: 11400000, guid: 054700517d9eac5478e3a10a2d683728, type: 2}
   transitionSpeed: 2
   transitionImage: {fileID: 5539487489904927622}
 --- !u!1 &4736806604744169409

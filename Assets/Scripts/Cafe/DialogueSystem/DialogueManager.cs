@@ -58,7 +58,7 @@ public class DialogueManager : MonoBehaviour {
           }
           else
           {
-               DayManager.Instance.Enabled = false;
+               DayCycleManager.Instance.Enabled = false;
           }
           
           if (_currentStep.OnBeginStepAction != null)
@@ -121,15 +121,25 @@ public class DialogueManager : MonoBehaviour {
      }
      public void GenerateDialogue(Customer customer)
      {
-          Dialogue dialogue = RarityFunctions.GenerateItem(availableDialogues);
+          Dialogue dialogue = customer.Dialogue;
+          if (customer.Dialogue == null)
+          {
+               dialogue = RarityFunctions.GenerateItem(availableDialogues);
+          }
+
           for (int i = 0; i < dialogue.StepCount(); i++)
           {
                EnqueueStep(dialogue.GetStep(i));
           }
 
-          Order newOrder = OrderManager.Instance.GenerateNewOrder();
-          
-          OrderDialogueStep orderDialogueStep = new OrderDialogueStep(newOrder);
+          Order order = customer.Order;
+          OrderManager.Instance.CurrentOrder = order;
+          if (order == null)
+          {
+               order = OrderManager.Instance.GenerateNewOrder();
+          }
+
+          OrderDialogueStep orderDialogueStep = new OrderDialogueStep(order);
           orderDialogueStep.AddConfirmAction(GameSceneManager.Instance.MoveToKitchenToPrepareFood);
           orderDialogueStep.AddConfirmAction(GameSceneManager.Instance.CustomerManager.StartSatisfactionTimer);
           EnqueueStep(orderDialogueStep);

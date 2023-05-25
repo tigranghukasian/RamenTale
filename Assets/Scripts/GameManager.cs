@@ -9,15 +9,21 @@ using UnityEngine.UI;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
-    private int _dayNumber;
+    public int DayNumber { get; private set; }
+
+    [SerializeField] private List<Day> days = new List<Day>();
+    
     
     [Header("Scene Management")]
     [SerializeField] private float transitionSpeed = 1f;
     [SerializeField] private Image transitionImage;
 
-    private void Start()
+
+    protected override void Awake()
     {
+        base.Awake();
         QualitySettings.vSyncCount = 0;
+        LoadDayInfo();
     }
 
     public void GoToGameScene()
@@ -40,9 +46,32 @@ public class GameManager : PersistentSingleton<GameManager>
         StartCoroutine(ChangeSceneAsync(sceneName, onSceneChanged));
     }
 
+    
+    private void LoadDayInfo()
+    {
+        DayNumber = PlayerPrefs.GetInt(StringConstants.SAVE_DAY, 0);
+        
+    }
+
+    private void SaveDayInfo()
+    {
+        PlayerPrefs.SetInt(StringConstants.SAVE_DAY, DayNumber);
+        PlayerPrefs.Save();
+    }
+    
+    public Day CurrentDay()
+    {
+        if (Utilities.IsIndexValid(days, DayNumber))
+        {
+            return days[DayNumber];
+        }
+        days.Add(new Day());
+        return days[DayNumber];
+
+    }
     public void EndDay()
     {
-        _dayNumber++;
+        DayNumber++;
         ChangeScene(StringConstants.DAY_SCENE_NAME, () =>
         {
             DaySceneManager daySceneManager = FindObjectOfType<DaySceneManager>();
