@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c47fa470dfc4eb49a6e912368c9eb07, type: 3}
-  m_Name: BasicShio
+  m_Name: BasicShioWheat
   m_EditorClassIdentifier: 
   rarity: 5
-  orderText: Can I get shio ramen please? Thank you!
+  orderText: Can I get Shio ramen please? Thank you!
   soup: {fileID: 11400000, guid: 8b6455057acc90c40a23540e606e8c3e, type: 2}
   noodle: {fileID: 11400000, guid: a3c34542432800845a66f068d442c68f, type: 2}
   _orderIngredients:
@@ -24,4 +24,4 @@ MonoBehaviour:
   - amount: 1
     ingredient: {fileID: 11400000, guid: 53bc455afe97a9541af73880d49935fd, type: 2}
   profitMargin: 3
-  timeToMake: 100
+  timeToMake: 1000

@@ -18,9 +18,9 @@ public class DraggableIngredientComponent : MonoBehaviour, IBeginDragHandler, ID
         _initialPosition = transform.position;
         _initialParent = transform.parent;
         transform.SetParent(KitchenManager.Instance.Canvas.transform);
-        GetComponent<Image>().raycastTarget = false;
+        //GetComponent<Image>().raycastTarget = false;
         GetComponent<CanvasGroup>().blocksRaycasts = false;
-        GetComponent<CanvasGroup>().interactable = false;
+        //GetComponent<CanvasGroup>().interactable = false;
         Placed = false;
     }
 
@@ -36,18 +36,19 @@ public class DraggableIngredientComponent : MonoBehaviour, IBeginDragHandler, ID
             //TODO: UNDERSTAND WHY THIS DOESNT WORK
             //FOR SOME REASON DOESNT WORK, POINTERDRAG IS ALWAYS THE GAMEOBJECT ITSELF
             
-            // if (!eventData.pointerDrag.TryGetComponent(out CuttingBoard cuttingBoard))
+            // if (eventData.pointerDrag.TryGetComponent(out CuttingBoard cuttingBoard))
             // {
             //     GetComponent<Image>().raycastTarget = true;
-            //     transform.position = _initialPosition;
+            //     return;
             // }
             transform.SetParent(_initialParent);
-            GetComponent<Image>().raycastTarget = true;
+            //GetComponent<Image>().raycastTarget = true;
             transform.position = _initialPosition;
             transform.parent.GetComponent<CuttingBoard>().UpdateIngredientsOrder();
             GetComponent<CanvasGroup>().blocksRaycasts = true;
         }
         
     }
-    
+
+   
 }

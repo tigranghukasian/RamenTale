@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class IngredientComponent : Moveable, IPointerClickHandler
+public class IngredientComponent : Moveable, IPointerClickHandler, IDropHandler
 {
     [SerializeField] private Ingredient ingredientData;
     [SerializeField] private Image image;
@@ -20,6 +20,8 @@ public class IngredientComponent : Moveable, IPointerClickHandler
     public bool IsCut { get; set; }
     public bool IsOnBoard { get; set; }
 
+    private CuttingBoard _cuttingBoard;
+
     private int _clickedCount;
     private int _amountToClickForCut = 3;
     private float offsetAmount = 20f;
@@ -28,7 +30,7 @@ public class IngredientComponent : Moveable, IPointerClickHandler
     public void Init()
     {
         SetSprite();
-        GetComponent<Image>().alphaHitTestMinimumThreshold = 0.1f;
+        GetComponent<Image>().alphaHitTestMinimumThreshold = 0.01f;
     }
 
     private void SetSprite()
@@ -40,9 +42,9 @@ public class IngredientComponent : Moveable, IPointerClickHandler
     {
         if (IsOnBoard)
         {
-            AudioManager.Instance.PlayKnifeClip();
-            _clickedCount++;
-            CheckIfCut();
+            // AudioManager.Instance.PlayKnifeClip();
+            // _clickedCount++;
+            // CheckIfCut();
         }
         
     }
@@ -51,7 +53,7 @@ public class IngredientComponent : Moveable, IPointerClickHandler
     {
         if (_clickedCount >= _amountToClickForCut)
         {
-            Cut();
+            //Cut();
         }
     }
 
@@ -69,5 +71,34 @@ public class IngredientComponent : Moveable, IPointerClickHandler
         
         Destroy(gameObject);
     }
-    
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if (!IsOnBoard)
+        {
+            return;
+        }
+        GameObject dropped = eventData.pointerDrag;
+        if (dropped.TryGetComponent(out Knife knife))
+        {
+            knife.IsCutting = true;
+            AudioManager.Instance.PlayKnifeClip();
+            StartCoroutine(CutAfterDelay(knife.CutAnimationLength));
+            return;
+        }
+
+        _cuttingBoard.OnDrop(eventData);
+    }
+
+    public void SetOnBoard(CuttingBoard cuttingBoard)
+    {
+        _cuttingBoard = cuttingBoard;
+        IsOnBoard = true;
+        GetComponent<Image>().raycastTarget = true;
+    }
+    IEnumerator CutAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Cut();
+    }
 }

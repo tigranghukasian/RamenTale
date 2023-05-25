@@ -23,7 +23,7 @@ public class CuttingBoard : MonoBehaviour, IDropHandler, IDragHandler
                 {
                     ingredientBox.SpawnedComponent.transform.SetParent(transform);
                     ingredientBox.SpawnedComponent.Placed = true;
-                    ingredientBox.SpawnedComponent.IsOnBoard = true;
+                    ingredientBox.SpawnedComponent.SetOnBoard(this);
                     ingredientBox.SpawnedComponent.GetComponent<Image>().raycastTarget = true;
                     UpdateIngredientsOrder();
                 }

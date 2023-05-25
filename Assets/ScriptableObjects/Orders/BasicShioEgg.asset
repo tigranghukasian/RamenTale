@@ -10,14 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8c47fa470dfc4eb49a6e912368c9eb07, type: 3}
-  m_Name: EggCraze
+  m_Name: BasicShioEgg
   m_EditorClassIdentifier: 
-  rarity: 1
-  orderText: Hmm, I like eggs
+  rarity: 5
+  orderText: Can I get Shio ramen please? Thank you!
   soup: {fileID: 11400000, guid: 8b6455057acc90c40a23540e606e8c3e, type: 2}
   noodle: {fileID: 11400000, guid: 37ffb7f07e8eee94ab1e673671c4ff4c, type: 2}
   _orderIngredients:
-  - amount: 8
+  - amount: 2
     ingredient: {fileID: 11400000, guid: 8a40c79eda7f6e54c9d573163379ad6a, type: 2}
-  profitMargin: 4
+  - amount: 3
+    ingredient: {fileID: 11400000, guid: dceab33d758d79844930fb3cfcafef35, type: 2}
+  - amount: 1
+    ingredient: {fileID: 11400000, guid: 53bc455afe97a9541af73880d49935fd, type: 2}
+  profitMargin: 3
   timeToMake: 1000
