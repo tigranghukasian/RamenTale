@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "595042726379",
+    "project_id": "misomagic-f01b4",
+    "storage_bucket": "misomagic-f01b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595042726379:android:1232ad8346fb0e32c8a9ae",
+        "android_client_info": {
+          "package_name": "com.gamesymphony.misomagic"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPwG6JcGAam9PaI-EQsUNCF5aNGWr_TWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
