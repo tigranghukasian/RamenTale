@@ -49,7 +49,7 @@ MonoBehaviour:
   dishIngredientAddClip: {fileID: 8300000, guid: e3cc046f36d118a428c9bdfa2cfcfa7a, type: 3}
   uiButtonPressClip: {fileID: 8300000, guid: dab36be1feaef0041bb036b2d590d4ac, type: 3}
   dishSoupPourClip: {fileID: 8300000, guid: 1f1a7ad38761e324ea9efc7bd545beaa, type: 3}
-  knifeClip: {fileID: 8300000, guid: 750da5d927df0cb4aa5874cd8839a512, type: 3}
+  knifeClip: {fileID: 8300000, guid: baae4f0cf9673f8479b80bfd1df1832e, type: 3}
   cashIncomeClip: {fileID: 8300000, guid: de42fa5702d6eb1488ee724348a0d33d, type: 3}
 --- !u!82 &8423648012313102898
 AudioSource:

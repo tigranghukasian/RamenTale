@@ -6,6 +6,8 @@ using UnityEngine;
 public class CustomerManager : MonoBehaviour
 {
     [SerializeField] private List<Customer> customers;
+    [SerializeField] private float customerAppearDisappearAnimLength = 0.3f;
+    [SerializeField] private Animator customerAnimator;
     public Customer CurrentCustomer { get; private set; }
 
     public Action<Customer> OnCustomerGenerated;
@@ -60,7 +62,27 @@ public class CustomerManager : MonoBehaviour
     public void DepartCustomer()
     {
         GameSceneManager.Instance.DialogueManager.SpeechBubble.gameObject.SetActive(false);
-        GameSceneManager.Instance.DialogueManager.CustomerImage.gameObject.SetActive(false);
+        SetCustomerImageAnimation(false);
+        StartCoroutine(SetCustomerImageActiveAfterDelay(false, customerAppearDisappearAnimLength));
+        //GameSceneManager.Instance.DialogueManager.CustomerImage.gameObject.SetActive(false);
+    }
+
+    public IEnumerator SetCustomerImageActiveAfterDelay(bool state, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GameSceneManager.Instance.DialogueManager.CustomerImage.gameObject.SetActive(state);
+    }
+
+    public void SetCustomerImageAnimation(bool state)
+    {
+        if (state)
+        {
+            customerAnimator.SetTrigger("Appear");
+        }
+        else
+        {
+            customerAnimator.SetTrigger("Disappear");
+        }
     }
 
     public void GetNextCustomer()

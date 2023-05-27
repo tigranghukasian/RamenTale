@@ -50,6 +50,12 @@ MonoBehaviour:
     - customer: {fileID: 11400000, guid: 96f20c25f6b6c9a4b80c9a68147becab, type: 2}
       dialogue: {fileID: 11400000, guid: c50f6c1ca0278a5419762d03cb260b71, type: 2}
       order: {fileID: 11400000, guid: 054700517d9eac5478e3a10a2d683728, type: 2}
+    - customer: {fileID: 11400000, guid: 9ba176734e0346f4b9dd2f732d965684, type: 2}
+      dialogue: {fileID: 11400000, guid: d5d7f1a3837d81940b9fc206f35610f6, type: 2}
+      order: {fileID: 11400000, guid: 81202a07e3752d849bd02aed8e172742, type: 2}
+    - customer: {fileID: 11400000, guid: 1f652f76556415f48a032c3e10b7553b, type: 2}
+      dialogue: {fileID: 11400000, guid: b0d736f223f784e43b3a269491931b49, type: 2}
+      order: {fileID: 11400000, guid: 79a4dbc0e47613f478c98485bd33eedd, type: 2}
   transitionSpeed: 2
   transitionImage: {fileID: 5539487489904927622}
 --- !u!1 &4736806604744169409

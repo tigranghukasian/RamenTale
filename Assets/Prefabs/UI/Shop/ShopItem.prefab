@@ -145,7 +145,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 70
+  m_text: 30
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c173457ff44a45f4bafaf682ca52e4b3, type: 2}
   m_sharedMaterial: {fileID: -8350627819601612001, guid: c173457ff44a45f4bafaf682ca52e4b3, type: 2}
@@ -280,7 +280,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Cut Fish cake
+  m_text: Corn
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0825564cb2fe7df4c8e9708622cf7c9d, type: 2}
   m_sharedMaterial: {fileID: -8350627819601612001, guid: 0825564cb2fe7df4c8e9708622cf7c9d, type: 2}
@@ -307,7 +307,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34.25
+  m_fontSize: 41.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -493,7 +493,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cfc20651a14c1e04689dddea6f364814, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a0bbeb81a4df73645b72bcad8ada5c88, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

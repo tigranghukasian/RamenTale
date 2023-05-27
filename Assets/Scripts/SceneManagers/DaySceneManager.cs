@@ -7,6 +7,7 @@ using UnityEngine;
 public class DaySceneManager : MonoBehaviour
 {
     [SerializeField] private Canvas endDayCanvas;
+    [SerializeField] private Canvas shopCanvas;
     [SerializeField] private TextMeshProUGUI dayNumberText;
     [SerializeField] private TextMeshProUGUI endDayNumberText;
     public void NextDay()
@@ -28,5 +29,15 @@ public class DaySceneManager : MonoBehaviour
     public void HideEndDayCanvas()
     {
         endDayCanvas.gameObject.SetActive(false);
+    }
+    
+    public void ShowShopCanvas()
+    {
+        shopCanvas.gameObject.SetActive(true);
+    }
+
+    public void HideShopCanvas()
+    {
+        shopCanvas.gameObject.SetActive(false);
     }
 }

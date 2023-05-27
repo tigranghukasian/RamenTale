@@ -34,6 +34,7 @@ public class CurrencyManager : PersistentSingleton<CurrencyManager>
 
     public bool HasCoin(float amount)
     {
+        return true;
         return coins.Balance >= amount;
     }
 
@@ -44,7 +45,7 @@ public class CurrencyManager : PersistentSingleton<CurrencyManager>
         OnCoinsChanged?.Invoke(coins.Balance);
     }
 
-    private void Awake()
+    private void Start()
     {
         LoadCurrencyInfo();
     }

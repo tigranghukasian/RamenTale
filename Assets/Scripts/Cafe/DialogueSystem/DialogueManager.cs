@@ -88,7 +88,8 @@ public class DialogueManager : MonoBehaviour {
      {
           yield return new WaitForSeconds(seconds);
           GameSceneManager.Instance.DialogueManager.SpeechBubble.gameObject.SetActive(false);
-          GameSceneManager.Instance.DialogueManager.CustomerImage.gameObject.SetActive(false);
+          GameSceneManager.Instance.CustomerManager.DepartCustomer();
+          //GameSceneManager.Instance.DialogueManager.CustomerImage.gameObject.SetActive(false);
           
           GameSceneManager.Instance.CustomerManager.GetNextCustomer();
      }
@@ -152,6 +153,7 @@ public class DialogueManager : MonoBehaviour {
           
           speechBubble.gameObject.SetActive(true);
           customerImage.gameObject.SetActive(true);
+          GameSceneManager.Instance.CustomerManager.SetCustomerImageAnimation(true);
           customerImage.sprite = customer.Sprite;
           _currentStep = _dialogueSteps.Dequeue();
           BeginCurrentStep();

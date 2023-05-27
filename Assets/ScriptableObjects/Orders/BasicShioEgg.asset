@@ -24,4 +24,4 @@ MonoBehaviour:
   - amount: 1
     ingredient: {fileID: 11400000, guid: 53bc455afe97a9541af73880d49935fd, type: 2}
   profitMargin: 3
-  timeToMake: 1000
+  timeToMake: 500
