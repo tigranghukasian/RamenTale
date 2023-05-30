@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Firebase.Auth;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -16,7 +17,17 @@ public class CurrencyManager : PersistentSingleton<CurrencyManager>
     private float _tips;
     private float _suppliesUsed;
     private float _totalProfit;
-    
+
+    public float CoinBalance
+    {
+        get => coins.Balance;
+        set
+        {
+            coins.Balance = value;
+            OnCoinsChanged?.Invoke(coins.Balance);
+        }
+    }
+
 
     [Button]
     public void Give100Coins()
@@ -44,10 +55,17 @@ public class CurrencyManager : PersistentSingleton<CurrencyManager>
         OnCoinDecreased?.Invoke(amount);
         OnCoinsChanged?.Invoke(coins.Balance);
     }
+    
 
     private void Start()
     {
         LoadCurrencyInfo();
+        GameManager.Instance.FirebaseManager.AuthManager.OnUserAuthenticated += UpdateCurrencyInfo;
+    }
+
+    private void UpdateCurrencyInfo(FirebaseUser user)
+    {
+        
     }
 
     private void OnDisable()

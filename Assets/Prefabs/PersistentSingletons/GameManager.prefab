@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3370841411628166936}
   - component: {fileID: 3370841411628166935}
   - component: {fileID: 26259347236443012}
+  - component: {fileID: 7018679612592711629}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -59,6 +60,7 @@ MonoBehaviour:
       order: {fileID: 11400000, guid: 79a4dbc0e47613f478c98485bd33eedd, type: 2}
   transitionSpeed: 2
   transitionImage: {fileID: 5539487489904927622}
+  firebaseManager: {fileID: 26259347236443012}
 --- !u!114 &26259347236443012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,6 +71,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd4da72a604d5734b9fd94b3d346ded0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  authManager: {fileID: 7018679612592711629}
+--- !u!114 &7018679612592711629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370841411628166934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1691b0bbb131e6e49b73a5c4e76f0d0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4736806604744169409

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
-    public int DayNumber { get; private set; }
+    public int DayNumber { get; set; }
 
     [SerializeField] private List<Day> days = new List<Day>();
     
@@ -18,12 +18,18 @@ public class GameManager : PersistentSingleton<GameManager>
     [SerializeField] private float transitionSpeed = 1f;
     [SerializeField] private Image transitionImage;
 
+    [Header("Managers")] [SerializeField] private FirebaseManager firebaseManager;
+
+    public FirebaseManager FirebaseManager => firebaseManager;
+    
+
+    public Action OnDayEnded;
 
     protected override void Awake()
     {
         base.Awake();
         QualitySettings.vSyncCount = 0;
-        LoadDayInfo();
+        //LoadDayInfo();
     }
 
     public void GoToGameScene()
@@ -45,19 +51,7 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         StartCoroutine(ChangeSceneAsync(sceneName, onSceneChanged));
     }
-
     
-    private void LoadDayInfo()
-    {
-        DayNumber = PlayerPrefs.GetInt(StringConstants.SAVE_DAY, 0);
-        
-    }
-
-    private void SaveDayInfo()
-    {
-        PlayerPrefs.SetInt(StringConstants.SAVE_DAY, DayNumber);
-        PlayerPrefs.Save();
-    }
     
     public Day CurrentDay()
     {
@@ -65,13 +59,13 @@ public class GameManager : PersistentSingleton<GameManager>
         {
             return days[DayNumber];
         }
-        days.Add(new Day());
-        return days[DayNumber];
+        return null;
 
     }
     public void EndDay()
     {
         DayNumber++;
+        OnDayEnded?.Invoke();
         ChangeScene(StringConstants.DAY_SCENE_NAME, () =>
         {
             DaySceneManager daySceneManager = FindObjectOfType<DaySceneManager>();

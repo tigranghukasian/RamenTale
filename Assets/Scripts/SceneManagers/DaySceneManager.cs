@@ -10,6 +10,7 @@ public class DaySceneManager : MonoBehaviour
     [SerializeField] private Canvas shopCanvas;
     [SerializeField] private TextMeshProUGUI dayNumberText;
     [SerializeField] private TextMeshProUGUI endDayNumberText;
+    [SerializeField] private Canvas loadingCanvas;
     public void NextDay()
     {
         GameManager.Instance.ChangeScene(StringConstants.GAME_SCENE_NAME);
@@ -17,7 +18,21 @@ public class DaySceneManager : MonoBehaviour
 
     private void Start()
     {
-        dayNumberText.text= $"Day {(GameManager.Instance.DayNumber + 1).ToString()}";
+        loadingCanvas.gameObject.SetActive(true);
+        if (!GameManager.Instance.FirebaseManager.Authenticated)
+        {
+            GameManager.Instance.FirebaseManager.OnUserSetup += () =>
+            {
+                dayNumberText.text = $"Day {(GameManager.Instance.DayNumber + 1).ToString()}";
+                loadingCanvas.gameObject.SetActive(false);
+            };
+        }
+        else
+        {
+            dayNumberText.text = $"Day {(GameManager.Instance.DayNumber + 1).ToString()}";
+            loadingCanvas.gameObject.SetActive(false);
+        }
+       
     }
 
     public void ShowEndDayCanvas()

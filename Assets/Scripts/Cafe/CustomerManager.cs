@@ -103,21 +103,23 @@ public class CustomerManager : MonoBehaviour
 
     private void CreateCustomer()
     {
-        if (Utilities.IsIndexValid(GameManager.Instance.CurrentDay().Visits, _customerIndex))
+        if (GameManager.Instance.CurrentDay() != null)
         {
-            Visit currentVisit = GameManager.Instance.CurrentDay().Visits[_customerIndex];
-            
-            if (currentVisit.customer != null)
+            if (Utilities.IsIndexValid(GameManager.Instance.CurrentDay().Visits, _customerIndex))
             {
-                CurrentCustomer = Instantiate(currentVisit.customer);
-                CurrentCustomer.Order = currentVisit.order;
-                CurrentCustomer.Dialogue = currentVisit.dialogue;
-                OnCustomerGenerated?.Invoke(CurrentCustomer);
-                _customerIndex++;
-                return;
+                Visit currentVisit = GameManager.Instance.CurrentDay().Visits[_customerIndex];
+            
+                if (currentVisit.customer != null)
+                {
+                    CurrentCustomer = Instantiate(currentVisit.customer);
+                    CurrentCustomer.Order = currentVisit.order;
+                    CurrentCustomer.Dialogue = currentVisit.dialogue;
+                    OnCustomerGenerated?.Invoke(CurrentCustomer);
+                    _customerIndex++;
+                    return;
+                }
             }
         }
-        
         
         CurrentCustomer = Instantiate(RarityFunctions.GenerateItem(customers));
         OnCustomerGenerated?.Invoke(CurrentCustomer);
