@@ -11,6 +11,8 @@ public class DaySceneManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dayNumberText;
     [SerializeField] private TextMeshProUGUI endDayNumberText;
     [SerializeField] private Canvas loadingCanvas;
+    [SerializeField] private ShopManager shopManager;
+    
     public void NextDay()
     {
         GameManager.Instance.ChangeScene(StringConstants.GAME_SCENE_NAME);
@@ -49,6 +51,7 @@ public class DaySceneManager : MonoBehaviour
     public void ShowShopCanvas()
     {
         shopCanvas.gameObject.SetActive(true);
+        shopManager.UpdateShop();
     }
 
     public void HideShopCanvas()

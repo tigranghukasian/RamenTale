@@ -13,6 +13,7 @@ public class FirebaseManager : MonoBehaviour
     [SerializeField] private AuthManager authManager;
     public AuthManager AuthManager => authManager;
     public Action OnUserSetup;
+    public Action<List<ShopItemData>> OnUnlockedShopItemDatasReceived;
 
     public bool Authenticated { get; set; }
 
@@ -25,12 +26,61 @@ public class FirebaseManager : MonoBehaviour
 
     private void SetupUser(FirebaseUser user)
     {
-        Debug.Log("USER AUTHENTICATED TRUE");
         Authenticated = true;
         _userId = user.UserId;
 
         GetUserData();
 
+    }
+    public void UnlockItem(ShopItem shopItem, int level)
+    {
+        ShopItemData itemData = new ShopItemData
+        {
+            Id = shopItem.Id,
+            Level = level
+        };
+        _db.Collection("users").Document(_userId).Collection("unlockedItems").Document(shopItem.Id).SetAsync(itemData).ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("Failed to update unlock item due to error: " + task.Exception);
+            }
+            else if (task.IsCanceled)
+            {
+                Debug.LogError("Failed to update unlock item because the task was canceled.");
+            }
+            else
+            {
+                Debug.Log("Item unlock updated successfuly");
+            }
+        });
+    }
+    
+    public void GetUnlockedItems(Action callback = null)
+    {
+        _db.Collection("users").Document(_userId).Collection("unlockedItems").GetSnapshotAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsCompleted)
+            {
+                List<ShopItemData> shopItemDatas = new List<ShopItemData>();
+                foreach (DocumentSnapshot document in task.Result.Documents)
+                {
+                    ShopItemData shopItemData = document.ConvertTo<ShopItemData>();
+                    shopItemDatas.Add(shopItemData);
+                }
+                OnUnlockedShopItemDatasReceived?.Invoke(shopItemDatas);
+                callback?.Invoke();
+        
+                // Update your game state with the retrieved items here.
+                // This could involve displaying the items in the user's inventory, enabling functionality related to the items, etc.
+        
+                Debug.Log("Retrieved user items successfully");
+            }
+            else
+            {
+                Debug.Log("Failed to retrieve user items");
+            }
+        });
     }
     
     private void UpdateUserData()
@@ -65,7 +115,7 @@ public class FirebaseManager : MonoBehaviour
                 CurrencyManager.Instance.CoinBalance = userData.Coins;
                 GameManager.Instance.DayNumber = (int)userData.Day;
             
-                Debug.Log("--- Get User Data" + userData.Day);
+                Debug.Log("--- Get User Data ---");
             
                 OnUserSetup?.Invoke();
             }

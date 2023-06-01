@@ -117,7 +117,7 @@ public class Currency
         if (Balance < 0)
         {
             Balance = 0;
-            OnBalanceZero();
+            OnBalanceZero?.Invoke();
         }
     }
 }
