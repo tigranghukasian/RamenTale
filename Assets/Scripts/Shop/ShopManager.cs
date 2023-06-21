@@ -21,20 +21,16 @@ public class ShopManager : MonoBehaviour
     };
     private void Start()
     {
-        GameManager.Instance.FirebaseManager.OnUnlockedShopItemDatasReceived += UpdateShopData;
+        DisableView();
         for (int i = 0; i < shopItemsList.ShopItems.Count; i++)
         {
             ShopItem shopItem = shopItemsList.ShopItems[i];
+            shopItem.IsPurchased = false;
             ShopItemComponent shopItemComponent = Instantiate(shopItemComponentPrefab, unlockableItemsParent)
                 .GetComponent<ShopItemComponent>();
-            if (shopItem is ShopItemUpgradeable shopItemUpgradeable)
-            {
-                shopItemUpgradeable.SetLevel(0);
-            }
-            
+
             shopItemComponent.Setup(shopItem, UnlockItem);
             shopItemComponent.SetupCard();
-            unlockableItemsParent.gameObject.SetActive(false);
             _shopItemComponents.Add(shopItem.Id, new Item
             {
                 ShopItem = shopItem,
@@ -45,6 +41,10 @@ public class ShopManager : MonoBehaviour
         UpdateShop();
     }
 
+    private void DisableView()
+    {
+        unlockableItemsParent.gameObject.SetActive(false);
+    }
     private void EnableView()
     {
         unlockableItemsParent.gameObject.SetActive(true);
@@ -52,7 +52,7 @@ public class ShopManager : MonoBehaviour
 
     public void UpdateShop()
     {
-        GameManager.Instance.FirebaseManager.GetUnlockedItems(EnableView);
+        GameManager.Instance.FirebaseManager.GetUnlockedItems(UpdateShopData);
     }
 
     private void UpdateShopData(List<ShopItemData> unlockedShopItems)
@@ -63,43 +63,23 @@ public class ShopManager : MonoBehaviour
             {
                 Item item = _shopItemComponents[unlockedShopItems[i].Id];
                 ShopItemComponent component = item.component;
+                
+                item.ShopItem.IsPurchased = true;
 
-                if (unlockedShopItems[i].Level > 0 )
-                {
-                    if (item.ShopItem is ShopItemUpgradeable shopItemUpgradeable)
-                    {
-                        shopItemUpgradeable.SetLevel(unlockedShopItems[i].Level);
-                    }
-                }
                 component.SetupCard();
             }
         }
+
+        EnableView();
     }
 
     public void UnlockItem(ShopItem shopItem)
     {
         Debug.Log(shopItem);
-        if (shopItem is ShopItemUpgradeable shopItemUpgradeable)
+        if (CurrencyManager.Instance.HasCoin(shopItem.CoinCost))
         {
-            if (Utilities.IsIndexValid(shopItemUpgradeable.Levels, shopItemUpgradeable.CurrentLevel))
-            {
-                if (CurrencyManager.Instance.HasCoin(shopItemUpgradeable.Levels[shopItemUpgradeable.CurrentLevel].CoinCost))
-                {
-                    shopItemUpgradeable.LevelUp();
-                    Debug.Log("shop manager unlock item " + shopItemUpgradeable.CurrentLevel);
-                    GameManager.Instance.FirebaseManager.UnlockItem(shopItemUpgradeable, shopItemUpgradeable.CurrentLevel);
-                    CurrencyManager.Instance.SubtractCoins(shopItemUpgradeable.Levels[shopItemUpgradeable.CurrentLevel].CoinCost);
-                }
-            }
-        }
-        else 
-        {
-            if (CurrencyManager.Instance.HasCoin(shopItem.CoinCost))
-            {
-                GameManager.Instance.FirebaseManager.UnlockItem(shopItem, 0);
-                CurrencyManager.Instance.SubtractCoins(shopItem.CoinCost);
-            }
-
+            GameManager.Instance.FirebaseManager.UnlockItem(shopItem);
+            CurrencyManager.Instance.SubtractCoins(shopItem.CoinCost);
         }
         UpdateShop();
     }

@@ -13,7 +13,6 @@ public class FirebaseManager : MonoBehaviour
     [SerializeField] private AuthManager authManager;
     public AuthManager AuthManager => authManager;
     public Action OnUserSetup;
-    public Action<List<ShopItemData>> OnUnlockedShopItemDatasReceived;
 
     public bool Authenticated { get; set; }
 
@@ -32,13 +31,14 @@ public class FirebaseManager : MonoBehaviour
         GetUserData();
 
     }
-    public void UnlockItem(ShopItem shopItem, int level)
+    public void UnlockItem(ShopItem shopItem)
     {
         ShopItemData itemData = new ShopItemData
         {
             Id = shopItem.Id,
-            Level = level
+            //Type = shopItem.GetType();
         };
+        Debug.Log(" SHOP ITEM TYPE " + shopItem.GetType());
         _db.Collection("users").Document(_userId).Collection("unlockedItems").Document(shopItem.Id).SetAsync(itemData).ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
@@ -56,10 +56,12 @@ public class FirebaseManager : MonoBehaviour
         });
     }
     
-    public void GetUnlockedItems(Action callback = null)
+    public void GetUnlockedItems(Action<List<ShopItemData>> callback = null)
     {
+        Debug.Log("get unlocked items");
         _db.Collection("users").Document(_userId).Collection("unlockedItems").GetSnapshotAsync().ContinueWithOnMainThread(task =>
         {
+            Debug.Log("After Firestore request");
             if (task.IsCompleted)
             {
                 List<ShopItemData> shopItemDatas = new List<ShopItemData>();
@@ -68,8 +70,8 @@ public class FirebaseManager : MonoBehaviour
                     ShopItemData shopItemData = document.ConvertTo<ShopItemData>();
                     shopItemDatas.Add(shopItemData);
                 }
-                OnUnlockedShopItemDatasReceived?.Invoke(shopItemDatas);
-                callback?.Invoke();
+                //OnUnlockedShopItemDatasReceived?.Invoke();
+                callback?.Invoke(shopItemDatas);
         
                 // Update your game state with the retrieved items here.
                 // This could involve displaying the items in the user's inventory, enabling functionality related to the items, etc.
@@ -79,6 +81,16 @@ public class FirebaseManager : MonoBehaviour
             else
             {
                 Debug.Log("Failed to retrieve user items");
+            }
+
+            if (task.IsFaulted)
+            {
+                Debug.Log("Task is faulted" + task.Exception);
+            }
+
+            if (task.IsCanceled)
+            {
+                Debug.Log("task is cancelld");
             }
         });
     }

@@ -3,14 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Shop/ShopItem")]
 public class ShopItem : ScriptableObject
 {
    [SerializeField] private string id;
+   [SerializeField] private Category category;
    [SerializeField] private string itemName;
    [SerializeField] private Sprite sprite;
    [SerializeField] private string itemDescription;
    [SerializeField] private float coinCost;
-   [SerializeField] private bool isUnlocked;
+   [SerializeField] private bool isPurchased;
+   [SerializeField] private int unlockDay;
+
+   public enum Category
+   {
+      Ingredient,
+      Cosmetic,
+      Decoration,
+      Upgrade
+   };
 
    public String Id => id;
    public string ItemName => itemName;
@@ -18,8 +29,19 @@ public class ShopItem : ScriptableObject
    public Sprite Sprite => sprite;
    public float CoinCost => coinCost;
 
-   public bool IsUnlocked => isUnlocked;
-   
+   public int UnlockDay => unlockDay;
+
+   public bool IsPurchased
+   {
+      get => isPurchased;
+      set => isPurchased = value;
+   }
+   // public bool IsUnlocked
+   // {
+   //    get => isUnlocked;
+   //    set => isUnlocked = value;
+   // }
+
 
    // public ShopItemData CreateItemData()
    // {

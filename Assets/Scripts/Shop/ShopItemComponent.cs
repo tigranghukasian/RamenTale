@@ -13,7 +13,30 @@ public class ShopItemComponent : MonoBehaviour
     [SerializeField] private TextMeshProUGUI cost;
     [SerializeField] private Button unlockButton;
 
+    [Header("State Gameobjects")] [SerializeField]
+    private GameObject purchaseStateGameObject;
+
+    [SerializeField] private GameObject purchasedStateGameObject;
+    [SerializeField] private GameObject lockedStateGameObject;
+
+    private enum State
+    {
+        Purchase,
+        Purchased,
+        Locked
+    };
+
+    private State _state;
+
     private ShopItem _shopItem;
+
+    private void SetState(State state)
+    {
+        _state = state;
+        purchaseStateGameObject.SetActive(state == State.Purchase);
+        purchasedStateGameObject.SetActive(state == State.Purchased);
+        lockedStateGameObject.SetActive(state == State.Locked);
+    }
 
     public void Setup(ShopItem shopItem, Action<ShopItem> onUnlock)
     {
@@ -26,23 +49,19 @@ public class ShopItemComponent : MonoBehaviour
 
     public void SetupCard()
     {
-        if (!_shopItem.IsUnlocked)
+        SetState(State.Purchase);
+        img.sprite = _shopItem.Sprite;
+        title.text = _shopItem.ItemName;
+        description.text = _shopItem.ItemDescription;
+        cost.text = _shopItem.CoinCost.ToString("F1");
+        if (_shopItem.IsPurchased)
         {
-            
+            SetState(State.Purchased);
         }
-        if (_shopItem is ShopItemUpgradeable shopItemUpgradeable)
+
+        if (_shopItem.UnlockDay > GameManager.Instance.DayNumber)
         {
-            img.sprite = shopItemUpgradeable.Levels[shopItemUpgradeable.CurrentLevel].Sprite;
-            title.text = shopItemUpgradeable.Levels[shopItemUpgradeable.CurrentLevel].ItemName;
-            description.text = shopItemUpgradeable.Levels[shopItemUpgradeable.CurrentLevel].ItemDescription;
-            cost.text = shopItemUpgradeable.Levels[shopItemUpgradeable.CurrentLevel].CoinCost.ToString("F1");
-        }
-        else
-        {
-            img.sprite = _shopItem.Sprite;
-            title.text = _shopItem.ItemName;
-            description.text = _shopItem.ItemDescription;
-            cost.text = _shopItem.CoinCost.ToString("F1");
+            SetState(State.Locked);
         }
     }
 

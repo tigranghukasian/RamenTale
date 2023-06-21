@@ -14,7 +14,11 @@ public class IngredientBox : DragCreator
 
     private IngredientComponent _spawnedComponent;
     public IngredientComponent SpawnedComponent => _spawnedComponent;
-    public Ingredient IngredientData => ingredientData;
+    public Ingredient IngredientData
+    {
+        get => ingredientData;
+        set => ingredientData = value;
+    }
 
     public Action<int> OnCountChanged;
 

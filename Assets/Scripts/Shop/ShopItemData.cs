@@ -8,8 +8,5 @@ public struct ShopItemData
 {
     [FirestoreProperty]
     public string Id { get; set; }
-    
-    [FirestoreProperty]
-    public int Level { get; set; }
-    
+
 }
