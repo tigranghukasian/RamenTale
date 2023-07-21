@@ -21,6 +21,8 @@ public class KitchenManager : Singleton<KitchenManager>
 
     public KitchenUIManager UIManager => kitchenUIManager;
 
+    public PlateSpot PlateSpot => plateSpot;
+
     public Canvas Canvas => canvas;
 
     private void Start()
