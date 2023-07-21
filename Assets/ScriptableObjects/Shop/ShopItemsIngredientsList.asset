@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: ShopItemsIngredientsList
   m_EditorClassIdentifier: 
   _shopItems:
+  - {fileID: 11400000, guid: e92e4f7b7f0335e4ea3213c86c815dd0, type: 2}
   - {fileID: 11400000, guid: 1e32f9df6e272964ca6684689ba7c2c0, type: 2}
