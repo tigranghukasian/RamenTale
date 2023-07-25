@@ -45,6 +45,12 @@ public class KitchenManager : Singleton<KitchenManager>
             ingredientBoxes.Add(defaultIngredientBoxes[i].IngredientData, defaultIngredientBoxes[i]);
         }
     }
+
+    public void CancelDish()
+    {
+        Destroy(PlateSpot.CurrentDish.gameObject);
+        PlateSpot.AddEmptyPlate();
+    }
     public void SetCompleteButton(bool state)
     {
         completeButton.color = state ? completeButtonEnabledColor : completeButtonDisabledColor;
