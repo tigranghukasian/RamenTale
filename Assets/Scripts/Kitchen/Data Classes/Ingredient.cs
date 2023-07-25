@@ -11,4 +11,6 @@ public class Ingredient : Part
     public bool isCuttable;
     [ShowIf("isCuttable")]
     public Ingredient CutVersion;
+    [HideIf("isCut")]
+    public int cutParts;
 }

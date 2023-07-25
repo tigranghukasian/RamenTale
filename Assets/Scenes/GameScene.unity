@@ -4981,7 +4981,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dishPrefab: {fileID: 6389646120810237035, guid: e8da89c7d5029fc49ad1cc6cd1dd02ee, type: 3}
-  kitchenPlateSpot: 1
 --- !u!1 &886844974
 GameObject:
   m_ObjectHideFlags: 0
@@ -6277,6 +6276,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5871769472174635876, guid: 5652e173ab3a6f249b24af07e3df7cf3, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5976245840126760078, guid: 5652e173ab3a6f249b24af07e3df7cf3, type: 3}
       propertyPath: m_Name
       value: IngredientBox (1)
@@ -7043,6 +7046,10 @@ PrefabInstance:
     - target: {fileID: 2166459165029454484, guid: 5652e173ab3a6f249b24af07e3df7cf3, type: 3}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5871769472174635876, guid: 5652e173ab3a6f249b24af07e3df7cf3, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5976245840126760078, guid: 5652e173ab3a6f249b24af07e3df7cf3, type: 3}
       propertyPath: m_Name
@@ -8049,9 +8056,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cc296096f7f434c44963c5a4aafd708b, type: 2}
   - {fileID: 11400000, guid: 57b380ca9eb32f040b26c6db8bed7c4d, type: 2}
   - {fileID: 11400000, guid: de7fe3d93608d1749a712431e0b3c36f, type: 2}
-  - {fileID: 11400000, guid: ccae1e9b9d29689428e748c0d2e3a6fb, type: 2}
   ingredientsUnlockableParent: {fileID: 1244606408}
   ingredientBoxPrefab: {fileID: 5976245840126760078, guid: 5652e173ab3a6f249b24af07e3df7cf3, type: 3}
+  defaultIngredientBoxesParent: {fileID: 886844975}
 --- !u!1001 &1659185831
 PrefabInstance:
   m_ObjectHideFlags: 0

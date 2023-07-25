@@ -34,6 +34,14 @@ public class Dish : Moveable, IDropHandler
                 AddIngredient(ingredientBox.SpawnedComponent);
             }
         }
+        if (pointerDrag.TryGetComponent(out IngredientBoxCut ingredientBoxCut) && onSoup)
+        {
+            if (ingredientBoxCut.HasAmount(1))
+            {
+                AddIngredient(ingredientBoxCut.SpawnedComponent);
+                ingredientBoxCut.Decrease(1);
+            }
+        }
         if (pointerDrag.TryGetComponent(out IngredientComponent ingredientComponent) && onSoup)
         {
             AddIngredient(ingredientComponent);

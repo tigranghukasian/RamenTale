@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -25,6 +26,9 @@ public class IngredientComponent : Moveable, IPointerClickHandler, IDropHandler
     private int _clickedCount;
     private int _amountToClickForCut = 3;
     private float offsetAmount = 20f;
+
+    private const float CutPartsSpreadAnimDuration = 0.1f;
+    private const float CutPartsFlyToBoxAnimDuration = 0.3f;
     
     
     public void Init()
@@ -59,18 +63,33 @@ public class IngredientComponent : Moveable, IPointerClickHandler, IDropHandler
 
     private void Cut()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < ingredientData.cutParts; i++)
         {
             IngredientComponent cutIngredient = Instantiate(ingredientData.CutVersion.componentToSpawn, transform.parent).GetComponent<IngredientComponent>();
             cutIngredient.ingredientData = ingredientData.CutVersion;
             cutIngredient.Init();
-            cutIngredient.transform.position = transform.position += new Vector3(-offsetAmount * Mathf.Pow(-1, i), offsetAmount * Mathf.Pow(-1, i), 0);
-            cutIngredient.GetComponent<Image>().raycastTarget = true;
+            cutIngredient.transform.position = transform.position;
+            Vector2 pointInCircle = Random.insideUnitCircle * 40f;
+            Vector3 pointInCircle3D = new Vector3(pointInCircle.x, pointInCircle.y,0 );
+            cutIngredient.transform.position = transform.position + pointInCircle3D;
+            cutIngredient.transform.DOMove(
+                KitchenManager.Instance.IngredientBoxes[ingredientData].IngredientBoxCut.transform.position, CutPartsFlyToBoxAnimDuration).OnComplete(
+                () =>
+                {
+                    Destroy(cutIngredient.gameObject);
+                }).SetDelay(CutPartsSpreadAnimDuration);
+
+            cutIngredient.GetComponent<Image>().raycastTarget = false;
+            
         }
+
+        KitchenManager.Instance.IngredientBoxes[ingredientData].IngredientBoxCut.IncreaseAfterDelay( ingredientData.cutParts,CutPartsFlyToBoxAnimDuration);
+        
         transform.parent.GetComponent<CuttingBoard>().UpdateIngredientsOrder();
         
         Destroy(gameObject);
     }
+    
 
     public void OnDrop(PointerEventData eventData)
     {

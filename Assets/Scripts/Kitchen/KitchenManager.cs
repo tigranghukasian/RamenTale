@@ -18,6 +18,11 @@ public class KitchenManager : Singleton<KitchenManager>
     [SerializeField] private List<Ingredient> ingredients;
     [SerializeField] private Transform ingredientsUnlockableParent;
     [SerializeField] private GameObject ingredientBoxPrefab;
+    [SerializeField] private Transform defaultIngredientBoxesParent;
+
+    private Dictionary<Ingredient, IngredientBox> ingredientBoxes = new Dictionary<Ingredient, IngredientBox>();
+
+    public Dictionary<Ingredient, IngredientBox> IngredientBoxes => ingredientBoxes;
 
     public KitchenUIManager UIManager => kitchenUIManager;
 
@@ -28,8 +33,18 @@ public class KitchenManager : Singleton<KitchenManager>
     private void Start()
     {
         GetUnlockedItems();
+        GetDefaultIngredientBoxes();
     }
 
+    private void GetDefaultIngredientBoxes()
+    {
+        IngredientBox[] defaultIngredientBoxes =
+            defaultIngredientBoxesParent.GetComponentsInChildren<IngredientBox>();
+        for (int i = 0; i < defaultIngredientBoxes.Length; i++)
+        {
+            ingredientBoxes.Add(defaultIngredientBoxes[i].IngredientData, defaultIngredientBoxes[i]);
+        }
+    }
     public void SetCompleteButton(bool state)
     {
         completeButton.color = state ? completeButtonEnabledColor : completeButtonDisabledColor;
@@ -64,6 +79,7 @@ public class KitchenManager : Singleton<KitchenManager>
         {
             IngredientBox box = Instantiate(ingredientBoxPrefab, ingredientsUnlockableParent).GetComponent<IngredientBox>();
             box.IngredientData = unlockedIngredients[i];
+            ingredientBoxes.Add(unlockedIngredients[i], box);
         }
     }
 
