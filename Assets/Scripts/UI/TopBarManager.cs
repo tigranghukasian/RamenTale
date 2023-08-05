@@ -16,7 +16,11 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
     [SerializeField] private Image satisfactionFaceImage;
     [SerializeField] private Gradient satisfactionGradient;
     [SerializeField] private TextMeshProUGUI timeOfDayText;
+    
+
     private Animator topBarManagerAnimator;
+    
+    private IPopup _currentPopup;
     
     private void Start()
     {
@@ -85,4 +89,5 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
     {
         GameManager.Instance.Restart();
     }
+    
 }
