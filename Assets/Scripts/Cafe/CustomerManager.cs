@@ -64,6 +64,7 @@ public class CustomerManager : MonoBehaviour
         GameSceneManager.Instance.DialogueManager.SpeechBubble.gameObject.SetActive(false);
         SetCustomerImageAnimation(false);
         StartCoroutine(SetCustomerImageActiveAfterDelay(false, customerAppearDisappearAnimLength));
+        GameManager.Instance.CustomersServedToday++;
         //GameSceneManager.Instance.DialogueManager.CustomerImage.gameObject.SetActive(false);
     }
 
@@ -92,6 +93,7 @@ public class CustomerManager : MonoBehaviour
         _satisfactionTimer = 0;
         OnCustomerSatisfactionChanged?.Invoke(_satisfaction);
         StartCoroutine(CreateCustomerAfterDelay(2f));
+        
     }
     
 

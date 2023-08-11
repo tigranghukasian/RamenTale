@@ -10,6 +10,7 @@ public class DayCycleManager : Singleton<DayCycleManager>
     private float timeSpeed = 1/300f; //this is speed of time, it can be adjusted according to the game. 
 
     public bool Enabled { get; set; }
+    public bool DayEnded { get; set; }
     
     [SerializeField] private TextMeshProUGUI timeOfDayText;
 
@@ -30,8 +31,11 @@ public class DayCycleManager : Singleton<DayCycleManager>
         gameTime %= 1; // keeps gameTime between 0-1
         
         
-        if (oldGameTime > gameTime) 
+        if (oldGameTime > gameTime)
         {
+            DayEnded = true;
+            Enabled = false;
+            return;
             GameSceneManager.Instance.OpenCafe();
             GameSceneManager.Instance.CustomerManager.DepartCustomer();
             Enabled = false;
@@ -39,6 +43,12 @@ public class DayCycleManager : Singleton<DayCycleManager>
             return;
         }
         UpdateTimeDisplay();
+    }
+
+    public void EndDay()
+    {
+        StartCoroutine(EndDayAfterDelay(2f));
+        DayEnded = false;
     }
 
     IEnumerator EndDayAfterDelay(float delay)

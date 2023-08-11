@@ -646,11 +646,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.65
+  m_fontSize: 40.94
   m_fontSizeBase: 38.9
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_fontSizeMin: 40.94
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 4
@@ -879,6 +879,13 @@ MonoBehaviour:
   shopCanvas: {fileID: 307143160}
   dayNumberText: {fileID: 2106456848}
   endDayNumberText: {fileID: 1949340715}
+  customersServedTodayText: {fileID: 1360654339}
+  revenueTodayText: {fileID: 1584082701}
+  tipsTodayText: {fileID: 727633602}
+  investmentsTodayText: {fileID: 304232129}
+  rentTodayText: {fileID: 766363815}
+  suppliesUsedTodayText: {fileID: 212161796}
+  totalProfitTodayText: {fileID: 187773164}
   loadingCanvas: {fileID: 2245418295172308134}
   shopManager: {fileID: 1770333421}
 --- !u!1 &304232127

@@ -26,7 +26,9 @@ public class OrderManager : Singleton<OrderManager>
     {
         if(CurrentOrder.CompareWithDish(dish))
         {
-            CurrencyManager.Instance.AddCoins(CurrentOrder.CalculateProfit());
+            float profit = CurrentOrder.CalculateProfit();
+            CurrencyManager.Instance.AddCoins(profit);
+            GameManager.Instance.RevenueToday += profit;
             CompleteOrder(true);
         }
         else

@@ -81,6 +81,10 @@ public class DialogueManager : MonoBehaviour {
 
      private void OnDialogueFinished()
      {
+          if (DayCycleManager.Instance.DayEnded)
+          {
+               DayCycleManager.Instance.EndDay();
+          }
           StartCoroutine(GetNextCustomerAfterDelay(2f));
      }
 

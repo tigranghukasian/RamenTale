@@ -10,6 +10,14 @@ using UnityEngine.UI;
 public class GameManager : PersistentSingleton<GameManager>
 {
     public int DayNumber { get; set; }
+    
+    public int CustomersServedToday { get; set; }
+    public float RevenueToday { get; set; }
+    public float TipsToday { get; set; }
+    public float InvestmentsToday { get; set; }
+    public float RentToday { get; set; }
+    public float SuppliesUsedToday { get; set; }
+    
 
     [SerializeField] private List<Day> days = new List<Day>();
     
@@ -70,7 +78,30 @@ public class GameManager : PersistentSingleton<GameManager>
         {
             DaySceneManager daySceneManager = FindObjectOfType<DaySceneManager>();
             daySceneManager.ShowEndDayCanvas();
+            CurrencyManager.Instance.SubtractCoins(RentToday);
         });
+        
+    }
+
+    public void ResetEndDayData()
+    {
+        RevenueToday = 0;
+        SuppliesUsedToday = 0;
+        CustomersServedToday = 0;
+        RentToday = 10f;
+        TipsToday = 0;
+        InvestmentsToday = 0;
+
+    }
+
+    public float TotalProfitForToday()
+    {
+        float net = RevenueToday;
+        net += TipsToday;
+        net += InvestmentsToday;
+        net -= SuppliesUsedToday;
+        net -= RentToday;
+        return net;
     }
 
     private IEnumerator ChangeSceneAsync(string sceneName, Action onSceneChanged)

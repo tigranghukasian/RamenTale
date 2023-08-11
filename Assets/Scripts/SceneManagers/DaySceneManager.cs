@@ -10,11 +10,20 @@ public class DaySceneManager : MonoBehaviour
     [SerializeField] private Canvas shopCanvas;
     [SerializeField] private TextMeshProUGUI dayNumberText;
     [SerializeField] private TextMeshProUGUI endDayNumberText;
+
+    [SerializeField] private TextMeshProUGUI customersServedTodayText;
+    [SerializeField] private TextMeshProUGUI revenueTodayText;
+    [SerializeField] private TextMeshProUGUI tipsTodayText;
+    [SerializeField] private TextMeshProUGUI investmentsTodayText;
+    [SerializeField] private TextMeshProUGUI rentTodayText;
+    [SerializeField] private TextMeshProUGUI suppliesUsedTodayText;
+    [SerializeField] private TextMeshProUGUI totalProfitTodayText;
     [SerializeField] private Canvas loadingCanvas;
     [SerializeField] private ShopManager shopManager;
     
     public void NextDay()
     {
+        GameManager.Instance.ResetEndDayData();
         GameManager.Instance.ChangeScene(StringConstants.GAME_SCENE_NAME);
     }
 
@@ -40,6 +49,13 @@ public class DaySceneManager : MonoBehaviour
     public void ShowEndDayCanvas()
     {
         endDayNumberText.text= $"Day {GameManager.Instance.DayNumber.ToString()}";
+        customersServedTodayText.text = GameManager.Instance.CustomersServedToday.ToString();
+        revenueTodayText.text = GameManager.Instance.RevenueToday.ToString("F1");
+        tipsTodayText.text = GameManager.Instance.TipsToday.ToString("F1");
+        investmentsTodayText.text = GameManager.Instance.InvestmentsToday.ToString("F1");
+        rentTodayText.text = GameManager.Instance.RentToday.ToString("F1");
+        suppliesUsedTodayText.text = GameManager.Instance.SuppliesUsedToday.ToString("F1");
+        totalProfitTodayText.text = GameManager.Instance.TotalProfitForToday().ToString("F1");
         endDayCanvas.gameObject.SetActive(true);
     }
 

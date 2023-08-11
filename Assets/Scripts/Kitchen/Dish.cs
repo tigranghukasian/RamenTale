@@ -57,6 +57,7 @@ public class Dish : Moveable, IDropHandler
                 {
                     _dishDataBuilder.SetSoup(soup);
                     AudioManager.Instance.PlayDishSoupPourClip();
+                    GameManager.Instance.SuppliesUsedToday += soup.price;
                     CurrencyManager.Instance.SubtractCoins(soup.price);
                 }
                 
@@ -67,6 +68,7 @@ public class Dish : Moveable, IDropHandler
                 if (CurrencyManager.Instance.HasCoin(noodle.price))
                 {
                     _dishDataBuilder.SetNoodle(noodle);
+                    GameManager.Instance.SuppliesUsedToday += noodle.price;
                     CurrencyManager.Instance.SubtractCoins(noodle.price);
                 }
 
