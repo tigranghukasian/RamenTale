@@ -18,6 +18,6 @@ MonoBehaviour:
   noodle: {fileID: 11400000, guid: 06970bf24c887d942bc4f7de3a567a8a, type: 2}
   _orderIngredients:
   - amount: 3
-    ingredient: {fileID: 11400000, guid: dceab33d758d79844930fb3cfcafef35, type: 2}
+    ingredient: {fileID: 11400000, guid: 6c7ff739589463e4294ae7d2fe16d82a, type: 2}
   profitMargin: 2
   timeToMake: 500
