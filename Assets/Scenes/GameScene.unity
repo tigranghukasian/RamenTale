@@ -9864,7 +9864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20bd6d789568ccb42914707bc885c875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeSpeed: 0.0055555557
+  timeSpeed: 0.033333335
   timeOfDayText: {fileID: 639656133}
 --- !u!4 &2044725609
 Transform:
@@ -10623,11 +10623,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 855518076651583303, guid: 310e2f05e08579b4da98673da584f301, type: 3}
+    - target: {fileID: 6606200015326257425, guid: 310e2f05e08579b4da98673da584f301, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6299764509317323411, guid: 310e2f05e08579b4da98673da584f301, type: 3}
+    - target: {fileID: 8150984565312767800, guid: 310e2f05e08579b4da98673da584f301, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

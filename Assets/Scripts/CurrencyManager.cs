@@ -18,6 +18,8 @@ public class CurrencyManager : PersistentSingleton<CurrencyManager>
     private float _suppliesUsed;
     private float _totalProfit;
 
+    private bool _hasShownNegativeMoneyPopup;
+
     public float CoinBalance
     {
         get => coins.Balance;
@@ -43,17 +45,31 @@ public class CurrencyManager : PersistentSingleton<CurrencyManager>
         AudioManager.Instance.PlayCashIncomeClip();
     }
 
-    public bool HasCoin(float amount)
+    public bool HasCoin(float amount, bool canHaveDebt = false)
     {
-        return true;
-        return coins.Balance >= amount;
-    }
+        if (canHaveDebt)
+        {
+            return coins.Balance - amount >= -50f;
+        }
+        return coins.Balance - amount >= 0;
 
+    }
     public void SubtractCoins(float amount)
     {
         coins.Subtract(amount);
+        if (coins.Balance <= 0 && !_hasShownNegativeMoneyPopup)
+        {
+            PopupManager.Instance.NegativeMoneyPopup();
+            _hasShownNegativeMoneyPopup = true;
+        }
+        if (coins.Balance <= -50)
+        {
+            PopupManager.Instance.OutOfMoneyPopup();
+        }
+        
         OnCoinDecreased?.Invoke(amount);
         OnCoinsChanged?.Invoke(coins.Balance);
+        
     }
     
 

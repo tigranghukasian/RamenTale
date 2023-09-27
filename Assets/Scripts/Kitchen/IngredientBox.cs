@@ -65,7 +65,7 @@ public class IngredientBox : DragCreator
 
         if (_spawnedComponent.Placed)
         {
-            if(CurrencyManager.Instance.HasCoin(ingredientData.price))
+            if(CurrencyManager.Instance.HasCoin(ingredientData.price, true))
             {
                 GameManager.Instance.SuppliesUsedToday += ingredientData.price;
                 CurrencyManager.Instance.SubtractCoins(ingredientData.price);

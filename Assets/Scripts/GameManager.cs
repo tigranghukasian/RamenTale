@@ -54,7 +54,7 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         ChangeScene(StringConstants.DAY_SCENE_NAME);
     }
-    
+
     public void ChangeScene(string sceneName, Action onSceneChanged = null)
     {
         StartCoroutine(ChangeSceneAsync(sceneName, onSceneChanged));

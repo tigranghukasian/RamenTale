@@ -136,7 +136,7 @@ public class FirebaseManager : MonoBehaviour
                 UserData newUser = new UserData
                 {
                     Coins = 50, 
-                    Day = 0
+                    Day = 1
                 };
 
                 _db.Collection("users").Document(_userId).SetAsync(newUser).ContinueWithOnMainThread(createUserTask =>
@@ -158,6 +158,23 @@ public class FirebaseManager : MonoBehaviour
                 });
             }
             
+        });
+    }
+
+    public void DeleteUserData(Action callback = null)
+    {
+        Debug.Log("DELETE DOCUMENT " + _userId);
+        _db.Collection("users").Document(_userId).DeleteAsync().ContinueWithOnMainThread(deleteTask =>
+        {
+            if (deleteTask.IsCompleted)
+            {
+                callback?.Invoke();
+                Debug.Log("User data deleted");
+            }
+            else
+            {
+                Debug.Log("Failed to delete user data");
+            }
         });
     }
 }

@@ -53,7 +53,7 @@ public class Dish : Moveable, IDropHandler
             if (partPlacer.Part is Soup && !_dishDataBuilder.HasSoup())
             {
                 Soup soup = (Soup)partPlacer.Part;
-                if (CurrencyManager.Instance.HasCoin(soup.price))
+                if (CurrencyManager.Instance.HasCoin(soup.price, true))
                 {
                     _dishDataBuilder.SetSoup(soup);
                     AudioManager.Instance.PlayDishSoupPourClip();
@@ -65,7 +65,7 @@ public class Dish : Moveable, IDropHandler
             else if (partPlacer.Part is Noodle && _dishDataBuilder.HasSoup() && !_dishDataBuilder.HasNoodle())
             {
                 Noodle noodle = (Noodle)partPlacer.Part;
-                if (CurrencyManager.Instance.HasCoin(noodle.price))
+                if (CurrencyManager.Instance.HasCoin(noodle.price, true))
                 {
                     _dishDataBuilder.SetNoodle(noodle);
                     GameManager.Instance.SuppliesUsedToday += noodle.price;
