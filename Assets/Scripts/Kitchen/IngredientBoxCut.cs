@@ -73,6 +73,7 @@ public class IngredientBoxCut : DragCreator
 
     public void Increase(int amount)
     {
+        Debug.Log("INCREASE " + ingredientData.name + " by " + amount);
         Count += amount;
         countText.text = Count.ToString();
         OnCountChanged?.Invoke(Count);

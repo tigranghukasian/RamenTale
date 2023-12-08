@@ -9,7 +9,11 @@ public class IngredientBox : DragCreator
 {
     [SerializeField] private Ingredient ingredientData;
     [SerializeField] private IngredientBoxCut ingredientBoxCut;
-    [SerializeField] private Transform ingredientParent;
+    [SerializeField] private GameObject ingredientUnCutHolder;
+    [SerializeField] private GameObject ingredientCutHolder;
+    [SerializeField] private Transform ingredientUnCutParent;
+    [SerializeField] private Transform ingredientNonCuttableParent;
+    [SerializeField] private GameObject ingredientNonCuttableHolder;
 
     private IngredientComponent _spawnedComponent;
     public IngredientComponent SpawnedComponent => _spawnedComponent;
@@ -27,21 +31,34 @@ public class IngredientBox : DragCreator
         if (ingredientData != null)
         {
             moveableGraphic = ingredientData.componentToSpawn;
-            IngredientComponent visual = Instantiate(ingredientData.componentToSpawn, ingredientParent).GetComponent<IngredientComponent>();
+            IngredientComponent visual = Instantiate(ingredientData.componentToSpawn, ingredientUnCutParent).GetComponent<IngredientComponent>();
 
            
             visual.IngredientData = ingredientData;
             visual.Init();
 
-            if (ingredientData.CutVersion)
+            if (ingredientData.isCuttable)
             {
-                ingredientBoxCut.IngredientData = ingredientData.CutVersion;
-                ingredientBoxCut.Init();
+                if (ingredientData.CutVersion)
+                {
+                    ingredientBoxCut.IngredientData = ingredientData.CutVersion;
+                    ingredientBoxCut.Init();
+                }
+                else
+                {
+                    ingredientBoxCut.gameObject.SetActive(false);
+                }
             }
             else
             {
-                ingredientBoxCut.gameObject.SetActive(false);
+                ingredientCutHolder.SetActive(false);
+                ingredientUnCutHolder.SetActive(false);
+                ingredientNonCuttableHolder.gameObject.SetActive(true);
+                visual.transform.SetParent(ingredientNonCuttableParent);
+                visual.transform.position = ingredientNonCuttableParent.transform.position;
             }
+
+            
             
         }
 

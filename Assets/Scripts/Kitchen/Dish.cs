@@ -71,8 +71,6 @@ public class Dish : Moveable, IDropHandler
                     GameManager.Instance.SuppliesUsedToday += noodle.price;
                     CurrencyManager.Instance.SubtractCoins(noodle.price);
                 }
-
-                
             }
             
         }
@@ -142,7 +140,7 @@ public class Dish : Moveable, IDropHandler
     }
     private void SetNoodleVisuals(Noodle noodle)
     {
-        noodleImage.color = noodle.color;
+        noodleImage.sprite = noodle.soupNoodleImage;
         noodleImage.gameObject.SetActive(true);
     }
     

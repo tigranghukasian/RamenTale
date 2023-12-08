@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Parts/Noodle")]
 public class Noodle : Part
 {
-   public Color color;
+   public Sprite soupNoodleImage;
 }

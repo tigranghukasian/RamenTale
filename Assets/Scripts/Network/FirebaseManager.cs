@@ -126,6 +126,7 @@ public class FirebaseManager : MonoBehaviour
 
                 CurrencyManager.Instance.CoinBalance = userData.Coins;
                 GameManager.Instance.DayNumber = (int)userData.Day;
+                KitchenManager.Instance.SetupUnlockedItems();
             
                 Debug.Log("--- Get User Data ---");
             
