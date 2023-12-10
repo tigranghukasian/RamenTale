@@ -7,7 +7,7 @@ public class DayCycleManager : Singleton<DayCycleManager>
 {
     private float gameTime;
     [SerializeField]
-    private float timeSpeed = 1/300f; //this is speed of time, it can be adjusted according to the game. 
+    private float dayDuration = 60; //this is speed of time, it can be adjusted according to the game. 
 
     public bool Enabled { get; set; }
     public bool DayEnded { get; set; }
@@ -26,7 +26,7 @@ public class DayCycleManager : Singleton<DayCycleManager>
            
         }
         float oldGameTime = gameTime;
-        gameTime += Time.deltaTime * timeSpeed;
+        gameTime += Time.deltaTime * 1f/dayDuration;
         
         gameTime %= 1; // keeps gameTime between 0-1
         

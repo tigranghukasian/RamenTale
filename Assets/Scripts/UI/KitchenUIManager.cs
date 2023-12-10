@@ -3,28 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class KitchenUIManager : MonoBehaviour
 {
     [SerializeField] private float namesFadeDuration;
     [SerializeField] private GameObject orderTicket;
+    [SerializeField] private Image orderTicketArea;
+    [SerializeField] private Animator kitchenUIAnimator;
     [SerializeField] private Animator orderTicketAnimator;
     [SerializeField] private TextMeshProUGUI orderText;
     [SerializeField] private CanvasGroup noodleNames;
     [SerializeField] private CanvasGroup soupNames;
     private bool _isOrderTicketOpen;
+    
+    private static readonly int CLOSE = Animator.StringToHash("Close");
+    private static readonly int OPEN = Animator.StringToHash("Open");
 
     
     
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && orderTicket.activeSelf && _isOrderTicketOpen)
-        {
-            orderTicketAnimator.Play("ticket_close");
-            _isOrderTicketOpen = false;
-            //orderTicket.SetActive(false);
-        }
+        // if (Input.GetMouseButtonDown(0) && _isOrderTicketOpen)
+        // {
+        //     
+        //     //orderTicket.SetActive(false);
+        // }
     }
+
+   
 
     public void SetOrder(Order order)
     {
@@ -38,13 +45,64 @@ public class KitchenUIManager : MonoBehaviour
 
         orderText.text = text;
     }
+ 
 
-    public void OpenOrder()
+    public void ToggleOrderTicket()
     {
-        orderTicket.SetActive(true);
-        _isOrderTicketOpen = true;
-        orderTicketAnimator.Play("ticket_open");
+        if (_isOrderTicketOpen)
+        {
+            CloseOrderTicket();
+        }
+        else
+        {
+            OpenOrderTicket();
+        }
     }
+
+    public void OpenOrderTicket()
+    {
+        if (!_isOrderTicketOpen)
+        {
+            _isOrderTicketOpen = true;
+            orderTicketArea.raycastTarget = true;
+            orderTicketAnimator.Play("ticket_open");
+        }
+        
+    }
+    public void CloseOrderTicket()
+    {
+        if (_isOrderTicketOpen)
+        {
+            orderTicketAnimator.Play("ticket_close");
+            _isOrderTicketOpen = false;
+            orderTicketArea.raycastTarget = false;
+        }
+        
+    }
+
+    public void StartKitchenView()
+    {
+        StartCoroutine(PlayAnimationOrderTicketAfterDelay("ticket_appear", 1.0f));
+        kitchenUIAnimator.SetTrigger(OPEN);
+    }
+
+    public void EndKitchenView()
+    {
+        if (_isOrderTicketOpen)
+        {
+            orderTicketAnimator.Play("ticket_disappear_from_opened");
+            StartCoroutine(DisableOrderTicketAfterDelay( 0.3f));
+        }
+        else
+        {
+            orderTicketAnimator.Play("ticket_disappear");
+            StartCoroutine(DisableOrderTicketAfterDelay( 0.15f));
+        }
+       
+        kitchenUIAnimator.SetTrigger(CLOSE);
+        
+    }
+    
 
     public void ShowSoupAndNoodleNames()
     {
@@ -52,6 +110,19 @@ public class KitchenUIManager : MonoBehaviour
         StartCoroutine(Fade());
         
 
+    }
+    
+    IEnumerator PlayAnimationOrderTicketAfterDelay(string animationName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        orderTicket.SetActive(true);
+        orderTicketAnimator.Play(animationName);
+    }
+    IEnumerator DisableOrderTicketAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        orderTicket.SetActive(false);
+        _isOrderTicketOpen = false;
     }
     private IEnumerator Fade()
     {

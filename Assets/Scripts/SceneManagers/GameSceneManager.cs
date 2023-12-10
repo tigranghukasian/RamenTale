@@ -21,9 +21,8 @@ public class GameSceneManager : Singleton<GameSceneManager>
     
     [SerializeField] private Transform cafeDishSpot;
 
-    [SerializeField] private Animator kitchenAnimator;
-    private static readonly int CLOSE = Animator.StringToHash("Close");
-    private static readonly int OPEN = Animator.StringToHash("Open");
+    [SerializeField] private KitchenUIManager kitchenUIManager;
+    
    
     public DialogueManager DialogueManager => dialogueManager;
     public CustomerManager CustomerManager => customerManager;
@@ -43,7 +42,8 @@ public class GameSceneManager : Singleton<GameSceneManager>
     public void OpenKitchen()
     {
         kitchenCanvas.gameObject.SetActive(true);
-        kitchenAnimator.SetTrigger(OPEN);
+        kitchenUIManager.StartKitchenView();
+        
         StartCoroutine(DisableCanvasAfterDelay(cafeCanvas, 1.0f)); // Assumes the animation takes 1 second
         KitchenManager.Instance.SetOrder();
         KitchenManager.Instance.PlateSpot.AddEmptyPlate(true);
@@ -54,7 +54,7 @@ public class GameSceneManager : Singleton<GameSceneManager>
     public void OpenCafe()
     {
         cafeCanvas.gameObject.SetActive(true);
-        kitchenAnimator.SetTrigger(CLOSE);
+        kitchenUIManager.EndKitchenView();
         StartCoroutine(DisableCanvasAfterDelay(kitchenCanvas, 1.0f)); // Assumes the animation takes 1 second
         customerManager.StopSatisfactionTimer();
     }

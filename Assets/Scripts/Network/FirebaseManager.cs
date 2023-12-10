@@ -136,7 +136,7 @@ public class FirebaseManager : MonoBehaviour
             {
                 UserData newUser = new UserData
                 {
-                    Coins = 50, 
+                    Coins = 150, 
                     Day = 1
                 };
 
