@@ -38,7 +38,9 @@ public class ShopManager : MonoBehaviour
             });
 
         }
-        UpdateShop();
+
+        GameManager.Instance.FirebaseManager.OnUserSetup += UpdateShop;
+
     }
 
     private void DisableView()
@@ -75,7 +77,6 @@ public class ShopManager : MonoBehaviour
 
     public void UnlockItem(ShopItem shopItem)
     {
-        Debug.Log(shopItem);
         if (CurrencyManager.Instance.HasCoin(shopItem.CoinCost))
         {
             GameManager.Instance.FirebaseManager.UnlockItem(shopItem);

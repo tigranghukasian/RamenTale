@@ -58,10 +58,17 @@ public class FirebaseManager : MonoBehaviour
     
     public void GetUnlockedItems(Action<List<ShopItemData>> callback = null)
     {
-        Debug.Log("get unlocked items");
+        //Debug.Log("get unlocked items");
         _db.Collection("users").Document(_userId).Collection("unlockedItems").GetSnapshotAsync().ContinueWithOnMainThread(task =>
         {
-            Debug.Log("After Firestore request");
+            if (task.IsFaulted)
+            {
+                Debug.Log("Task is faulted" + task.Exception);
+            }
+            if (task.IsCanceled)
+            {
+                Debug.Log("task is cancelld");
+            }
             if (task.IsCompleted)
             {
                 List<ShopItemData> shopItemDatas = new List<ShopItemData>();
@@ -83,15 +90,7 @@ public class FirebaseManager : MonoBehaviour
                 Debug.Log("Failed to retrieve user items");
             }
 
-            if (task.IsFaulted)
-            {
-                Debug.Log("Task is faulted" + task.Exception);
-            }
-
-            if (task.IsCanceled)
-            {
-                Debug.Log("task is cancelld");
-            }
+            
         });
     }
     
@@ -118,15 +117,21 @@ public class FirebaseManager : MonoBehaviour
 
     public void GetUserData()
     {
+        Debug.Log("GET USER DATA");
         _db.Collection("users").Document(_userId).GetSnapshotAsync().ContinueWithOnMainThread(task =>
         {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("Task is faulted " + task.Exception?.Message);
+            }
+
             if (task.Result.Exists)
             {
                 UserData userData = task.Result.ConvertTo<UserData>();
 
                 CurrencyManager.Instance.CoinBalance = userData.Coins;
                 GameManager.Instance.DayNumber = (int)userData.Day;
-                KitchenManager.Instance.SetupUnlockedItems();
+                //KitchenManager.Instance.SetupUnlockedItems();
             
                 Debug.Log("--- Get User Data ---");
             

@@ -42,7 +42,14 @@ public class KitchenManager : Singleton<KitchenManager>
     private void Start()
     {
         GetDefaultIngredientBoxes();
-        SetupUnlockedItems();
+        if (!GameManager.Instance.FirebaseManager.Authenticated)
+        {
+            GameManager.Instance.FirebaseManager.OnUserSetup += SetupUnlockedItems;
+        }
+        else
+        {
+            SetupUnlockedItems();
+        }
     }
 
     private void GetDefaultIngredientBoxes()
@@ -79,7 +86,7 @@ public class KitchenManager : Singleton<KitchenManager>
     private void OnUnlockedItemsReceived(List<ShopItemData> unlockedShopItems)
     {
         List<Ingredient> unlockedIngredients = new List<Ingredient>();
-        Debug.Log("///Update kitchen Data" + unlockedShopItems.Count);
+        Debug.Log("Update kitchen Data" + unlockedShopItems.Count);
         for (int i = 0; i < unlockedShopItems.Count; i++)
         {
             Ingredient ingredient = ingredients.Find(ing => ing.name == unlockedShopItems[i].Id);

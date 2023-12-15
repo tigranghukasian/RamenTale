@@ -32,9 +32,10 @@ public class AuthManager : MonoBehaviour
             // Sign-in success
             var result = task.Result;
             FirebaseUser user = result.User;
+            Debug.Log("User signed in with ID: " + user.UserId);
             OnUserAuthenticated?.Invoke(user);
             
-            Debug.Log("User signed in with ID: " + user.UserId);
+            
         });
 #else
         // Attempt anonymous sign-in on device
