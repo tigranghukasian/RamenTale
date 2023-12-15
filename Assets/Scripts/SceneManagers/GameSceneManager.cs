@@ -63,7 +63,7 @@ public class GameSceneManager : Singleton<GameSceneManager>
         dish.transform.SetParent(cafeDishSpot);
         dish.SetChildrenAnchorsToCorners();
         dish.AddComponent<DraggableDishComponent>();
-        dish.GetComponent<RectTransform>().sizeDelta = new Vector2(150f, 150f);
+        dish.GetComponent<RectTransform>().sizeDelta = new Vector2(130f, 130f);
         dish.transform.position = cafeDishSpot.transform.position;
         CustomerManager.StopSatisfactionTimer();
     }
