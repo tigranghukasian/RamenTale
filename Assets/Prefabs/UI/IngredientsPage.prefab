@@ -32,12 +32,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0047454834, y: -0.0020828247}
-  m_SizeDelta: {x: 319.21002, y: 199.2552}
+  m_AnchoredPosition: {x: 19.3349, y: -0.0020828247}
+  m_SizeDelta: {x: 357.8704, y: 199.2552}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5242105596709399294
 CanvasRenderer:
@@ -54,7 +53,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5663524684499010135}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -96,7 +95,7 @@ MonoBehaviour:
     m_Bottom: 0
   m_ChildAlignment: 0
   m_StartCorner: 0
-  m_StartAxis: 1
+  m_StartAxis: 0
   m_CellSize: {x: 165, y: 96.3}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0

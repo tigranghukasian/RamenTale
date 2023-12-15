@@ -115,8 +115,9 @@ public class KitchenManager : Singleton<KitchenManager>
         _pages.Clear();
 
         // Calculate the total number of pages needed
-        int totalIngredients = ingredientBoxes.Count;
-        int totalPages = Mathf.CeilToInt(totalIngredients / 4.0f);
+        int totalIngredientsCount = ingredientBoxes.Count;
+        Debug.Log(totalIngredientsCount);
+        int totalPages = Mathf.CeilToInt(totalIngredientsCount / 4.0f);
 
         // Create and populate pages
         for (int i = 0; i < totalPages; i++)
@@ -126,7 +127,7 @@ public class KitchenManager : Singleton<KitchenManager>
 
             // Determine the range of ingredients for this page
             int startIdx = i * 4;
-            int endIdx = Mathf.Min(startIdx + 4, totalIngredients);
+            int endIdx = Mathf.Min(startIdx + 4, totalIngredientsCount);
 
             for (int j = startIdx; j < endIdx; j++)
             {
@@ -134,6 +135,8 @@ public class KitchenManager : Singleton<KitchenManager>
                 ingredientBoxesList[j].transform.localScale = Vector3.one;
             }
         }
+
+        defaultIngredientBoxesParent.gameObject.SetActive(false);
         UpdatePageVisibility();
     }
     
