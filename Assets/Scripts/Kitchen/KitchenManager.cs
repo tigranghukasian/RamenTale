@@ -22,6 +22,7 @@ public class KitchenManager : Singleton<KitchenManager>
     [SerializeField] private Transform pagesParent;
     [SerializeField] private Button leftPageButton;
     [SerializeField] private Button rightPageButton;
+    [SerializeField] private Button cancelButton;
     private List<GameObject> _pages = new List<GameObject>();
     private bool _unlockedItemsIsSetup = false;
     
@@ -50,6 +51,11 @@ public class KitchenManager : Singleton<KitchenManager>
         {
             SetupUnlockedItems();
         }
+
+        cancelButton.onClick.AddListener(() =>
+        {
+            PopupManager.Instance.ClearDishPopup();
+        });
     }
 
     private void GetDefaultIngredientBoxes()

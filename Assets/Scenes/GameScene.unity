@@ -6274,6 +6274,7 @@ MonoBehaviour:
   pagesParent: {fileID: 1149191876}
   leftPageButton: {fileID: 186286869}
   rightPageButton: {fileID: 1999577727}
+  cancelButton: {fileID: 1174992255}
 --- !u!1001 &1655031912
 PrefabInstance:
   m_ObjectHideFlags: 0
