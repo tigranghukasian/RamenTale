@@ -17,6 +17,6 @@ MonoBehaviour:
   itemName: Corn
   sprite: {fileID: 21300000, guid: a0bbeb81a4df73645b72bcad8ada5c88, type: 3}
   itemDescription: grows in corn fields
-  coinCost: 0
+  coinCost: 10
   isPurchased: 0
   unlockDay: 0

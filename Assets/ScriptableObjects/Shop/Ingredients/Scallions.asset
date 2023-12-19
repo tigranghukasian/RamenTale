@@ -17,6 +17,6 @@ MonoBehaviour:
   itemName: Scallions
   sprite: {fileID: 21300000, guid: 006d34679afdb8749abfcd37ba22d00d, type: 3}
   itemDescription: green
-  coinCost: 0
+  coinCost: 15
   isPurchased: 0
   unlockDay: 0

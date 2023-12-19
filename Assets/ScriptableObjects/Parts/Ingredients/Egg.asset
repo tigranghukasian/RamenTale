@@ -18,4 +18,4 @@ MonoBehaviour:
   isCut: 0
   isCuttable: 1
   CutVersion: {fileID: 11400000, guid: 8a40c79eda7f6e54c9d573163379ad6a, type: 2}
-  cutParts: 10
+  cutParts: 2

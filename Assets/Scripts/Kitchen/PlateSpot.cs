@@ -18,14 +18,14 @@ public class PlateSpot : MonoBehaviour, IDropHandler
         _currentDish.Init();
         if (addShadow)
         {
-            dishShadow.SetActive(true);
+            //dishShadow.SetActive(true);
         }
         KitchenManager.Instance.SetCompleteButton(true);
     }
 
     public void RemovePlate()
     {
-        dishShadow.SetActive(false);
+        //dishShadow.SetActive(false);
     }
 
     public void OnDrop(PointerEventData eventData)
