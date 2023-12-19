@@ -45,9 +45,9 @@ public class GameManager : PersistentSingleton<GameManager>
         ChangeScene(StringConstants.GAME_SCENE_NAME);
     }
 
-    public void GoToDayScene()
+    public void GoToDayScene(Action onSceneChanged = null)
     {
-        ChangeScene(StringConstants.DAY_SCENE_NAME);
+        ChangeScene(StringConstants.DAY_SCENE_NAME, onSceneChanged);
     }
     
     public void Restart()

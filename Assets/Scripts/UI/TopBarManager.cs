@@ -16,11 +16,15 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
     [SerializeField] private Image satisfactionFaceImage;
     [SerializeField] private Gradient satisfactionGradient;
     [SerializeField] private TextMeshProUGUI timeOfDayText;
-    
+    [SerializeField] private GameObject menuBar;
+    [SerializeField] private GameObject pauseBg;
 
     private Animator topBarManagerAnimator;
     
     private IPopup _currentPopup;
+
+    private bool isMenuBarOpen = false;
+    private bool shouldOpenShop = false;
     
     private void Start()
     {
@@ -36,6 +40,7 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
 
     protected override void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        DisableMenuBar();
         if (scene.name == StringConstants.GAME_SCENE_NAME)
         {
             GameSceneManager.Instance.CustomerManager.OnCustomerSatisfactionChanged += UpdateCustomerSatisfactionText;
@@ -88,6 +93,67 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
     public void Restart()
     {
         GameManager.Instance.Restart();
+    }
+
+    public void OpenMenu()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        if (isMenuBarOpen)
+        {
+            DisableMenuBar();
+        }
+        else
+        {
+            if (scene.name == StringConstants.GAME_SCENE_NAME)
+            {
+                pauseBg.SetActive(true);
+                Time.timeScale = 0;
+            }
+            menuBar.SetActive(true);
+            isMenuBarOpen = true;
+        }
+        
+    }
+
+    private void DisableMenuBar()
+    {
+        menuBar.SetActive(false);
+        pauseBg.SetActive(false);
+        isMenuBarOpen = false;
+        Time.timeScale = 1;
+    }
+
+    public void GoToHome()
+    {
+        DisableMenuBar();
+        SceneManager.LoadScene(StringConstants.DAY_SCENE_NAME);
+    }
+    
+    public void GoToSettings()
+    {
+        DisableMenuBar();
+        SceneManager.LoadScene(StringConstants.DAY_SCENE_NAME);
+    }
+
+    public void GoToShop()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        DisableMenuBar();
+        if (scene.name == StringConstants.GAME_SCENE_NAME)
+        {
+            GameManager.Instance.GoToDayScene(() =>
+            {
+                DaySceneManager daySceneManager = FindObjectOfType<DaySceneManager>();
+                daySceneManager.ShowShopCanvas();
+            });
+        }
+        else if (scene.name == StringConstants.DAY_SCENE_NAME)
+        {
+            DaySceneManager daySceneManager = FindObjectOfType<DaySceneManager>();
+            daySceneManager.ShowShopCanvas();
+        }
+
+        
     }
     
 }
