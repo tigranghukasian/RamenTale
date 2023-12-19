@@ -33,4 +33,10 @@ public class PopupManager : PersistentSingleton<PopupManager>
     {
         blackBg.gameObject.SetActive(false);
     }
+
+    protected override void Awake()
+    {
+        base.Awake();
+       
+    }
 }
