@@ -14,39 +14,39 @@ public class DraggableIngredientComponent : MonoBehaviour, IBeginDragHandler, ID
     
     public void OnBeginDrag(PointerEventData eventData)
     {
-        _rectTransform = GetComponent<RectTransform>();
-        _initialPosition = transform.position;
-        _initialParent = transform.parent;
-        transform.SetParent(KitchenManager.Instance.Canvas.transform);
-        //GetComponent<Image>().raycastTarget = false;
-        GetComponent<CanvasGroup>().blocksRaycasts = false;
-        //GetComponent<CanvasGroup>().interactable = false;
-        Placed = false;
+        // _rectTransform = GetComponent<RectTransform>();
+        // _initialPosition = transform.position;
+        // _initialParent = transform.parent;
+        // transform.SetParent(KitchenManager.Instance.Canvas.transform);
+        // //GetComponent<Image>().raycastTarget = false;
+        // GetComponent<CanvasGroup>().blocksRaycasts = false;
+        // //GetComponent<CanvasGroup>().interactable = false;
+        // Placed = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        _rectTransform.anchoredPosition += eventData.delta/ KitchenManager.Instance.Canvas.scaleFactor;
+        //_rectTransform.anchoredPosition += eventData.delta/ KitchenManager.Instance.Canvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (!Placed)
-        {
-            //TODO: UNDERSTAND WHY THIS DOESNT WORK
-            //FOR SOME REASON DOESNT WORK, POINTERDRAG IS ALWAYS THE GAMEOBJECT ITSELF
-            
-            // if (eventData.pointerDrag.TryGetComponent(out CuttingBoard cuttingBoard))
-            // {
-            //     GetComponent<Image>().raycastTarget = true;
-            //     return;
-            // }
-            transform.SetParent(_initialParent);
-            //GetComponent<Image>().raycastTarget = true;
-            transform.position = _initialPosition;
-            transform.parent.GetComponent<CuttingBoard>().UpdateIngredientsOrder();
-            GetComponent<CanvasGroup>().blocksRaycasts = true;
-        }
+        // if (!Placed)
+        // {
+        //     //TODO: UNDERSTAND WHY THIS DOESNT WORK
+        //     //FOR SOME REASON DOESNT WORK, POINTERDRAG IS ALWAYS THE GAMEOBJECT ITSELF
+        //     
+        //     // if (eventData.pointerDrag.TryGetComponent(out CuttingBoard cuttingBoard))
+        //     // {
+        //     //     GetComponent<Image>().raycastTarget = true;
+        //     //     return;
+        //     // }
+        //     transform.SetParent(_initialParent);
+        //     //GetComponent<Image>().raycastTarget = true;
+        //     transform.position = _initialPosition;
+        //     transform.parent.GetComponent<CuttingBoard>().UpdateIngredientsOrder();
+        //     GetComponent<CanvasGroup>().blocksRaycasts = true;
+        // }
         
     }
 

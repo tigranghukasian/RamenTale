@@ -57,6 +57,17 @@ public class GameSceneManager : Singleton<GameSceneManager>
         kitchenUIManager.EndKitchenView();
         StartCoroutine(DisableCanvasAfterDelay(kitchenCanvas, 1.0f)); // Assumes the animation takes 1 second
         customerManager.StopSatisfactionTimer();
+        DestroyDragCanvasObjects();
+        Debug.Log("OPEN CAFE");
+    }
+
+    private void DestroyDragCanvasObjects()
+    {
+        Canvas dragCanvas = KitchenManager.Instance.DragCanvas;
+        for (int i = 0; i < dragCanvas.transform.childCount; i++)
+        {
+            Destroy(dragCanvas.transform.GetChild(i).gameObject);
+        }
     }
     public void CompleteDish(Dish dish)
     {

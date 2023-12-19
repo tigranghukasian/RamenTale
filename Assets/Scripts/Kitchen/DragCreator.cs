@@ -22,7 +22,7 @@ public class DragCreator : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         }
 
         _isDragging = true;
-        _spawnedItem = Instantiate(moveableGraphic, KitchenManager.Instance.Canvas.transform).GetComponent<Moveable>();
+        _spawnedItem = Instantiate(moveableGraphic, KitchenManager.Instance.DragCanvas.transform).GetComponent<Moveable>();
 
         _spawnedItemRectTransform = _spawnedItem.GetComponent<RectTransform>();
         _spawnedItem.transform.position = eventData.position;
@@ -36,7 +36,7 @@ public class DragCreator : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         {
             return;
         }
-        _spawnedItemRectTransform.anchoredPosition += eventData.delta/ KitchenManager.Instance.Canvas.scaleFactor;
+        _spawnedItemRectTransform.anchoredPosition += eventData.delta/ KitchenManager.Instance.DragCanvas.scaleFactor;
 
     }
 

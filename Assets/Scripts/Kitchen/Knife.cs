@@ -33,7 +33,7 @@ public class Knife : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         _initialParent = transform.parent;
         _initialPosition = transform.position;
         _rectTransform = GetComponent<RectTransform>();
-        transform.SetParent(KitchenManager.Instance.Canvas.transform);
+        transform.SetParent(KitchenManager.Instance.DragCanvas.transform);
         GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
@@ -45,7 +45,7 @@ public class Knife : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         }
         Vector2 position;
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                KitchenManager.Instance.Canvas.GetComponent<RectTransform>(), 
+                KitchenManager.Instance.DragCanvas.GetComponent<RectTransform>(), 
                 eventData.position, 
                 eventData.pressEventCamera, 
                 out position))

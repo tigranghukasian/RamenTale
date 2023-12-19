@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class KitchenManager : Singleton<KitchenManager>
 {
-    [SerializeField] private Canvas canvas;
+    [SerializeField] private Canvas dragCanvas;
     [SerializeField] private Image completeButton;
     [SerializeField] private PlateSpot plateSpot;
 
@@ -38,7 +38,7 @@ public class KitchenManager : Singleton<KitchenManager>
 
     public PlateSpot PlateSpot => plateSpot;
 
-    public Canvas Canvas => canvas;
+    public Canvas DragCanvas => dragCanvas;
 
     private void Start()
     {
