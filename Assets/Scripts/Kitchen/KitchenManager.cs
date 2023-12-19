@@ -69,6 +69,18 @@ public class KitchenManager : Singleton<KitchenManager>
         }
     }
 
+    public void DisablePageButtons()
+    {
+        leftPageButton.interactable = false;
+        rightPageButton.interactable = false;
+    }
+
+    public void EnablePageButtons()
+    {
+        leftPageButton.interactable = _currentPageIndex > 0;
+        rightPageButton.interactable = _currentPageIndex < _pages.Count - 1;
+    }
+
     public void CancelDish()
     {
         Destroy(PlateSpot.CurrentDish.gameObject);
