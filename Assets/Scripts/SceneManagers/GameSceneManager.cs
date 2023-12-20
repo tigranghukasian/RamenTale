@@ -53,12 +53,12 @@ public class GameSceneManager : Singleton<GameSceneManager>
 
     public void OpenCafe()
     {
+        KitchenManager.Instance.Knife.ResetKnife();
         cafeCanvas.gameObject.SetActive(true);
         kitchenUIManager.EndKitchenView();
         StartCoroutine(DisableCanvasAfterDelay(kitchenCanvas, 1.0f)); // Assumes the animation takes 1 second
         customerManager.StopSatisfactionTimer();
-        DestroyDragCanvasObjects();
-        Debug.Log("OPEN CAFE");
+        //DestroyDragCanvasObjects();
     }
 
     private void DestroyDragCanvasObjects()

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class KitchenManager : Singleton<KitchenManager>
 {
     [SerializeField] private Canvas dragCanvas;
-    [SerializeField] private Image completeButton;
+    [SerializeField] private Button completeButton;
     [SerializeField] private PlateSpot plateSpot;
 
     [SerializeField] private Color completeButtonEnabledColor;
@@ -23,10 +23,13 @@ public class KitchenManager : Singleton<KitchenManager>
     [SerializeField] private Button leftPageButton;
     [SerializeField] private Button rightPageButton;
     [SerializeField] private Button cancelButton;
+    [SerializeField] private Knife knife;
     private List<GameObject> _pages = new List<GameObject>();
     private bool _unlockedItemsIsSetup = false;
     
     private int _currentPageIndex = 0;
+
+    private Image completeButtonImage;
 
     private Dictionary<Ingredient, IngredientBox> ingredientBoxes = new Dictionary<Ingredient, IngredientBox>();
 
@@ -39,9 +42,11 @@ public class KitchenManager : Singleton<KitchenManager>
     public PlateSpot PlateSpot => plateSpot;
 
     public Canvas DragCanvas => dragCanvas;
+    public Knife Knife => knife;
 
     private void Start()
     {
+        completeButtonImage = completeButton.GetComponent<Image>();
         GetDefaultIngredientBoxes();
         if (!GameManager.Instance.FirebaseManager.Authenticated)
         {
@@ -69,16 +74,20 @@ public class KitchenManager : Singleton<KitchenManager>
         }
     }
 
-    public void DisablePageButtons()
+    public void DisableButtons()
     {
         leftPageButton.interactable = false;
         rightPageButton.interactable = false;
+        completeButton.interactable = false;
+        cancelButton.interactable = false;
     }
 
-    public void EnablePageButtons()
+    public void EnableButtons()
     {
         leftPageButton.interactable = _currentPageIndex > 0;
         rightPageButton.interactable = _currentPageIndex < _pages.Count - 1;
+        cancelButton.interactable = true;
+        completeButton.interactable = true;
     }
 
     public void CancelDish()
@@ -88,8 +97,8 @@ public class KitchenManager : Singleton<KitchenManager>
     }
     public void SetCompleteButton(bool state)
     {
-        completeButton.color = state ? completeButtonEnabledColor : completeButtonDisabledColor;
-        completeButton.GetComponent<Button>().interactable = state;
+        completeButtonImage.color = state ? completeButtonEnabledColor : completeButtonDisabledColor;
+        completeButton.interactable = state;
     }
 
     public void SetupUnlockedItems()
@@ -104,7 +113,7 @@ public class KitchenManager : Singleton<KitchenManager>
     private void OnUnlockedItemsReceived(List<ShopItemData> unlockedShopItems)
     {
         List<Ingredient> unlockedIngredients = new List<Ingredient>();
-        Debug.Log("Update kitchen Data" + unlockedShopItems.Count);
+        Debug.Log("Update Kitchen Items");
         for (int i = 0; i < unlockedShopItems.Count; i++)
         {
             Ingredient ingredient = ingredients.Find(ing => ing.name == unlockedShopItems[i].Id);
@@ -134,7 +143,6 @@ public class KitchenManager : Singleton<KitchenManager>
 
         // Calculate the total number of pages needed
         int totalIngredientsCount = ingredientBoxes.Count;
-        Debug.Log(totalIngredientsCount);
         int totalPages = Mathf.CeilToInt(totalIngredientsCount / 4.0f);
 
         // Create and populate pages

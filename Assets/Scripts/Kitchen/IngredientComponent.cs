@@ -76,7 +76,7 @@ public class IngredientComponent : Moveable, IPointerClickHandler, IDropHandler
                 KitchenManager.Instance.IngredientBoxes[ingredientData].IngredientBoxCut.transform.position, CutPartsFlyToBoxAnimDuration).OnComplete(
                 () =>
                 {
-                    KitchenManager.Instance.EnablePageButtons();
+                    KitchenManager.Instance.EnableButtons();
                     Destroy(cutIngredient.gameObject);
                 }).SetDelay(CutPartsSpreadAnimDuration);
 
@@ -104,7 +104,7 @@ public class IngredientComponent : Moveable, IPointerClickHandler, IDropHandler
             knife.IsCutting = true;
             AudioManager.Instance.PlayKnifeClip();
             StartCoroutine(CutAfterDelay(knife.CutAnimationLength));
-            KitchenManager.Instance.DisablePageButtons();
+            KitchenManager.Instance.DisableButtons();
             return;
         }
 
