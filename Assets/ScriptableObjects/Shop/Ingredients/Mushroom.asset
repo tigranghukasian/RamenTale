@@ -15,8 +15,8 @@ MonoBehaviour:
   id: mushroom
   category: 0
   itemName: Mushroom
-  sprite: {fileID: 21300000, guid: b0624021e96524945afcd97a45c05ab2, type: 3}
+  sprite: {fileID: 21300000, guid: 5722b3e970831fc4e80f1dec04d69409, type: 3}
   itemDescription: mushroom is a fungi
   coinCost: 10
-  isPurchased: 0
+  isPurchased: 1
   unlockDay: 0

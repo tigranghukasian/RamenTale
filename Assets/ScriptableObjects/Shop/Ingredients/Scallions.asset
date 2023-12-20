@@ -15,8 +15,8 @@ MonoBehaviour:
   id: scallions
   category: 0
   itemName: Scallions
-  sprite: {fileID: 21300000, guid: 006d34679afdb8749abfcd37ba22d00d, type: 3}
+  sprite: {fileID: 21300000, guid: 0374cdbca4979ef4897c64f5f91983fe, type: 3}
   itemDescription: green
   coinCost: 15
-  isPurchased: 0
+  isPurchased: 1
   unlockDay: 0

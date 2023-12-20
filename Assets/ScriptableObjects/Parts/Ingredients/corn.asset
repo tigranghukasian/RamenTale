@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   price: 0.5
   componentToSpawn: {fileID: 3383843870424405853, guid: e36d008dce0e73745b3d478119494b6e, type: 3}
-  sprite: {fileID: 21300000, guid: a0bbeb81a4df73645b72bcad8ada5c88, type: 3}
+  sprite: {fileID: 21300000, guid: f92f71e91927b044ca3e35869c286665, type: 3}
   isCut: 0
   isCuttable: 1
   CutVersion: {fileID: 11400000, guid: 0bc438ac05b41364d8567716ffd06e54, type: 2}
