@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Dialogue")]
 public class Dialogue : ScriptableObject, IRarity
 {
-    [SerializeField] private List<DialogueStep> steps;
+    [SerializeField] private List<DialogueMainPathStep> steps;
 
     [SerializeField]
     private float rarity;
@@ -35,4 +35,5 @@ public class Dialogue : ScriptableObject, IRarity
         Debug.LogError("No step with given index");
         return null;
     }
+    
 }

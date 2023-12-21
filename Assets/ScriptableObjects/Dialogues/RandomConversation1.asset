@@ -12,9 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7b424bd094b7a4aa33e1666cf64f99, type: 3}
   m_Name: RandomConversation1
   m_EditorClassIdentifier: 
-  steps:
-  - _stepType: 0
-    stepText: I've been craving some good ramen all week!
-  - _stepType: 0
-    stepText: I was told your ramen is the best in town. Let's see if that's true!
+  steps: []
   rarity: 1

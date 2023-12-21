@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7b424bd094b7a4aa33e1666cf64f99, type: 3}
   m_Name: Hangry
   m_EditorClassIdentifier: 
-  steps:
-  - _stepType: 0
-    stepText: Hey there! I am really hungry!
+  steps: []
   rarity: 1

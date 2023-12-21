@@ -63,9 +63,9 @@ public class GameManager : PersistentSingleton<GameManager>
     
     public Day CurrentDay()
     {
-        if (Utilities.IsIndexValid(days, DayNumber))
+        if (Utilities.IsIndexValid(days, DayNumber - 1))
         {
-            return days[DayNumber];
+            return days[DayNumber - 1];
         }
         return null;
 

@@ -12,11 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7b424bd094b7a4aa33e1666cf64f99, type: 3}
   m_Name: RandomConversation3
   m_EditorClassIdentifier: 
-  steps:
-  - _stepType: 0
-    stepText: It's such a cold day outside, isn't it? I could use something to warm
-      me up.
-  - _stepType: 0
-    stepText: You know, I always find that ramen is the perfect comfort food for
-      weather like this.
+  steps: []
   rarity: 1

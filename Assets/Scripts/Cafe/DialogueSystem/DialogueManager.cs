@@ -16,41 +16,51 @@ public class DialogueManager : MonoBehaviour {
      [SerializeField]
      private List<Dialogue> availableDialogues;
 
-     private Queue<DialogueStep> _dialogueSteps = new Queue<DialogueStep>();
+     private Queue<DialogueStep> _currentDialogueQueue = new Queue<DialogueStep>();
+
+     private List<DialogueStep> _currentMainPath = new List<DialogueStep>();
      
      
      private DialogueStep _currentStep;
+     private int _currentMainPathStepIndex;
 
      private void Start()
      {
           GameSceneManager.Instance.DialogueManager.SpeechBubble.gameObject.SetActive(false);
           GameSceneManager.Instance.DialogueManager.CustomerImage.gameObject.SetActive(false);
           GameSceneManager.Instance.CustomerManager.OnCustomerGenerated += GenerateDialogue;
+          
      }
 
-     private void EnqueueStep(DialogueStep step)
+     private void AddStepToMainPath(DialogueStep step)
      {
-          _dialogueSteps.Enqueue(step);
+          _currentMainPath.Add(step);
      }
 
-     public void NextStep()
+     public void NextStep(DialogueChoiceInfo.Choice choice = DialogueChoiceInfo.Choice.NoChoice)
      {
-          if (_dialogueSteps.Count > 0)
+          if (_currentDialogueQueue.Count == 0)
           {
-               ConfirmCurrentStep();
-               _currentStep = _dialogueSteps.Dequeue();
+               EnqueueNextStep(_currentStep, choice);
+          }
+          ConfirmCurrentStep();
+          if (_currentDialogueQueue.Count != 0)
+          {
+               _currentStep = _currentDialogueQueue.Dequeue();
                BeginCurrentStep();
           }
           else
           {
-               Debug.Log("DIALOGUE ENDED");
+               Debug.Log("Dialogue Has No More Steps");
           }
+          
      }
-
+     
      public void BeginCurrentStep()
      {
           
           speechBubble.gameObject.SetActive(true);
+          Debug.Log(_currentStep.StepText);
           speechBubble.SetText(_currentStep.StepText);
           if (_currentStep.StepText == string.Empty)
           {
@@ -60,23 +70,30 @@ public class DialogueManager : MonoBehaviour {
           {
                DayCycleManager.Instance.Enabled = false;
           }
+
+          if (_currentStep is DialogueMainPathStep)
+          {
+               DialogueMainPathStep mainPathStep = (DialogueMainPathStep)_currentStep;
+               if (mainPathStep.Branches())
+               {
+                    speechBubble.EnableOptionsButtons();
+                    speechBubble.SetButtons(mainPathStep.GetOptionAText(), mainPathStep.GetOptionBText());
+               }
+               
+          }
+          else
+          {
+               speechBubble.DisableOptionsButtons();
+          }
+          
           
           if (_currentStep.OnBeginStepAction != null)
           {
                _currentStep.OnBeginStepAction?.Invoke();
           }
+
+         
           
-          // switch (_currentStep.StepType)
-          // {
-          //      case DialogueStepType.Speech:
-          //           
-          //           break;
-          //      case DialogueStepType.Order:
-          //           
-          //           break;
-          //      case DialogueStepType.Feedback:
-          //           break;
-          // }
      }
 
      private void OnDialogueFinished()
@@ -97,6 +114,30 @@ public class DialogueManager : MonoBehaviour {
           
           GameSceneManager.Instance.CustomerManager.GetNextCustomer();
      }
+     private void EnqueueNextStep(DialogueStep currentStep, DialogueChoiceInfo.Choice choice)
+     {
+          if (choice == DialogueChoiceInfo.Choice.OptionA && currentStep is DialogueMainPathStep)
+          {
+               DialogueMainPathStep currStep = (DialogueMainPathStep)currentStep;
+               for (int i = 0; i < currStep.PathA.Count; i++)
+               {
+                    _currentDialogueQueue.Enqueue(currStep.PathA[i]);
+               }
+          }
+          else if (choice == DialogueChoiceInfo.Choice.OptionB && currentStep is DialogueMainPathStep)
+          {
+               DialogueMainPathStep currStep = (DialogueMainPathStep)currentStep;
+               for (int i = 0; i < currStep.PathB.Count; i++)
+               {
+                    _currentDialogueQueue.Enqueue(currStep.PathB[i]);
+               }
+          }
+          else if (choice == DialogueChoiceInfo.Choice.NoChoice && Utilities.IsIndexValid(_currentMainPath, _currentMainPathStepIndex+1))
+          {
+               _currentMainPathStepIndex++;
+               _currentDialogueQueue.Enqueue(_currentMainPath[_currentMainPathStepIndex]);
+          }
+     }
 
      public void ConfirmCurrentStep()
      {
@@ -108,7 +149,6 @@ public class DialogueManager : MonoBehaviour {
           {
                _currentStep.OnConfirmStepCustomAction?.Invoke();
           }
-
           if (_currentStep is OrderDialogueStep)
           {
                speechBubble.gameObject.SetActive(false);
@@ -117,15 +157,17 @@ public class DialogueManager : MonoBehaviour {
 
      public void AddFeedback(string feedbackText)
      {
-          DialogueStep feedbackDialogueText = new DialogueStep
+          DialogueStep feedbackDialogueStep = new DialogueStep
           {
                StepText = feedbackText
           };
-          feedbackDialogueText.AddBeginStepAction(OnDialogueFinished);
-          EnqueueStep(feedbackDialogueText);
+          feedbackDialogueStep.AddBeginStepAction(OnDialogueFinished);
+          AddStepToMainPath(feedbackDialogueStep);
      }
      public void GenerateDialogue(Customer customer)
      {
+          _currentMainPath.Clear();
+          _currentMainPathStepIndex = 0;
           Dialogue dialogue = customer.Dialogue;
           if (customer.Dialogue == null)
           {
@@ -134,7 +176,8 @@ public class DialogueManager : MonoBehaviour {
 
           for (int i = 0; i < dialogue.StepCount(); i++)
           {
-               EnqueueStep(dialogue.GetStep(i));
+               Debug.Log(dialogue.GetStep(i).StepText);
+               _currentMainPath.Add(dialogue.GetStep(i));
           }
 
           Order order = customer.Order;
@@ -147,21 +190,21 @@ public class DialogueManager : MonoBehaviour {
           OrderDialogueStep orderDialogueStep = new OrderDialogueStep(order);
           orderDialogueStep.AddConfirmAction(GameSceneManager.Instance.MoveToKitchenToPrepareFood);
           orderDialogueStep.AddConfirmAction(GameSceneManager.Instance.CustomerManager.StartSatisfactionTimer);
-          EnqueueStep(orderDialogueStep);
+          _currentMainPath.Add(orderDialogueStep);
 
           DialogueStep waitDialogueStep = new DialogueStep
           {
                StepText = string.Empty
           };
-          EnqueueStep(waitDialogueStep);
+          _currentMainPath.Add(waitDialogueStep);
           
           speechBubble.gameObject.SetActive(true);
           customerImage.gameObject.SetActive(true);
           GameSceneManager.Instance.CustomerManager.SetCustomerImageAnimation(true);
           customerImage.sprite = customer.Sprite;
-          _currentStep = _dialogueSteps.Dequeue();
+          _currentStep = _currentMainPath[0];
+          Debug.Log("CURRENT MAIN PATH IS " + _currentMainPath.Count + " ITEMS LONG");
           BeginCurrentStep();
-          
      }
      
 }
