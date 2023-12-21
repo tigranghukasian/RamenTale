@@ -14,6 +14,7 @@ public class Knife : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     [SerializeField] private float cutAnimationLength;
     private Animator _animator;
     private Coroutine _resetCoroutine;
+    private bool isDragging;
 
     public float CutAnimationLength => cutAnimationLength;
     
@@ -23,17 +24,19 @@ public class Knife : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     {
         _animator = GetComponent<Animator>();
         _initialPosition = transform.position;
+        _initialParent = transform.parent;
     }
     
 
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        isDragging = true;
         if (IsCutting)
         {
             return;
         }
-        _initialParent = transform.parent;
+        
         _rectTransform = GetComponent<RectTransform>();
         transform.SetParent(KitchenManager.Instance.DragCanvas.transform);
         GetComponent<CanvasGroup>().blocksRaycasts = false;
@@ -41,7 +44,7 @@ public class Knife : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (IsCutting)
+        if (IsCutting || !isDragging)
         {
             return;
         }
@@ -72,7 +75,9 @@ public class Knife : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         {
             ResetKnife();
         }
-        
+
+        isDragging = false;
+
     }
 
     public void ResetKnife()
@@ -86,6 +91,7 @@ public class Knife : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         GetComponent<CanvasGroup>().blocksRaycasts = true;
         IsCutting = false;
         _animator.Play("Idle");
+        isDragging = false;
     }
 
     IEnumerator ResetAfterDelay(float delay)
