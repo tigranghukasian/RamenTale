@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7b424bd094b7a4aa33e1666cf64f99, type: 3}
+  m_Name: FirstDialogue
+  m_EditorClassIdentifier: 
+  steps:
+  - stepText: Welcome to the world of ramen artistry! I'm [Character's Name], your
+      mentor.
+    beginStepActionFunction: 0
+    confirmStepActionFunction: 0
+    _choiceInfo:
+      branches: 0
+      optionAText: 
+      optionBText: 
+    pathA: []
+    pathB: []
+  - stepText: Remember, every bowl of ramen is a canvas, and you're the artist. Do
+      you want help with cooking your first Ramen?
+    beginStepActionFunction: 0
+    confirmStepActionFunction: 0
+    _choiceInfo:
+      branches: 1
+      optionAText: Teach me!
+      optionBText: Skip
+    pathA:
+    - stepText: Fantastic choice! Let's walk through the basics together. In this
+        tutorial, you'll learn how to select your broth, cut and add ingredients.
+        Ready? I am hungry for some classic Shio Ramen.
+      beginStepActionFunction: 0
+      confirmStepActionFunction: 2
+    pathB:
+    - stepText: I see you're eager to start! Let's get right to action! Can you serve
+        me Basic Shio Ramen just to get started? Thank you
+      beginStepActionFunction: 0
+      confirmStepActionFunction: 0
+  rarity: 1

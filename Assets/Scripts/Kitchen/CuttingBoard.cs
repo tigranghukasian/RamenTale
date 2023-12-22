@@ -26,6 +26,18 @@ public class CuttingBoard : MonoBehaviour, IDropHandler, IDragHandler
                     ingredientBox.SpawnedComponent.SetOnBoard(this);
                     ingredientBox.SpawnedComponent.GetComponent<Image>().raycastTarget = true;
                     UpdateIngredientsOrder();
+                    if (GameManager.Instance.IsTutorialActive)
+                    {
+                        if (ingredientBox.IngredientData.name == "egg")
+                        {
+                            GameSceneManager.Instance.TutorialManager.CompleteAction("CuttingBoardPlaceEgg");
+                        }
+                        if (ingredientBox.IngredientData.name == "pork")
+                        {
+                            GameSceneManager.Instance.TutorialManager.CompleteAction("CuttingBoardPlacePork");
+                        }
+                   
+                    }
                 }
             }
         }

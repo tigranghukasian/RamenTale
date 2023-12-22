@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d520548c33c2b2c4a82ff59e9f471080, type: 3}
   m_Name: mushroom
   m_EditorClassIdentifier: 
+  displayName: Mushroom
   price: 0.5
   componentToSpawn: {fileID: 3383843870424405853, guid: e36d008dce0e73745b3d478119494b6e, type: 3}
   sprite: {fileID: 21300000, guid: 5722b3e970831fc4e80f1dec04d69409, type: 3}

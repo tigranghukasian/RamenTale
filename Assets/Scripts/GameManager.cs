@@ -18,6 +18,8 @@ public class GameManager : PersistentSingleton<GameManager>
     public float RentToday { get; set; }
     public float SuppliesUsedToday { get; set; }
     
+    public bool IsTutorialActive { get; set; }
+    
 
     [SerializeField] private List<Day> days = new List<Day>();
     
@@ -29,7 +31,6 @@ public class GameManager : PersistentSingleton<GameManager>
     [Header("Managers")] [SerializeField] private FirebaseManager firebaseManager;
 
     public FirebaseManager FirebaseManager => firebaseManager;
-    
 
     public Action OnDayEnded;
 

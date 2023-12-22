@@ -19,7 +19,7 @@ MonoBehaviour:
   _orderIngredients:
   - amount: 2
     ingredient: {fileID: 11400000, guid: 8a40c79eda7f6e54c9d573163379ad6a, type: 2}
-  - amount: 3
+  - amount: 1
     ingredient: {fileID: 11400000, guid: 6c7ff739589463e4294ae7d2fe16d82a, type: 2}
   - amount: 1
     ingredient: {fileID: 11400000, guid: 53bc455afe97a9541af73880d49935fd, type: 2}

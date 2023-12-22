@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d520548c33c2b2c4a82ff59e9f471080, type: 3}
   m_Name: egg_cut
   m_EditorClassIdentifier: 
+  displayName: Egg
   price: 0.5
   componentToSpawn: {fileID: 5627025855751011280, guid: 081bc3a035a516d4fa654d0ea61f0297, type: 3}
   sprite: {fileID: 21300000, guid: cfc6c300bacfaf54887ca182593fa096, type: 3}

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d520548c33c2b2c4a82ff59e9f471080, type: 3}
   m_Name: scallions
   m_EditorClassIdentifier: 
+  displayName: Scallions
   price: 0.5
   componentToSpawn: {fileID: 3383843870424405853, guid: e36d008dce0e73745b3d478119494b6e, type: 3}
   sprite: {fileID: 21300000, guid: 0374cdbca4979ef4897c64f5f91983fe, type: 3}

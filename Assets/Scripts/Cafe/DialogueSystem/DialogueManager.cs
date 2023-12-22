@@ -60,7 +60,6 @@ public class DialogueManager : MonoBehaviour {
      {
           
           speechBubble.gameObject.SetActive(true);
-          Debug.Log(_currentStep.StepText);
           speechBubble.SetText(_currentStep.StepText);
           if (_currentStep.StepText == string.Empty)
           {
@@ -91,8 +90,6 @@ public class DialogueManager : MonoBehaviour {
           {
                _currentStep.OnBeginStepAction?.Invoke();
           }
-
-         
           
      }
 
@@ -108,10 +105,15 @@ public class DialogueManager : MonoBehaviour {
      private IEnumerator GetNextCustomerAfterDelay(float seconds)
      {
           yield return new WaitForSeconds(seconds);
+          GetNextCustomer();
+
+     }
+
+     private void GetNextCustomer()
+     {
+          _currentDialogueQueue.Clear();
           GameSceneManager.Instance.DialogueManager.SpeechBubble.gameObject.SetActive(false);
           GameSceneManager.Instance.CustomerManager.DepartCustomer();
-          //GameSceneManager.Instance.DialogueManager.CustomerImage.gameObject.SetActive(false);
-          
           GameSceneManager.Instance.CustomerManager.GetNextCustomer();
      }
      private void EnqueueNextStep(DialogueStep currentStep, DialogueChoiceInfo.Choice choice)
@@ -122,6 +124,7 @@ public class DialogueManager : MonoBehaviour {
                for (int i = 0; i < currStep.PathA.Count; i++)
                {
                     _currentDialogueQueue.Enqueue(currStep.PathA[i]);
+                    AddActions(currStep.PathA[i]);
                }
           }
           else if (choice == DialogueChoiceInfo.Choice.OptionB && currentStep is DialogueMainPathStep)
@@ -130,12 +133,27 @@ public class DialogueManager : MonoBehaviour {
                for (int i = 0; i < currStep.PathB.Count; i++)
                {
                     _currentDialogueQueue.Enqueue(currStep.PathB[i]);
+                    AddActions(currStep.PathB[i]);
                }
           }
           else if (choice == DialogueChoiceInfo.Choice.NoChoice && Utilities.IsIndexValid(_currentMainPath, _currentMainPathStepIndex+1))
           {
                _currentMainPathStepIndex++;
+               AddActions(_currentMainPath[_currentMainPathStepIndex]);
                _currentDialogueQueue.Enqueue(_currentMainPath[_currentMainPathStepIndex]);
+          }
+     }
+
+     public void AddActions(DialogueStep step)
+     {
+          if (step.ConfirmStepActionFunction == DialogueStep.ConfirmStepActionType.GetNextCustomer)
+          {
+               step.AddConfirmAction(GetNextCustomer);
+          }
+
+          if (step.ConfirmStepActionFunction == DialogueStep.ConfirmStepActionType.EnableTutorial)
+          {
+               GameManager.Instance.IsTutorialActive = true;
           }
      }
 
@@ -176,34 +194,35 @@ public class DialogueManager : MonoBehaviour {
 
           for (int i = 0; i < dialogue.StepCount(); i++)
           {
-               Debug.Log(dialogue.GetStep(i).StepText);
                _currentMainPath.Add(dialogue.GetStep(i));
           }
 
-          Order order = customer.Order;
-          OrderManager.Instance.CurrentOrder = order;
-          if (order == null)
+          if (customer.Order != null)
           {
-               order = OrderManager.Instance.GenerateNewOrder();
+               Order order = customer.Order;
+               OrderManager.Instance.CurrentOrder = order;
+               if (order == null)
+               {
+                    order = OrderManager.Instance.GenerateNewOrder();
+               }
+
+               OrderDialogueStep orderDialogueStep = new OrderDialogueStep(order);
+               orderDialogueStep.AddConfirmAction(GameSceneManager.Instance.MoveToKitchenToPrepareFood);
+               orderDialogueStep.AddConfirmAction(GameSceneManager.Instance.CustomerManager.StartSatisfactionTimer);
+               _currentMainPath.Add(orderDialogueStep);
+
+               DialogueStep waitDialogueStep = new DialogueStep
+               {
+                    StepText = string.Empty
+               };
+               _currentMainPath.Add(waitDialogueStep);
           }
-
-          OrderDialogueStep orderDialogueStep = new OrderDialogueStep(order);
-          orderDialogueStep.AddConfirmAction(GameSceneManager.Instance.MoveToKitchenToPrepareFood);
-          orderDialogueStep.AddConfirmAction(GameSceneManager.Instance.CustomerManager.StartSatisfactionTimer);
-          _currentMainPath.Add(orderDialogueStep);
-
-          DialogueStep waitDialogueStep = new DialogueStep
-          {
-               StepText = string.Empty
-          };
-          _currentMainPath.Add(waitDialogueStep);
           
           speechBubble.gameObject.SetActive(true);
           customerImage.gameObject.SetActive(true);
           GameSceneManager.Instance.CustomerManager.SetCustomerImageAnimation(true);
           customerImage.sprite = customer.Sprite;
           _currentStep = _currentMainPath[0];
-          Debug.Log("CURRENT MAIN PATH IS " + _currentMainPath.Count + " ITEMS LONG");
           BeginCurrentStep();
      }
      

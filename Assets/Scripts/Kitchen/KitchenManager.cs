@@ -203,6 +203,11 @@ public class KitchenManager : Singleton<KitchenManager>
         plateSpot.RemovePlate();
         GameSceneManager.Instance.CompleteDish(plateSpot.CurrentDish);
         GameSceneManager.Instance.OpenCafe();
+        if (GameManager.Instance.IsTutorialActive)
+        {
+            GameSceneManager.Instance.TutorialManager.CompleteAction("Complete");
+        }
+        
     }
 
     public void SetOrder()

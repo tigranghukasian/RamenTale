@@ -8,18 +8,19 @@ using UnityEngine;
 public class DialogueStep
 {
 
-    [TextArea(3,10)]
+    [TextArea(3,20)]
     [SerializeField] private string stepText;
 
     public enum BeginStepActionType
     {
-        None
+        None,
     }
 
     public enum ConfirmStepActionType
     {
         None,
-        DoSomething
+        GetNextCustomer,
+        EnableTutorial
     }
 
     [SerializeField] private BeginStepActionType beginStepActionFunction = BeginStepActionType.None;

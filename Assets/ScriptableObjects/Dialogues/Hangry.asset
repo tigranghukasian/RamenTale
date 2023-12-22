@@ -12,5 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7b424bd094b7a4aa33e1666cf64f99, type: 3}
   m_Name: Hangry
   m_EditorClassIdentifier: 
-  steps: []
+  steps:
+  - stepText: Hello, I am hungry. Please give me something to warm my soul
+    beginStepActionFunction: 0
+    confirmStepActionFunction: 0
+    _choiceInfo:
+      branches: 0
+      optionAText: 
+      optionBText: 
+    pathA: []
+    pathB: []
   rarity: 1

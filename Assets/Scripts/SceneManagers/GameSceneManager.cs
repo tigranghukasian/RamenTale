@@ -7,9 +7,7 @@ using UnityEngine;
 
 public class GameSceneManager : Singleton<GameSceneManager>
 {
-    
-    
-    
+
     [Title("Canvases")] 
     [SerializeField] private Canvas kitchenCanvas;
     [SerializeField] private Canvas cafeCanvas;
@@ -22,11 +20,16 @@ public class GameSceneManager : Singleton<GameSceneManager>
     [SerializeField] private Transform cafeDishSpot;
 
     [SerializeField] private KitchenUIManager kitchenUIManager;
+    [SerializeField] private TutorialManager tutorialManager;
     
    
     public DialogueManager DialogueManager => dialogueManager;
     public CustomerManager CustomerManager => customerManager;
     public Canvas CafeCanvas => cafeCanvas;
+
+    public TutorialManager TutorialManager => tutorialManager;
+    
+    
 
     private void Start()
     {
@@ -41,10 +44,13 @@ public class GameSceneManager : Singleton<GameSceneManager>
     }
     public void OpenKitchen()
     {
+        if (GameManager.Instance.IsTutorialActive)
+        {
+            StartCoroutine(StartTutorialAfterDelay(AnimationConstants.KITCHEN_VIEW_OPEN_ANIMATION_DURATION));
+        }
         kitchenCanvas.gameObject.SetActive(true);
         kitchenUIManager.StartKitchenView();
-        
-        StartCoroutine(DisableCanvasAfterDelay(cafeCanvas, 1.0f)); // Assumes the animation takes 1 second
+        StartCoroutine(DisableCanvasAfterDelay(cafeCanvas, AnimationConstants.KITCHEN_VIEW_OPEN_ANIMATION_DURATION)); // Assumes the animation takes 1 second
         KitchenManager.Instance.SetOrder();
         KitchenManager.Instance.PlateSpot.AddEmptyPlate(true);
         DayCycleManager.Instance.Enabled = true;
@@ -56,7 +62,7 @@ public class GameSceneManager : Singleton<GameSceneManager>
         KitchenManager.Instance.Knife.ResetKnife();
         cafeCanvas.gameObject.SetActive(true);
         kitchenUIManager.EndKitchenView();
-        StartCoroutine(DisableCanvasAfterDelay(kitchenCanvas, 1.0f)); // Assumes the animation takes 1 second
+        StartCoroutine(DisableCanvasAfterDelay(kitchenCanvas, AnimationConstants.KITCHEN_VIEW_CLOSE_ANIMATION_DURATION)); // Assumes the animation takes 1 second
         customerManager.StopSatisfactionTimer();
         DestroyDragCanvasObjects();
     }
@@ -81,6 +87,12 @@ public class GameSceneManager : Singleton<GameSceneManager>
     public void MoveToKitchenToPrepareFood()
     {
         OpenKitchen();
+    }
+
+    IEnumerator StartTutorialAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        tutorialManager.StartTutorial();
     }
     IEnumerator DisableCanvasAfterDelay(Canvas canvas, float delay)
     {

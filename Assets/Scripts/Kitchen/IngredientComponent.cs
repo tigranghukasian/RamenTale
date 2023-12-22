@@ -21,6 +21,7 @@ public class IngredientComponent : Moveable, IPointerClickHandler, IDropHandler
     public bool IsCut { get; set; }
     public bool IsOnBoard { get; set; }
 
+
     private CuttingBoard _cuttingBoard;
 
     private int _clickedCount;
@@ -76,6 +77,9 @@ public class IngredientComponent : Moveable, IPointerClickHandler, IDropHandler
                 KitchenManager.Instance.IngredientBoxes[ingredientData].IngredientBoxCut.transform.position, CutPartsFlyToBoxAnimDuration).OnComplete(
                 () =>
                 {
+                    
+
+                    
                     KitchenManager.Instance.EnableButtons();
                     Destroy(cutIngredient.gameObject);
                 }).SetDelay(CutPartsSpreadAnimDuration);
@@ -85,6 +89,18 @@ public class IngredientComponent : Moveable, IPointerClickHandler, IDropHandler
         }
 
         KitchenManager.Instance.IngredientBoxes[ingredientData].IngredientBoxCut.IncreaseAfterDelay( ingredientData.cutParts,CutPartsFlyToBoxAnimDuration);
+        
+        if (GameManager.Instance.IsTutorialActive)
+        {
+            if (ingredientData.CutVersion.name == "egg_cut")
+            {
+                GameSceneManager.Instance.TutorialManager.CompleteActionAfterDelay("CutEgg", CutPartsFlyToBoxAnimDuration);
+            }
+            if (ingredientData.CutVersion.name == "pork_cut")
+            {
+                GameSceneManager.Instance.TutorialManager.CompleteActionAfterDelay("CutPork", CutPartsFlyToBoxAnimDuration);
+            }
+        }
         
         transform.parent.GetComponent<CuttingBoard>().UpdateIngredientsOrder();
         
@@ -122,4 +138,6 @@ public class IngredientComponent : Moveable, IPointerClickHandler, IDropHandler
         yield return new WaitForSeconds(delay);
         Cut();
     }
+
+   
 }

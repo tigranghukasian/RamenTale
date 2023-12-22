@@ -12,5 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca7b424bd094b7a4aa33e1666cf64f99, type: 3}
   m_Name: RandomConversation1
   m_EditorClassIdentifier: 
-  steps: []
+  steps:
+  - stepText: I really like the vibe of this Ramen Shop. I'd love to eat one of the
+      traditional ones.
+    beginStepActionFunction: 0
+    confirmStepActionFunction: 0
+    _choiceInfo:
+      branches: 0
+      optionAText: 
+      optionBText: 
+    pathA: []
+    pathB: []
   rarity: 1

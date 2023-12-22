@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90aa39c8caf00354ea626169a6ea18f4, type: 3}
   m_Name: EggNoodle
   m_EditorClassIdentifier: 
+  displayName: Egg noodle
   price: 1
   componentToSpawn: {fileID: 8390604163204701208, guid: 2385ba8be89d22448b36116b905fe67a, type: 3}
   soupNoodleImage: {fileID: 21300000, guid: 8a6b4a8cb70f07d4fb3b01e3bbad8f25, type: 3}

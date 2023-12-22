@@ -32,6 +32,10 @@ public class Dish : Moveable, IDropHandler
             if (!ingredientBox.IngredientData.isCuttable || ingredientBox.IngredientData.isCut)
             {
                 AddIngredient(ingredientBox.SpawnedComponent);
+                if (GameManager.Instance.IsTutorialActive && ingredientBox.SpawnedComponent.IngredientData.name == "seaweed")
+                {
+                    GameSceneManager.Instance.TutorialManager.CompleteAction("AddSeaweed");
+                }
             }
         }
         if (pointerDrag.TryGetComponent(out IngredientBoxCut ingredientBoxCut) && onSoup)
@@ -40,6 +44,18 @@ public class Dish : Moveable, IDropHandler
             {
                 AddIngredient(ingredientBoxCut.SpawnedComponent);
                 ingredientBoxCut.Decrease(1);
+                if (GameManager.Instance.IsTutorialActive)
+                {
+                    if (ingredientBoxCut.SpawnedComponent.IngredientData.name == "egg_cut")
+                    {
+                        GameSceneManager.Instance.TutorialManager.CompleteAction("AddEgg");
+                    }
+                    if (ingredientBoxCut.SpawnedComponent.IngredientData.name == "pork_cut")
+                    {
+                        GameSceneManager.Instance.TutorialManager.CompleteAction("AddPork");
+                    }
+                   
+                }
             }
         }
         if (pointerDrag.TryGetComponent(out IngredientComponent ingredientComponent) && onSoup)
@@ -59,6 +75,10 @@ public class Dish : Moveable, IDropHandler
                     AudioManager.Instance.PlayDishSoupPourClip();
                     GameManager.Instance.SuppliesUsedToday += soup.price;
                     CurrencyManager.Instance.SubtractCoins(soup.price);
+                    if (GameManager.Instance.IsTutorialActive)
+                    {
+                        GameSceneManager.Instance.TutorialManager.CompleteAction("PourSoup");
+                    }
                 }
                 
             }
@@ -70,6 +90,10 @@ public class Dish : Moveable, IDropHandler
                     _dishDataBuilder.SetNoodle(noodle);
                     GameManager.Instance.SuppliesUsedToday += noodle.price;
                     CurrencyManager.Instance.SubtractCoins(noodle.price);
+                    if (GameManager.Instance.IsTutorialActive)
+                    {
+                        GameSceneManager.Instance.TutorialManager.CompleteAction("SetNoodle");
+                    }
                 }
             }
             

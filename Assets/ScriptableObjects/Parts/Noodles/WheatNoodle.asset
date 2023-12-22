@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90aa39c8caf00354ea626169a6ea18f4, type: 3}
   m_Name: WheatNoodle
   m_EditorClassIdentifier: 
+  displayName: Wheat noodle
   price: 1
   componentToSpawn: {fileID: 3824637215406562711, guid: 766e492f007ebb34ba1f02c3fbc9b208, type: 3}
   soupNoodleImage: {fileID: 21300000, guid: 6e64578b654e4b84e9a24e56933fc742, type: 3}

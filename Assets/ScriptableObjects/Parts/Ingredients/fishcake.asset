@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d520548c33c2b2c4a82ff59e9f471080, type: 3}
   m_Name: fishcake
   m_EditorClassIdentifier: 
+  displayName: Fishcake
   price: 0.1
   componentToSpawn: {fileID: 3383843870424405853, guid: e36d008dce0e73745b3d478119494b6e, type: 3}
   sprite: {fileID: 21300000, guid: 37b53347a7b9fe744b59f23800e2621e, type: 3}

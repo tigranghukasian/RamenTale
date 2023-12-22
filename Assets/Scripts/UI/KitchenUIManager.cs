@@ -36,11 +36,11 @@ public class KitchenUIManager : MonoBehaviour
     public void SetOrder(Order order)
     {
         var text = string.Empty;
-        text += $"{order.Soup.name} soup\n";
-        text += $"{order.Noodle.name} noodle\n";
+        text += $"{order.Soup.displayName}\n";
+        text += $"{order.Noodle.displayName}\n";
         for (int i = 0; i < order.OrderIngredients.Count; i++)
         {
-            text += $"{order.OrderIngredients[i].amount} {order.OrderIngredients[i].ingredient.name} \n";
+            text += $"{order.OrderIngredients[i].amount} {order.OrderIngredients[i].ingredient.displayName} \n";
         }
 
         orderText.text = text;
@@ -66,6 +66,10 @@ public class KitchenUIManager : MonoBehaviour
             _isOrderTicketOpen = true;
             orderTicketArea.raycastTarget = true;
             orderTicketAnimator.Play("ticket_open");
+            if (GameManager.Instance.IsTutorialActive)
+            {
+                GameSceneManager.Instance.TutorialManager.CompleteAction("ViewOrder");
+            }
         }
         
     }
@@ -76,6 +80,10 @@ public class KitchenUIManager : MonoBehaviour
             orderTicketAnimator.Play("ticket_close");
             _isOrderTicketOpen = false;
             orderTicketArea.raycastTarget = false;
+            if (GameManager.Instance.IsTutorialActive)
+            {
+                GameSceneManager.Instance.TutorialManager.CompleteAction("CloseOrder");
+            }
         }
         
     }
