@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f2db71bb8889b44b79553da4370165, type: 3}
   m_Name: Miso
   m_EditorClassIdentifier: 
+  displayName: Miso soup
   price: 1.5
   componentToSpawn: {fileID: 3824637215406562711, guid: c1276498b6d613e489725447cd198ec9, type: 3}
   color: {r: 0.41960788, g: 0.5647059, b: 0.1137255, a: 1}

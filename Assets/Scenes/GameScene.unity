@@ -4239,15 +4239,15 @@ MonoBehaviour:
 
     -something green'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 50e382382aa80c04086494cc4b7d310f, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: d8d89256213626a48b165dcc97ce544a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2f2a11a6906eb3447b8fbad8dcbf5eae, type: 2}
+  m_sharedMaterial: {fileID: -3246040617637353691, guid: 2f2a11a6906eb3447b8fbad8dcbf5eae, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284912043
-  m_fontColor: {r: 0.6698113, g: 0.56733584, b: 0.4012549, a: 1}
+    rgba: 4280896869
+  m_fontColor: {r: 0.3962264, g: 0.30210006, b: 0.15886436, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
