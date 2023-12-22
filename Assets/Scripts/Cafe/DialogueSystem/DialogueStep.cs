@@ -13,16 +13,17 @@ public class DialogueStep
 
     public enum BeginStepActionType
     {
-        
+        None
     }
 
     public enum ConfirmStepActionType
     {
-        
+        None,
+        DoSomething
     }
 
-    [SerializeField] private BeginStepActionType beginStepActionFunction;
-    [SerializeField] private ConfirmStepActionType confirmStepActionFunction;
+    [SerializeField] private BeginStepActionType beginStepActionFunction = BeginStepActionType.None;
+    [SerializeField] private ConfirmStepActionType confirmStepActionFunction = ConfirmStepActionType.None;
 
     public string StepText { get => stepText; set => stepText = value; }
 
