@@ -18,17 +18,36 @@ public class TutorialManager : MonoBehaviour
     private int numberOfCompleteActionCalls;
     private Animator tutorialHandAnimator;
     private Animator overlayAnimator;
+    private CanvasGroup tutorialHandCanvasGroup;
 
     private Tween moveTween;
     public void StartTutorial()
     {
         tutorialHandAnimator = tutorialHand.GetComponent<Animator>();
+        tutorialHandCanvasGroup = tutorialHand.GetComponent<CanvasGroup>();
         overlayAnimator = overlayImage.GetComponent<Animator>();
         tutorialHand.SetActive(true);
         ShowStep(tutorialSteps[currentStepIndex]);
         OnTutorialStarted?.Invoke();
-        
     }
+
+    private void Start()
+    {
+        tutorialHandCanvasGroup = tutorialHand.GetComponent<CanvasGroup>();
+    }
+
+    private void Update()
+    {
+        if (GameManager.Instance.IsTutorialActive && Input.GetMouseButton(0))
+        {
+            tutorialHandCanvasGroup.alpha = 0;
+        }
+        else
+        {
+            tutorialHandCanvasGroup.alpha = 1;
+        }
+    }
+
     void ShowStep(TutorialStep step)
     {
 
