@@ -21,7 +21,6 @@ Library: D:\Study\AUA\Spring 2023\GameDev\RamenShop\codename_RamenShop\Temp\Burs
 --assembly-defines=Unity.InternalAPIEngineBridge.001;
 --assembly-defines=Unity.2D.Common.Runtime;
 --assembly-defines=Unity.Timeline;
---assembly-defines=Sirenix.OdinInspector.CompatibilityLayer;
 --assembly-defines=Unity.Collections;
 --assembly-defines=Unity.2D.SpriteShape.Runtime;
 --assembly-defines=Unity.2D.PixelPerfect;
