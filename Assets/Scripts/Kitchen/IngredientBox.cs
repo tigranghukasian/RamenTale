@@ -32,7 +32,8 @@ public class IngredientBox : DragCreator
         {
             moveableGraphic = ingredientData.componentToSpawn;
             IngredientComponent visual = Instantiate(ingredientData.componentToSpawn, ingredientUnCutParent).GetComponent<IngredientComponent>();
-
+            AddSpecificIngredientBoxToTutorial();
+           
            
             visual.IngredientData = ingredientData;
             visual.Init();
@@ -63,12 +64,40 @@ public class IngredientBox : DragCreator
         }
 
     }
+
+    private void AddSpecificIngredientBoxToTutorial()
+    {
+        if (ingredientData.name == "egg")
+        {
+            GameSceneManager.Instance.TutorialManager.AddInteractableObject("CuttingBoardPlaceEgg", gameObject);
+        }
+
+        if (ingredientData.name == "pork")
+        {
+            GameSceneManager.Instance.TutorialManager.AddInteractableObject("CuttingBoardPlacePork", gameObject);
+        }
+
+        if (ingredientData.name == "seaweed")
+        {
+            GameSceneManager.Instance.TutorialManager.AddInteractableObject("AddSeaweed", gameObject);
+        }
+    }
+    
     
     
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
         base.OnBeginDrag(eventData);
+        
+        if (GameManager.Instance.IsTutorialActive)
+        {
+            if (GameSceneManager.Instance.TutorialManager.GetCurrentStepInteractableObject() != gameObject)
+            {
+                return;
+            }
+        }
+
         _spawnedComponent = (IngredientComponent)SpawnedItem;
         _spawnedComponent.IngredientData = ingredientData;
         _spawnedComponent.Init();
@@ -79,7 +108,9 @@ public class IngredientBox : DragCreator
     public override void OnEndDrag(PointerEventData eventData)
     {
         base.OnEndDrag(eventData);
-
+        if (_spawnedComponent == null)
+            return;
+        
         if (_spawnedComponent.Placed)
         {
             if(CurrencyManager.Instance.HasCoin(ingredientData.price, true))

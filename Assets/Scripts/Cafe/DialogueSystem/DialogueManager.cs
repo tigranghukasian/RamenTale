@@ -201,10 +201,6 @@ public class DialogueManager : MonoBehaviour {
           {
                Order order = customer.Order;
                OrderManager.Instance.CurrentOrder = order;
-               if (order == null)
-               {
-                    order = OrderManager.Instance.GenerateNewOrder();
-               }
 
                OrderDialogueStep orderDialogueStep = new OrderDialogueStep(order);
                orderDialogueStep.AddConfirmAction(GameSceneManager.Instance.MoveToKitchenToPrepareFood);

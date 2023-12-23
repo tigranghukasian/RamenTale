@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -35,6 +36,11 @@ public class OrderManager : Singleton<OrderManager>
         {
             CompleteOrder(false);
         }
+        if (GameManager.Instance.IsTutorialActive)
+        {
+            GameSceneManager.Instance.TutorialManager.CompleteAction("ServeDish");
+        }
+        
     }
 
 

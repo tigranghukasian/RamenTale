@@ -18,6 +18,7 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
     [SerializeField] private TextMeshProUGUI timeOfDayText;
     [SerializeField] private GameObject menuBar;
     [SerializeField] private GameObject pauseBg;
+    [SerializeField] private CanvasGroup canvasGroup;
 
     private Animator topBarManagerAnimator;
     
@@ -45,12 +46,24 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
         {
             GameSceneManager.Instance.CustomerManager.OnCustomerSatisfactionChanged += UpdateCustomerSatisfactionText;
             satisfactionBar.gameObject.SetActive(true);
+            GameSceneManager.Instance.TutorialManager.OnTutorialStarted += DisableCanvas;
+            GameSceneManager.Instance.TutorialManager.OnTutorialEnded += EnableCanvas;
         }
 
         if (scene.name == StringConstants.DAY_SCENE_NAME)
         {
             satisfactionBar.gameObject.SetActive(false);
         }
+    }
+
+    private void DisableCanvas()
+    {
+        canvasGroup.interactable = false;
+    }
+
+    private void EnableCanvas()
+    {
+        canvasGroup.interactable = true;
     }
     
 

@@ -14,6 +14,15 @@ public class PartPlacer : DragCreator, IPointerClickHandler
     private void Start()
     {
         moveableGraphic = part.componentToSpawn;
+        if (Part.name == "Shio")
+        {
+            GameSceneManager.Instance.TutorialManager.AddInteractableObject("PourSoup", gameObject);
+        }
+        if (Part.name == "WheatNoodle")
+        {
+            GameSceneManager.Instance.TutorialManager.AddInteractableObject("SetNoodle", gameObject);
+        }
+        
     }
 
 

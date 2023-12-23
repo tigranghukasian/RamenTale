@@ -36,11 +36,11 @@ public class DayCycleManager : Singleton<DayCycleManager>
             DayEnded = true;
             Enabled = false;
             return;
-            GameSceneManager.Instance.OpenCafe();
-            GameSceneManager.Instance.CustomerManager.DepartCustomer();
-            Enabled = false;
-            StartCoroutine(EndDayAfterDelay(2f));
-            return;
+            // GameSceneManager.Instance.OpenCafe();
+            // GameSceneManager.Instance.CustomerManager.DepartCustomer();
+            // Enabled = false;
+            // StartCoroutine(EndDayAfterDelay(2f));
+            // return;
         }
         UpdateTimeDisplay();
     }

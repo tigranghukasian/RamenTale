@@ -6,9 +6,13 @@ using UnityEngine.EventSystems;
 public class SoupPlacer : PartPlacer
 {
     
+    
     public override void OnBeginDrag(PointerEventData eventData)
     {
         base.OnBeginDrag(eventData);
+        
+        if (_spawnedItem == null)
+            return;
         Soup soup = (Soup)Part;
         _spawnedItem.GetComponent<Scoop>().SetColor(soup.color);
     }

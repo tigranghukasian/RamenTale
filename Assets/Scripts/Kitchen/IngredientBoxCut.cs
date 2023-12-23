@@ -33,7 +33,7 @@ public class IngredientBoxCut : DragCreator
             
             moveableGraphic = ingredientData.componentToSpawn;
             IngredientComponent visual = Instantiate(ingredientData.componentToSpawn, ingredientParent).GetComponent<IngredientComponent>();
-
+            AddSpecificIngredientBoxCutToTutorial();
            
             visual.IngredientData = ingredientData;
             visual.Init();
@@ -41,6 +41,19 @@ public class IngredientBoxCut : DragCreator
 
         }
 
+    }
+    
+    private void AddSpecificIngredientBoxCutToTutorial()
+    {
+        if (ingredientData.name == "egg_cut")
+        {
+            GameSceneManager.Instance.TutorialManager.AddInteractableObject("AddEgg", gameObject);
+        }
+
+        if (ingredientData.name == "pork_cut")
+        {
+            GameSceneManager.Instance.TutorialManager.AddInteractableObject("AddPork", gameObject);
+        }
     }
 
     public bool HasAmount(int amount)
@@ -73,7 +86,7 @@ public class IngredientBoxCut : DragCreator
 
     public void Increase(int amount)
     {
-        Debug.Log("INCREASE " + ingredientData.name + " by " + amount);
+
         Count += amount;
         countText.text = Count.ToString();
         OnCountChanged?.Invoke(Count);
@@ -82,6 +95,15 @@ public class IngredientBoxCut : DragCreator
     public override void OnBeginDrag(PointerEventData eventData)
     {
         base.OnBeginDrag(eventData);
+
+        
+        if (GameManager.Instance.IsTutorialActive)
+        {
+            if (GameSceneManager.Instance.TutorialManager.GetCurrentStepInteractableObject() != gameObject)
+            {
+                return;
+            }
+        }
         _spawnedComponent = (IngredientComponent)SpawnedItem;
         _spawnedComponent.IngredientData = ingredientData;
         _spawnedComponent.Init();

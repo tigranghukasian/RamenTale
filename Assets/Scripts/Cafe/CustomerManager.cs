@@ -123,8 +123,8 @@ public class CustomerManager : MonoBehaviour
             }
         }
         
-        Debug.Log("RANDOM CUSTOMER GENERATED");
         CurrentCustomer = Instantiate(RarityFunctions.GenerateItem(customers));
+        CurrentCustomer.Order = OrderManager.Instance.GenerateNewOrder();
         OnCustomerGenerated?.Invoke(CurrentCustomer);
         _customerIndex++;
 

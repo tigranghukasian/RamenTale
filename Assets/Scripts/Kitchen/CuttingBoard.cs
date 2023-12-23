@@ -17,6 +17,13 @@ public class CuttingBoard : MonoBehaviour, IDropHandler, IDragHandler
 
         if (rectTransform.rect.Contains(localPoint)) {
             GameObject dropped = eventData.pointerDrag;
+            if (GameManager.Instance.IsTutorialActive)
+            {
+                if (GameSceneManager.Instance.TutorialManager.GetCurrentStepInteractableObject() != dropped)
+                {
+                    return;
+                }
+            }
             if (dropped.TryGetComponent(out IngredientBox ingredientBox))
             {
                 if (ingredientBox.IngredientData.isCuttable && !ingredientBox.IngredientData.isCut)

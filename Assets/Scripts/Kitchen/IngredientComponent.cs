@@ -77,10 +77,11 @@ public class IngredientComponent : Moveable, IPointerClickHandler, IDropHandler
                 KitchenManager.Instance.IngredientBoxes[ingredientData].IngredientBoxCut.transform.position, CutPartsFlyToBoxAnimDuration).OnComplete(
                 () =>
                 {
+                    if (!GameManager.Instance.IsTutorialActive)
+                    {
+                        KitchenManager.Instance.EnableButtons();
+                    }
                     
-
-                    
-                    KitchenManager.Instance.EnableButtons();
                     Destroy(cutIngredient.gameObject);
                 }).SetDelay(CutPartsSpreadAnimDuration);
 
@@ -94,11 +95,13 @@ public class IngredientComponent : Moveable, IPointerClickHandler, IDropHandler
         {
             if (ingredientData.CutVersion.name == "egg_cut")
             {
-                GameSceneManager.Instance.TutorialManager.CompleteActionAfterDelay("CutEgg", CutPartsFlyToBoxAnimDuration);
+                GameSceneManager.Instance.TutorialManager.CompleteAction("CutEgg");
+               // GameSceneManager.Instance.TutorialManager.CompleteActionAfterDelay("CutEgg", CutPartsFlyToBoxAnimDuration);
             }
             if (ingredientData.CutVersion.name == "pork_cut")
             {
-                GameSceneManager.Instance.TutorialManager.CompleteActionAfterDelay("CutPork", CutPartsFlyToBoxAnimDuration);
+                GameSceneManager.Instance.TutorialManager.CompleteAction("CutPork");
+                //GameSceneManager.Instance.TutorialManager.CompleteActionAfterDelay("CutPork", CutPartsFlyToBoxAnimDuration);
             }
         }
         

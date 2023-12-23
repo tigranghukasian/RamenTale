@@ -61,6 +61,9 @@ public class KitchenManager : Singleton<KitchenManager>
         {
             PopupManager.Instance.ClearDishPopup();
         });
+        GameSceneManager.Instance.TutorialManager.OnTutorialStarted += DisableButtons;
+        GameSceneManager.Instance.TutorialManager.OnTutorialEnded += EnableButtons;
+        GameSceneManager.Instance.TutorialManager.AddAdditionalEventToStep("Complete", EnableCompleteButton);
     }
 
     private void GetDefaultIngredientBoxes()
@@ -87,6 +90,11 @@ public class KitchenManager : Singleton<KitchenManager>
         leftPageButton.interactable = _currentPageIndex > 0;
         rightPageButton.interactable = _currentPageIndex < _pages.Count - 1;
         cancelButton.interactable = true;
+        completeButton.interactable = true;
+    }
+
+    public void EnableCompleteButton()
+    {
         completeButton.interactable = true;
     }
 

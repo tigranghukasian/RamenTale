@@ -27,6 +27,13 @@ public class Dish : Moveable, IDropHandler
 
     public void OnPartDropped(GameObject pointerDrag, bool onSoup = false)
     {
+        if (GameManager.Instance.IsTutorialActive)
+        {
+            if (GameSceneManager.Instance.TutorialManager.GetCurrentStepInteractableObject() != pointerDrag)
+            {
+                return;
+            }
+        }
         if (pointerDrag.TryGetComponent(out IngredientBox ingredientBox) && onSoup)
         {
             if (!ingredientBox.IngredientData.isCuttable || ingredientBox.IngredientData.isCut)

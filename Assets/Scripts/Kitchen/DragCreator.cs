@@ -21,6 +21,14 @@ public class DragCreator : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             return;
         }
 
+        if (GameManager.Instance.IsTutorialActive)
+        {
+            if (GameSceneManager.Instance.TutorialManager.GetCurrentStepInteractableObject() != gameObject)
+            {
+                return;
+            }
+        }
+
         _isDragging = true;
         _spawnedItem = Instantiate(moveableGraphic, KitchenManager.Instance.DragCanvas.transform).GetComponent<Moveable>();
 

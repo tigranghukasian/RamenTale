@@ -36,6 +36,11 @@ public class Knife : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
         {
             return;
         }
+
+        if (GameManager.Instance.IsTutorialActive && GameSceneManager.Instance.TutorialManager.GetCurrentStepInteractableObject() != gameObject)
+        {
+            return;
+        }
         
         _rectTransform = GetComponent<RectTransform>();
         transform.SetParent(KitchenManager.Instance.DragCanvas.transform);
@@ -45,6 +50,10 @@ public class Knife : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
     public void OnDrag(PointerEventData eventData)
     {
         if (IsCutting || !isDragging)
+        {
+            return;
+        }
+        if (GameManager.Instance.IsTutorialActive && GameSceneManager.Instance.TutorialManager.GetCurrentStepInteractableObject() != gameObject)
         {
             return;
         }
@@ -66,6 +75,10 @@ public class Knife : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHan
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (GameManager.Instance.IsTutorialActive && GameSceneManager.Instance.TutorialManager.GetCurrentStepInteractableObject() != gameObject)
+        {
+            return;
+        }
         if (IsCutting)
         {
             _animator.Play("cutting");

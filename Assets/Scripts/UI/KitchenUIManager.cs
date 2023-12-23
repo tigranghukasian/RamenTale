@@ -49,6 +49,13 @@ public class KitchenUIManager : MonoBehaviour
 
     public void ToggleOrderTicket()
     {
+        if (GameManager.Instance.IsTutorialActive)
+        {
+            if (GameSceneManager.Instance.TutorialManager.GetCurrentStepInteractableObject() != orderTicket)
+            {
+                return;
+            }
+        }
         if (_isOrderTicketOpen)
         {
             CloseOrderTicket();
