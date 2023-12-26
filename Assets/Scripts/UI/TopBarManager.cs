@@ -21,6 +21,7 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
     [SerializeField] private GameObject menuBar;
     [SerializeField] private GameObject pauseBg;
     [SerializeField] private CanvasGroup canvasGroup;
+    [SerializeField] private GameObject offersView;
 
     private Animator topBarManagerAnimator;
     
@@ -144,6 +145,16 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
         pauseBg.SetActive(false);
         isMenuBarOpen = false;
         Time.timeScale = 1;
+    }
+
+    public void EnableOffersView()
+    {
+        offersView.SetActive(true);
+    }
+
+    public void DisableOffersView()
+    {
+        offersView.SetActive(false);
     }
 
     public void GoToHome()
