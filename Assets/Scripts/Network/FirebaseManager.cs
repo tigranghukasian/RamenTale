@@ -99,6 +99,7 @@ public class FirebaseManager : MonoBehaviour
         UserData userData = new UserData
         {
             Coins = (float)Decimal.Round((decimal)CurrencyManager.Instance.CoinBalance,2),
+            Diamonds = (float)Decimal.Round((decimal)CurrencyManager.Instance.DiamondsBalance,2),
             Day = GameManager.Instance.DayNumber
         };
         DocumentReference users = _db.Collection("users").Document(_userId);
@@ -130,6 +131,7 @@ public class FirebaseManager : MonoBehaviour
                 UserData userData = task.Result.ConvertTo<UserData>();
 
                 CurrencyManager.Instance.CoinBalance = userData.Coins;
+                CurrencyManager.Instance.DiamondsBalance = userData.Diamonds;
                 GameManager.Instance.DayNumber = (int)userData.Day;
                 //KitchenManager.Instance.SetupUnlockedItems();
             
@@ -142,6 +144,7 @@ public class FirebaseManager : MonoBehaviour
                 UserData newUser = new UserData
                 {
                     Coins = 150, 
+                    Diamonds = 10,
                     Day = 1
                 };
 

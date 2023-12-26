@@ -511,6 +511,7 @@ MonoBehaviour:
   diamondsBalanceText: {fileID: 1763778061066722953}
   satisfactionText: {fileID: 1731518496739043229}
   satisfactionBar: {fileID: 1731518496874971542}
+  timeOfDayBar: {fileID: 1731518498155402317}
   satisfactionFaceImage: {fileID: 1731518497725414869}
   satisfactionGradient:
     serializedVersion: 2

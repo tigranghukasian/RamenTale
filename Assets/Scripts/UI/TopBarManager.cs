@@ -14,6 +14,7 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
     [SerializeField] private TextMeshProUGUI diamondsBalanceText;
     [SerializeField] private TextMeshProUGUI satisfactionText;
     [SerializeField] private GameObject satisfactionBar;
+    [SerializeField] private GameObject timeOfDayBar;
     [SerializeField] private Image satisfactionFaceImage;
     [SerializeField] private Gradient satisfactionGradient;
     [SerializeField] private TextMeshProUGUI timeOfDayText;
@@ -48,13 +49,16 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
         {
             GameSceneManager.Instance.CustomerManager.OnCustomerSatisfactionChanged += UpdateCustomerSatisfactionText;
             satisfactionBar.gameObject.SetActive(true);
+            timeOfDayBar.gameObject.SetActive(true);
             GameSceneManager.Instance.TutorialManager.OnTutorialStarted += DisableCanvas;
             GameSceneManager.Instance.TutorialManager.OnTutorialEnded += EnableCanvas;
         }
 
         if (scene.name == StringConstants.DAY_SCENE_NAME)
         {
+            
             satisfactionBar.gameObject.SetActive(false);
+            timeOfDayBar.gameObject.SetActive(false);
         }
     }
 

@@ -34,6 +34,16 @@ public class CurrencyManager : PersistentSingleton<CurrencyManager>
             OnCoinsChanged?.Invoke(coins.Balance);
         }
     }
+    
+    public float DiamondsBalance
+    {
+        get => diamonds.Balance;
+        set
+        {
+            diamonds.Balance = value;
+            OnDiamondsChanged?.Invoke(diamonds.Balance);
+        }
+    }
 
 
     [Button]
