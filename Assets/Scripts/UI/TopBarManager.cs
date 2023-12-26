@@ -150,11 +150,13 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
     public void EnableOffersView()
     {
         offersView.SetActive(true);
+        pauseBg.SetActive(true);
     }
 
     public void DisableOffersView()
     {
         offersView.SetActive(false);
+        pauseBg.SetActive(false);
     }
 
     public void GoToHome()
