@@ -508,6 +508,7 @@ MonoBehaviour:
   coinsBalanceText: {fileID: 1731518497266323493}
   coinsIncreaseText: {fileID: 1731518498186321403}
   coinsDecreaseText: {fileID: 1731518497650117797}
+  diamondsBalanceText: {fileID: 1763778061066722953}
   satisfactionText: {fileID: 1731518496739043229}
   satisfactionBar: {fileID: 1731518496874971542}
   satisfactionFaceImage: {fileID: 1731518497725414869}
@@ -1818,7 +1819,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -88.9, y: -0.00024414062}
+  m_AnchoredPosition: {x: -88.8999, y: -0.00024414062}
   m_SizeDelta: {x: 164.1, y: 89.8466}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &1731518498334945418
@@ -2667,7 +2668,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -15.489868, y: -104.20314}
+  m_AnchoredPosition: {x: -15.489746, y: -104.203125}
   m_SizeDelta: {x: 80.841125, y: 391.5937}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &7315835685177914949

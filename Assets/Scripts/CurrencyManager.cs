@@ -8,10 +8,15 @@ using UnityEngine;
 public class CurrencyManager : PersistentSingleton<CurrencyManager>
 {
     private Currency coins = new Currency("Coins");
+    private Currency diamonds = new Currency("Diamonds");
 
     public Action<float> OnCoinsChanged;
     public Action<float> OnCoinIncreased;
     public Action<float> OnCoinDecreased;
+    
+    public Action<float> OnDiamondsChanged;
+    public Action<float> OnDiamondsIncreased;
+    public Action<float> OnDiamondsDecreased;
 
     private float _revenue;
     private float _tips;
@@ -37,6 +42,8 @@ public class CurrencyManager : PersistentSingleton<CurrencyManager>
         AddCoins(100);
     }
 
+    //COINS ----------------------------------------------------------------
+    
     public void AddCoins(float amount)
     {
         coins.Add(amount);
@@ -69,6 +76,34 @@ public class CurrencyManager : PersistentSingleton<CurrencyManager>
         
         OnCoinDecreased?.Invoke(amount);
         OnCoinsChanged?.Invoke(coins.Balance);
+        
+    }
+    
+    //DIAMONDS ----------------------------------------------------------------
+    
+    public void AddDiamonds(float amount)
+    {
+        diamonds.Add(amount);
+        OnDiamondsIncreased?.Invoke(amount);
+        OnDiamondsChanged?.Invoke(diamonds.Balance);
+        //AudioManager.Instance.PlayCashIncomeClip();
+    }
+
+    public bool HasDiamonds(float amount, bool canHaveDebt = false)
+    {
+        return diamonds.Balance - amount >= 0;
+
+    }
+    public void SubtractDiamonds(float amount)
+    {
+        diamonds.Subtract(amount);
+        if (diamonds.Balance <= 0)
+        {
+            Debug.LogError("DIAMONDS NEGATIVE");
+        }
+        
+        OnDiamondsDecreased?.Invoke(amount);
+        OnDiamondsChanged?.Invoke(diamonds.Balance);
         
     }
     

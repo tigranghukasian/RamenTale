@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3370841411628166935}
   - component: {fileID: 26259347236443012}
   - component: {fileID: 7018679612592711629}
+  - component: {fileID: 6023392089674165627}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -52,12 +53,6 @@ MonoBehaviour:
     - customer: {fileID: 11400000, guid: 96f20c25f6b6c9a4b80c9a68147becab, type: 2}
       dialogue: {fileID: 11400000, guid: c50f6c1ca0278a5419762d03cb260b71, type: 2}
       order: {fileID: 11400000, guid: 64352aa28ad203848a39ba74f5a540da, type: 2}
-    - customer: {fileID: 11400000, guid: 9ba176734e0346f4b9dd2f732d965684, type: 2}
-      dialogue: {fileID: 11400000, guid: d5d7f1a3837d81940b9fc206f35610f6, type: 2}
-      order: {fileID: 11400000, guid: 81202a07e3752d849bd02aed8e172742, type: 2}
-    - customer: {fileID: 11400000, guid: 1f652f76556415f48a032c3e10b7553b, type: 2}
-      dialogue: {fileID: 11400000, guid: b0d736f223f784e43b3a269491931b49, type: 2}
-      order: {fileID: 11400000, guid: 79a4dbc0e47613f478c98485bd33eedd, type: 2}
   transitionSpeed: 2
   transitionImage: {fileID: 5539487489904927622}
   firebaseManager: {fileID: 26259347236443012}
@@ -86,6 +81,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1691b0bbb131e6e49b73a5c4e76f0d0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6023392089674165627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370841411628166934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff8b7d8e0da94d947a20177a05cb96f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _androidGameId: 5509111
+  _iOSGameId: 5509110
+  _testMode: 1
 --- !u!1 &4736806604744169409
 GameObject:
   m_ObjectHideFlags: 0

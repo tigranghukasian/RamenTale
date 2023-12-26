@@ -19,6 +19,7 @@ public class GameManager : PersistentSingleton<GameManager>
     public float SuppliesUsedToday { get; set; }
     
     public bool IsTutorialActive { get; set; }
+    public bool IsAdsInitialized { get; set; }
     
 
     [SerializeField] private List<Day> days = new List<Day>();
@@ -33,11 +34,13 @@ public class GameManager : PersistentSingleton<GameManager>
     public FirebaseManager FirebaseManager => firebaseManager;
 
     public Action OnDayEnded;
+    public AdsInitializer AdsInitializer { get; private set; }
 
     protected override void Awake()
     {
         base.Awake();
         QualitySettings.vSyncCount = 0;
+        AdsInitializer = GetComponent<AdsInitializer>();
         //LoadDayInfo();
     }
 
@@ -136,4 +139,6 @@ public class GameManager : PersistentSingleton<GameManager>
         transitionImage.gameObject.SetActive(false);
         
     }
+    
+    
 }

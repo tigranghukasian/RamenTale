@@ -11,6 +11,7 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
     [SerializeField] private TextMeshProUGUI coinsBalanceText;
     [SerializeField] private TextMeshProUGUI coinsIncreaseText;
     [SerializeField] private TextMeshProUGUI coinsDecreaseText;
+    [SerializeField] private TextMeshProUGUI diamondsBalanceText;
     [SerializeField] private TextMeshProUGUI satisfactionText;
     [SerializeField] private GameObject satisfactionBar;
     [SerializeField] private Image satisfactionFaceImage;
@@ -32,6 +33,7 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
         CurrencyManager.Instance.OnCoinsChanged += UpdateCoinsBalanceText;
         CurrencyManager.Instance.OnCoinIncreased += ShowCoinIncrease;
         CurrencyManager.Instance.OnCoinDecreased += ShowCoinDecrease;
+        CurrencyManager.Instance.OnDiamondsChanged += UpdateDiamondsBalanceText;
         topBarManagerAnimator = GetComponent<Animator>();
     }
     public void SetTimeDisplay(string timeString)
@@ -101,6 +103,10 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
     private void UpdateCoinsBalanceText(float amount)
     {
         coinsBalanceText.text = amount.ToString("F1");
+    }
+    private void UpdateDiamondsBalanceText(float amount)
+    {
+        diamondsBalanceText.text = amount.ToString("F0");
     }
 
     public void Restart()
