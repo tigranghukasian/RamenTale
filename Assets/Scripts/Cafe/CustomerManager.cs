@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CustomerManager : MonoBehaviour
 {
+    [SerializeField] private CustomerBehaviour customerBehaviour;
     [SerializeField] private List<Customer> customers;
     [SerializeField] private float customerAppearDisappearAnimLength = 0.3f;
     [SerializeField] private Animator customerAnimator;
@@ -116,6 +118,8 @@ public class CustomerManager : MonoBehaviour
                     CurrentCustomer = Instantiate(currentVisit.customer);
                     CurrentCustomer.Order = currentVisit.order;
                     CurrentCustomer.Dialogue = currentVisit.dialogue;
+                    customerBehaviour.SetSpriteSheet(CurrentCustomer.SpriteSheet);
+                    Debug.Log("1current customer is " + CurrentCustomer.name);
                     OnCustomerGenerated?.Invoke(CurrentCustomer);
                     _customerIndex++;
                     return;
@@ -125,6 +129,8 @@ public class CustomerManager : MonoBehaviour
         
         CurrentCustomer = Instantiate(RarityFunctions.GenerateItem(customers));
         CurrentCustomer.Order = OrderManager.Instance.GenerateNewOrder();
+        customerBehaviour.SetSpriteSheet(CurrentCustomer.SpriteSheet);
+        Debug.Log("2current customer is " + CurrentCustomer.name);
         OnCustomerGenerated?.Invoke(CurrentCustomer);
         _customerIndex++;
 

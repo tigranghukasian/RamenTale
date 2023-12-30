@@ -9,9 +9,13 @@ public class Customer : ScriptableObject, IRarity
 
     [PreviewField]
     [SerializeField] private Sprite sprite;
+
+    [SerializeField] private List<Sprite> spriteSheet;
     [SerializeField] private float rarity;
 
     public Sprite Sprite => sprite;
+
+    public List<Sprite> SpriteSheet => spriteSheet;
 
     public float Rarity => rarity;
     

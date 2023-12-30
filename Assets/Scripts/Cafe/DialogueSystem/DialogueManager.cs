@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour {
      
      [SerializeField] private Image customerImage;
+     [SerializeField] private CustomerBehaviour customerBehaviour;
      public Image CustomerImage => customerImage;
      [SerializeField]
      private SpeechBubble speechBubble;
@@ -67,6 +68,7 @@ public class DialogueManager : MonoBehaviour {
           }
           else
           {
+               customerBehaviour.SetMouthAnimate();
                DayCycleManager.Instance.Enabled = false;
           }
 
@@ -217,7 +219,7 @@ public class DialogueManager : MonoBehaviour {
           speechBubble.gameObject.SetActive(true);
           customerImage.gameObject.SetActive(true);
           GameSceneManager.Instance.CustomerManager.SetCustomerImageAnimation(true);
-          customerImage.sprite = customer.Sprite;
+          
           _currentStep = _currentMainPath[0];
           BeginCurrentStep();
      }

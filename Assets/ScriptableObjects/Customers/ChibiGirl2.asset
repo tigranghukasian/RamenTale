@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: ChibiGirl2
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: d2ca6411d0623054993f7aa5f82dabcc, type: 3}
+  spriteSheet:
+  - {fileID: 21300000, guid: d2ca6411d0623054993f7aa5f82dabcc, type: 3}
   rarity: 1
