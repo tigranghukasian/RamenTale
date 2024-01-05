@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 855001053}
   - component: {fileID: 855001052}
   m_Layer: 5
-  m_Name: descriptionText (1)
+  m_Name: lockedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -233,6 +233,7 @@ MonoBehaviour:
   description: {fileID: 3043495206728287740}
   cost: {fileID: 7910602482490094964}
   unlockButton: {fileID: 8538828035391049912}
+  unlocksOnDayText: {fileID: 855001052}
   purchaseStateGameObject: {fileID: 4816126272907111032}
   purchasedStateGameObject: {fileID: 6148294691189543153}
   lockedStateGameObject: {fileID: 6137560426042133081}
@@ -1150,7 +1151,7 @@ GameObject:
   - component: {fileID: 4354805681823984791}
   - component: {fileID: 8943129361342620603}
   m_Layer: 5
-  m_Name: BuyButton (2)
+  m_Name: LockedIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -12,6 +12,7 @@ public class ShopItemComponent : MonoBehaviour
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI cost;
     [SerializeField] private Button unlockButton;
+    [SerializeField] private TextMeshProUGUI unlocksOnDayText;
 
     [Header("State Gameobjects")] [SerializeField]
     private GameObject purchaseStateGameObject;
@@ -54,8 +55,8 @@ public class ShopItemComponent : MonoBehaviour
         img.sprite = _shopItem.Sprite;
         title.text = _shopItem.ItemName;
         description.text = _shopItem.ItemDescription;
+        unlocksOnDayText.text = $"unlocks on day {_shopItem.UnlockDay + 1}";
         cost.text = _shopItem.CoinCost.ToString("F1");
-        Debug.Log("SHOP ITEM STATE " + _shopItem.ItemName + " : " + _shopItem.IsPurchased);
         if (_shopItem.IsPurchased)
         {
             SetState(State.Purchased);
