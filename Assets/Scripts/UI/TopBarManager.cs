@@ -22,6 +22,7 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
     [SerializeField] private GameObject pauseBg;
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private GameObject offersView;
+    [SerializeField] private Button menuButton;
 
     private Animator topBarManagerAnimator;
     
@@ -130,8 +131,7 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
         {
             if (scene.name == StringConstants.GAME_SCENE_NAME)
             {
-                pauseBg.SetActive(true);
-                Time.timeScale = 0;
+                Pause(true);
             }
             menuBar.SetActive(true);
             isMenuBarOpen = true;
@@ -139,24 +139,41 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
         
     }
 
+    public void Pause(bool menuButtonActive = false)
+    {
+        pauseBg.SetActive(true);
+        Time.timeScale = 0;
+        Debug.Log(menuButtonActive);
+        if (!menuButtonActive)
+        {
+            menuButton.interactable = false;
+        }
+    }
+
+    public void UnPause()
+    {
+        pauseBg.SetActive(false);
+        Time.timeScale = 1;
+        menuButton.interactable = true;
+    }
+
     private void DisableMenuBar()
     {
         menuBar.SetActive(false);
-        pauseBg.SetActive(false);
         isMenuBarOpen = false;
-        Time.timeScale = 1;
+        UnPause();
     }
 
     public void EnableOffersView()
     {
         offersView.SetActive(true);
-        pauseBg.SetActive(true);
+        Pause();
     }
 
     public void DisableOffersView()
     {
         offersView.SetActive(false);
-        pauseBg.SetActive(false);
+        UnPause();
     }
 
     public void GoToHome()
@@ -173,21 +190,22 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
 
     public void GoToShop()
     {
-        Scene scene = SceneManager.GetActiveScene();
+        //Scene scene = SceneManager.GetActiveScene();
         DisableMenuBar();
-        if (scene.name == StringConstants.GAME_SCENE_NAME)
-        {
-            GameManager.Instance.GoToDayScene(() =>
-            {
-                DaySceneManager daySceneManager = FindObjectOfType<DaySceneManager>();
-                daySceneManager.ShowShopCanvas();
-            });
-        }
-        else if (scene.name == StringConstants.DAY_SCENE_NAME)
-        {
-            DaySceneManager daySceneManager = FindObjectOfType<DaySceneManager>();
-            daySceneManager.ShowShopCanvas();
-        }
+        GameManager.Instance.ShowShopCanvas();
+        // if (scene.name == StringConstants.GAME_SCENE_NAME)
+        // {
+        //     GameManager.Instance.GoToDayScene(() =>
+        //     {
+        //         DaySceneManager daySceneManager = FindObjectOfType<DaySceneManager>();
+        //         daySceneManager.ShowShopCanvas();
+        //     });
+        // }
+        // else if (scene.name == StringConstants.DAY_SCENE_NAME)
+        // {
+        //     DaySceneManager daySceneManager = FindObjectOfType<DaySceneManager>();
+        //     daySceneManager.ShowShopCanvas();
+        // }
 
         
     }

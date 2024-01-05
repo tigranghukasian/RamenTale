@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopManager : MonoBehaviour
+public class ShopManager : PersistentSingleton<ShopManager>
 {
 
+    [SerializeField] private GameObject shopView;
     [SerializeField] private ShopItemsList shopItemsList;
 
     [SerializeField] private Transform unlockableItemsParent;
@@ -43,9 +44,21 @@ public class ShopManager : MonoBehaviour
 
     }
 
+    public void EnableShopView()
+    {
+        shopView.gameObject.SetActive(true);
+    }
+
+    public void DisableShopView()
+    {
+        shopView.gameObject.SetActive(false);
+        TopBarManager.Instance.UnPause();
+    }
+
     private void DisableView()
     {
         unlockableItemsParent.gameObject.SetActive(false);
+
     }
     private void EnableView()
     {

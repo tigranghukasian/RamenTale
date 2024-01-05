@@ -97,6 +97,19 @@ public class GameManager : PersistentSingleton<GameManager>
         InvestmentsToday = 0;
 
     }
+    
+    public void ShowShopCanvas()
+    {
+        ShopManager.Instance.EnableShopView();
+        ShopManager.Instance.UpdateShop();
+        TopBarManager.Instance.Pause();
+    }
+
+    public void HideShopCanvas()
+    {
+        ShopManager.Instance.DisableShopView();
+        TopBarManager.Instance.UnPause();
+    }
 
     public float TotalProfitForToday()
     {

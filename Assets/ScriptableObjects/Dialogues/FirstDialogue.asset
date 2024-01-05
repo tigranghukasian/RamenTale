@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: FirstDialogue
   m_EditorClassIdentifier: 
   steps:
-  - stepText: Welcome to the world of ramen artistry! I'm [Character's Name], your
-      mentor.
+  - stepText: Welcome to the world of ramen artistry! I'm Nori, your mentor.
     beginStepActionFunction: 0
     confirmStepActionFunction: 0
     _choiceInfo:
@@ -32,14 +31,19 @@ MonoBehaviour:
       optionAText: Teach me!
       optionBText: Skip
     pathA:
-    - stepText: Fantastic choice! Let's walk through the basics together. In this
-        tutorial, you'll learn how to select your broth, cut and add ingredients.
-        Ready? I am hungry for some classic Shio Ramen.
+    - stepText: Fantastic choice! Let's walk through the basics together!
       beginStepActionFunction: 0
       confirmStepActionFunction: 2
+    - stepText: n this tutorial, you'll learn how to select your broth, cut and add
+        ingredients. Ready?
+      beginStepActionFunction: 0
+      confirmStepActionFunction: 0
+    - stepText: ' I am hungry for some classic Shio Ramen'
+      beginStepActionFunction: 0
+      confirmStepActionFunction: 0
     pathB:
     - stepText: I see you're eager to start! Let's get right to action! Can you serve
-        me Basic Shio Ramen just to get started? Thank you
+        me classic Shio Ramen just to get started? Thank you
       beginStepActionFunction: 0
       confirmStepActionFunction: 0
   rarity: 1

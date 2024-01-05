@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1e7a54eb72979746856057262cf9b0e, type: 3}
-  m_Name: ChibiGirl2
+  m_Name: Random1
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: d2ca6411d0623054993f7aa5f82dabcc, type: 3}
+  sprite: {fileID: 21300000, guid: 07df4dce0ce3ab644abc6a6e3c7e46bf, type: 3}
   spriteSheet:
-  - {fileID: 21300000, guid: d2ca6411d0623054993f7aa5f82dabcc, type: 3}
+  - {fileID: 21300000, guid: 07df4dce0ce3ab644abc6a6e3c7e46bf, type: 3}
   rarity: 1

@@ -64,14 +64,5 @@ public class DaySceneManager : MonoBehaviour
         endDayCanvas.gameObject.SetActive(false);
     }
     
-    public void ShowShopCanvas()
-    {
-        shopCanvas.gameObject.SetActive(true);
-        shopManager.UpdateShop();
-    }
-
-    public void HideShopCanvas()
-    {
-        shopCanvas.gameObject.SetActive(false);
-    }
+    
 }
