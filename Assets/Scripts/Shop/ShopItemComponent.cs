@@ -18,6 +18,7 @@ public class ShopItemComponent : MonoBehaviour
 
     [SerializeField] private GameObject purchasedStateGameObject;
     [SerializeField] private GameObject lockedStateGameObject;
+    
 
     private enum State
     {
@@ -54,6 +55,7 @@ public class ShopItemComponent : MonoBehaviour
         title.text = _shopItem.ItemName;
         description.text = _shopItem.ItemDescription;
         cost.text = _shopItem.CoinCost.ToString("F1");
+        Debug.Log("SHOP ITEM STATE " + _shopItem.ItemName + " : " + _shopItem.IsPurchased);
         if (_shopItem.IsPurchased)
         {
             SetState(State.Purchased);

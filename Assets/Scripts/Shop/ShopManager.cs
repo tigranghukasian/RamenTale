@@ -9,11 +9,19 @@ public class ShopManager : PersistentSingleton<ShopManager>
     [SerializeField] private GameObject shopView;
     [SerializeField] private ShopItemsList shopItemsList;
 
-    [SerializeField] private Transform unlockableItemsParent;
+    [SerializeField] private Transform itemsView;
 
     [SerializeField] private GameObject shopItemComponentPrefab;
 
     private Dictionary<string, Item> _shopItemComponents = new Dictionary<string, Item>();
+    
+    [Header("Categories parents")] 
+    [SerializeField] private GameObject ingredientCategoryParent;
+    [SerializeField] private GameObject cosmeticCategoryParent;
+    [SerializeField] private GameObject decorationCategoryParent;
+    [SerializeField] private GameObject upgradeCategoryParent;
+    
+    public bool IsShopOpen { get; private set; }
 
     public struct Item
     {
@@ -25,9 +33,11 @@ public class ShopManager : PersistentSingleton<ShopManager>
         DisableView();
         for (int i = 0; i < shopItemsList.ShopItems.Count; i++)
         {
-            ShopItem shopItem = shopItemsList.ShopItems[i];
-            shopItem.IsPurchased = false;
-            ShopItemComponent shopItemComponent = Instantiate(shopItemComponentPrefab, unlockableItemsParent)
+            
+            ShopItem shopItem = Instantiate(shopItemsList.ShopItems[i]);
+            
+            ShopItemComponent shopItemComponent = Instantiate(shopItemComponentPrefab, 
+                    GetCategoryViewObjectFromItemCategory(shopItem.ItemCategory).transform)
                 .GetComponent<ShopItemComponent>();
 
             shopItemComponent.Setup(shopItem, UnlockItem);
@@ -44,25 +54,54 @@ public class ShopManager : PersistentSingleton<ShopManager>
 
     }
 
+    private GameObject GetCategoryViewObjectFromItemCategory(ShopItem.Category category)
+    {
+        switch (category)
+        {
+            case ShopItem.Category.Ingredient:
+                return ingredientCategoryParent;
+            case ShopItem.Category.Cosmetic:
+                return cosmeticCategoryParent;
+            case ShopItem.Category.Decoration:
+                return decorationCategoryParent;
+            case ShopItem.Category.Upgrade:
+                return upgradeCategoryParent;
+        }
+
+        return cosmeticCategoryParent;
+    }
+
+    public void ChangeCategory(int categoryIndex)
+    {
+        ShopItem.Category category = (ShopItem.Category)categoryIndex;
+        ingredientCategoryParent.SetActive(category == ShopItem.Category.Ingredient);
+        cosmeticCategoryParent.SetActive(category == ShopItem.Category.Cosmetic);
+        decorationCategoryParent.SetActive(category == ShopItem.Category.Decoration);
+        upgradeCategoryParent.SetActive(category == ShopItem.Category.Upgrade);
+    }
+
     public void EnableShopView()
     {
         shopView.gameObject.SetActive(true);
+        ChangeCategory(0);
+        IsShopOpen = true;
     }
 
     public void DisableShopView()
     {
         shopView.gameObject.SetActive(false);
         TopBarManager.Instance.UnPause();
+        IsShopOpen = false;
     }
 
     private void DisableView()
     {
-        unlockableItemsParent.gameObject.SetActive(false);
+        itemsView.gameObject.SetActive(false);
 
     }
     private void EnableView()
     {
-        unlockableItemsParent.gameObject.SetActive(true);
+        itemsView.gameObject.SetActive(true);
     }
 
     public void UpdateShop()

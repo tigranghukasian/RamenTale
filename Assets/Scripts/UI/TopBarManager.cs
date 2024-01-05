@@ -30,9 +30,13 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
 
     private bool isMenuBarOpen = false;
     private bool shouldOpenShop = false;
-    
+
+    private Canvas canvas;
+    private int sortingOrder;
     private void Start()
     {
+        canvas = GetComponent<Canvas>();
+        sortingOrder = canvas.sortingOrder;
         CurrencyManager.Instance.OnCoinsChanged += UpdateCoinsBalanceText;
         CurrencyManager.Instance.OnCoinIncreased += ShowCoinIncrease;
         CurrencyManager.Instance.OnCoinDecreased += ShowCoinDecrease;
@@ -166,14 +170,20 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
 
     public void EnableOffersView()
     {
+        canvas.sortingOrder = sortingOrder + 10;
         offersView.SetActive(true);
         Pause();
     }
 
     public void DisableOffersView()
     {
+        canvas.sortingOrder = sortingOrder;
         offersView.SetActive(false);
-        UnPause();
+        if (!ShopManager.Instance.IsShopOpen)
+        {
+            UnPause();
+        }
+     
     }
 
     public void GoToHome()

@@ -29,6 +29,8 @@ public class ShopItem : ScriptableObject
    public Sprite Sprite => sprite;
    public float CoinCost => coinCost;
 
+   public Category ItemCategory => category;
+
    public int UnlockDay => unlockDay;
 
    public bool IsPurchased

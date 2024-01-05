@@ -19,8 +19,7 @@ public class DaySceneManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI suppliesUsedTodayText;
     [SerializeField] private TextMeshProUGUI totalProfitTodayText;
     [SerializeField] private Canvas loadingCanvas;
-    [SerializeField] private ShopManager shopManager;
-    
+
     public void NextDay()
     {
         GameManager.Instance.ResetEndDayData();
@@ -44,6 +43,11 @@ public class DaySceneManager : MonoBehaviour
             loadingCanvas.gameObject.SetActive(false);
         }
        
+    }
+
+    public void ShowShopCanvas()
+    {
+        GameManager.Instance.ShowShopCanvas();
     }
 
     public void ShowEndDayCanvas()
