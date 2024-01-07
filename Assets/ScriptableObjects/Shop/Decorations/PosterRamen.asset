@@ -19,4 +19,6 @@ MonoBehaviour:
   itemDescription: 
   coinCost: 0
   isPurchased: 1
-  unlockDay: 1
+  unlockDay: 0
+  subCategory: poster
+  isSelected: 0

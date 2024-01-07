@@ -147,7 +147,6 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
     {
         pauseBg.SetActive(true);
         Time.timeScale = 0;
-        Debug.Log(menuButtonActive);
         if (!menuButtonActive)
         {
             menuButton.interactable = false;
@@ -161,6 +160,11 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
         menuButton.interactable = true;
     }
 
+    public void CloseMenu()
+    {
+        menuBar.SetActive(false);
+        isMenuBarOpen = false;
+    }
     private void DisableMenuBar()
     {
         menuBar.SetActive(false);
@@ -172,6 +176,7 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
     {
         canvas.sortingOrder = sortingOrder + 10;
         offersView.SetActive(true);
+        CloseMenu();
         Pause();
     }
 

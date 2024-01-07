@@ -14,6 +14,8 @@ public class ShopItem : ScriptableObject
    [SerializeField] private float coinCost;
    [SerializeField] private bool isPurchased;
    [SerializeField] private int unlockDay;
+   [SerializeField] private string subCategory;
+   [SerializeField] private bool isSelected;
 
    public enum Category
    {
@@ -38,6 +40,15 @@ public class ShopItem : ScriptableObject
       get => isPurchased;
       set => isPurchased = value;
    }
+   public bool IsSelected
+   {
+      get => isSelected;
+      set => isSelected = value;
+   }
+
+
+   public string Subcategory => subCategory;
+   
    // public bool IsUnlocked
    // {
    //    get => isUnlocked;

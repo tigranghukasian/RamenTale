@@ -102,6 +102,7 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         ShopManager.Instance.EnableShopView();
         ShopManager.Instance.UpdateShop();
+        TopBarManager.Instance.CloseMenu();
         TopBarManager.Instance.Pause();
     }
 

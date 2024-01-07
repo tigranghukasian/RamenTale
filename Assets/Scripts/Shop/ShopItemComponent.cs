@@ -12,20 +12,24 @@ public class ShopItemComponent : MonoBehaviour
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI cost;
     [SerializeField] private Button unlockButton;
+    [SerializeField] private Button selectButton;
     [SerializeField] private TextMeshProUGUI unlocksOnDayText;
 
-    [Header("State Gameobjects")] [SerializeField]
-    private GameObject purchaseStateGameObject;
+    [Header("State Gameobjects")] 
 
+    [SerializeField] private GameObject purchasedAndSelectedStateGameObject;
     [SerializeField] private GameObject purchasedStateGameObject;
+    [SerializeField] private GameObject notPurchasedStateGameObject;
     [SerializeField] private GameObject lockedStateGameObject;
-    
+
+
 
     private enum State
     {
-        Purchase,
+        PurchasedAndSelected,
         Purchased,
-        Locked
+        NotPurchased,
+        Locked,
     };
 
     private State _state;
@@ -35,38 +39,57 @@ public class ShopItemComponent : MonoBehaviour
     private void SetState(State state)
     {
         _state = state;
-        purchaseStateGameObject.SetActive(state == State.Purchase);
+        purchasedAndSelectedStateGameObject.SetActive(state == State.PurchasedAndSelected);
         purchasedStateGameObject.SetActive(state == State.Purchased);
+        notPurchasedStateGameObject.SetActive(state == State.NotPurchased);
         lockedStateGameObject.SetActive(state == State.Locked);
     }
 
-    public void Setup(ShopItem shopItem, Action<ShopItem> onUnlock)
+    public void Setup(ShopItem shopItem, Action<ShopItem> onUnlock, Action<ShopItem> onSelect, ShopManager shopManager)
     {
         _shopItem = shopItem;
         unlockButton.onClick.AddListener(() =>
         {
             onUnlock?.Invoke(shopItem);
         });
+        selectButton.onClick.AddListener(() =>
+        {
+            onSelect?.Invoke(shopItem);
+        });
+        shopManager.OnShopUpdated += UpdateCard;
     }
 
     public void SetupCard()
     {
-        SetState(State.Purchase);
+        SetState(State.PurchasedAndSelected);
         img.sprite = _shopItem.Sprite;
         title.text = _shopItem.ItemName;
         description.text = _shopItem.ItemDescription;
-        unlocksOnDayText.text = $"unlocks on day {_shopItem.UnlockDay + 1}";
+        unlocksOnDayText.text = $"unlocks on day {_shopItem.UnlockDay}";
         cost.text = _shopItem.CoinCost.ToString("F1");
+        UpdateCard();
+    }
+
+    public void UpdateCard()
+    {
         if (_shopItem.IsPurchased)
         {
-            SetState(State.Purchased);
+            if (_shopItem.Subcategory == String.Empty || _shopItem.IsSelected)
+            {
+                SetState(State.PurchasedAndSelected);
+            }
+            else
+            {
+                SetState(State.Purchased);
+            }
         }
-
         if (_shopItem.UnlockDay > GameManager.Instance.DayNumber)
         {
             SetState(State.Locked);
         }
     }
+    
+    
 
     public void LockItem()
     {

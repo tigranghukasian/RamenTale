@@ -50,13 +50,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   days:
   - visits:
-    - customer: {fileID: 11400000, guid: a913f5417f585164bb768afd8a90ecc6, type: 2}
-      dialogue: {fileID: 11400000, guid: c4096e3042a6877419024e19edb5f1a0, type: 2}
-      order: {fileID: 11400000, guid: 81202a07e3752d849bd02aed8e172742, type: 2}
-  - visits:
     - customer: {fileID: 11400000, guid: 96f20c25f6b6c9a4b80c9a68147becab, type: 2}
       dialogue: {fileID: 11400000, guid: c50f6c1ca0278a5419762d03cb260b71, type: 2}
       order: {fileID: 11400000, guid: 64352aa28ad203848a39ba74f5a540da, type: 2}
+  - visits:
+    - customer: {fileID: 11400000, guid: a913f5417f585164bb768afd8a90ecc6, type: 2}
+      dialogue: {fileID: 11400000, guid: c4096e3042a6877419024e19edb5f1a0, type: 2}
+      order: {fileID: 11400000, guid: 81202a07e3752d849bd02aed8e172742, type: 2}
   transitionSpeed: 2
   transitionImage: {fileID: 5539487489904927622}
   firebaseManager: {fileID: 26259347236443012}

@@ -10,3 +10,9 @@ public struct ShopItemData
     public string Id { get; set; }
 
 }
+[FirestoreData]
+public struct ShopItemSubcategorySelectedData
+{
+    [FirestoreProperty]
+    public string Id { get; set; }
+}

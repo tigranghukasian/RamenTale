@@ -56,6 +56,66 @@ public class FirebaseManager : MonoBehaviour
         });
     }
     
+    public void SelectItem(ShopItem shopItem)
+    {
+        string subCategory = shopItem.Subcategory;
+        ShopItemSubcategorySelectedData itemSelectedData = new ShopItemSubcategorySelectedData
+        {
+            Id = shopItem.Id,
+        };
+        _db.Collection("users").Document(_userId).Collection("selectedItems").Document(subCategory).SetAsync(itemSelectedData).ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.LogError("Failed to select item due to error: " + task.Exception);
+            }
+            else if (task.IsCanceled)
+            {
+                Debug.LogError("Failed to select item because the task was canceled.");
+            }
+            else
+            {
+                Debug.Log("Item selected successfuly");
+            }
+        });
+    }
+
+    public void GetShopItemSubcategorySelected(Action<List<ShopItemSubcategorySelectedData>> callback = null)
+    {
+        _db.Collection("users").Document(_userId).Collection("selectedItems").GetSnapshotAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted)
+            {
+                Debug.Log("Task is faulted" + task.Exception);
+            }
+            if (task.IsCanceled)
+            {
+                Debug.Log("task is cancelled");
+            }
+            if (task.IsCompleted)
+            {
+                List<ShopItemSubcategorySelectedData> shopItemSubCategorySelectedDatas = new List<ShopItemSubcategorySelectedData>();
+                foreach (DocumentSnapshot document in task.Result.Documents)
+                {
+                    ShopItemSubcategorySelectedData shopItemSubCategorySelectedData = document.ConvertTo<ShopItemSubcategorySelectedData>();
+                    shopItemSubCategorySelectedDatas.Add(shopItemSubCategorySelectedData);
+                }
+                callback?.Invoke(shopItemSubCategorySelectedDatas);
+        
+                // Update your game state with the retrieved items here.
+                // This could involve displaying the items in the user's inventory, enabling functionality related to the items, etc.
+        
+                Debug.Log("Retrieved user items subcategory selected successfully");
+            }
+            else
+            {
+                Debug.Log("Failed to retrieve user items subcategory selected ");
+            }
+
+            
+        });
+    }
+    
     public void GetUnlockedItems(Action<List<ShopItemData>> callback = null)
     {
         //Debug.Log("get unlocked items");
@@ -67,7 +127,7 @@ public class FirebaseManager : MonoBehaviour
             }
             if (task.IsCanceled)
             {
-                Debug.Log("task is cancelld");
+                Debug.Log("task is cancelled");
             }
             if (task.IsCompleted)
             {
@@ -118,7 +178,6 @@ public class FirebaseManager : MonoBehaviour
 
     public void GetUserData()
     {
-        Debug.Log("GET USER DATA");
         _db.Collection("users").Document(_userId).GetSnapshotAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
