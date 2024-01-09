@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96bb4b6bce52b7c489e1ede041c76335, type: 3}
+  m_Script: {fileID: 11500000, guid: d6d7b983447ce9d48a3277b0eb84fd02, type: 3}
   m_Name: ChairDefault
   m_EditorClassIdentifier: 
   id: chairDefault
@@ -21,4 +21,5 @@ MonoBehaviour:
   isPurchased: 1
   unlockDay: 0
   subCategory: chair
-  isSelected: 0
+  isSelected: 1
+  decorationAndCosmeticVisual: {fileID: 21300000, guid: 355fe8dd68ced824daf6d1ce0670bf39, type: 3}

@@ -119,7 +119,6 @@ public class CustomerManager : MonoBehaviour
                     CurrentCustomer.Order = currentVisit.order;
                     CurrentCustomer.Dialogue = currentVisit.dialogue;
                     customerBehaviour.SetSpriteSheet(CurrentCustomer.SpriteSheet);
-                    Debug.Log("1current customer is " + CurrentCustomer.name);
                     OnCustomerGenerated?.Invoke(CurrentCustomer);
                     _customerIndex++;
                     return;
@@ -130,7 +129,6 @@ public class CustomerManager : MonoBehaviour
         CurrentCustomer = Instantiate(RarityFunctions.GenerateItem(customers));
         CurrentCustomer.Order = OrderManager.Instance.GenerateNewOrder();
         customerBehaviour.SetSpriteSheet(CurrentCustomer.SpriteSheet);
-        Debug.Log("2current customer is " + CurrentCustomer.name);
         OnCustomerGenerated?.Invoke(CurrentCustomer);
         _customerIndex++;
 

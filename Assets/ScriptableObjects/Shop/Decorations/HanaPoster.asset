@@ -9,16 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96bb4b6bce52b7c489e1ede041c76335, type: 3}
-  m_Name: PosterRamen
+  m_Script: {fileID: 11500000, guid: d6d7b983447ce9d48a3277b0eb84fd02, type: 3}
+  m_Name: HanaPoster
   m_EditorClassIdentifier: 
-  id: ramenPoster
+  id: hanaPoster
   category: 2
-  itemName: Ramen Poster
-  sprite: {fileID: 21300000, guid: 9c27803035ef9ca4f9c7aa4d8b30a1b1, type: 3}
+  itemName: Poster by Hana
+  sprite: {fileID: 21300000, guid: 2326a25c2a63b1949a1043ac935c1f9d, type: 3}
   itemDescription: 
   coinCost: 0
   isPurchased: 1
   unlockDay: 0
   subCategory: poster
   isSelected: 0
+  decorationAndCosmeticVisual: {fileID: 21300000, guid: c0a530b36274ad84ebeb2d8036fb3f59, type: 3}

@@ -9,16 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96bb4b6bce52b7c489e1ede041c76335, type: 3}
+  m_Script: {fileID: 11500000, guid: d6d7b983447ce9d48a3277b0eb84fd02, type: 3}
   m_Name: NoPoster
   m_EditorClassIdentifier: 
   id: noPoster
   category: 2
   itemName: No Poster
-  sprite: {fileID: 21300000, guid: 9c27803035ef9ca4f9c7aa4d8b30a1b1, type: 3}
+  sprite: {fileID: 21300000, guid: 09575baefda5002479f99b315b62d8fe, type: 3}
   itemDescription: 
   coinCost: 0
   isPurchased: 1
   unlockDay: 0
   subCategory: poster
-  isSelected: 0
+  isSelected: 1
+  decorationAndCosmeticVisual: {fileID: 0}

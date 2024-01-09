@@ -22,6 +22,8 @@ public class GameSceneManager : Singleton<GameSceneManager>
     [SerializeField] private KitchenUIManager kitchenUIManager;
     [SerializeField] private TutorialManager tutorialManager;
     [SerializeField] private OpeningUIManager _openingUIManager;
+
+    [SerializeField] private DecorationAndCosmeticManager decorationAndCosmeticManager;
     
    
     public DialogueManager DialogueManager => dialogueManager;
@@ -35,7 +37,6 @@ public class GameSceneManager : Singleton<GameSceneManager>
     private void Start()
     {
         _openingUIManager.gameObject.SetActive(true);
-      
     }
 
     public void StartDay()

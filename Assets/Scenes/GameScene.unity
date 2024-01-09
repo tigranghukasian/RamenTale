@@ -1064,6 +1064,18 @@ PrefabInstance:
       propertyPath: m_enableAutoSizing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6068494471700325953, guid: 1072ba481149a874c97c934cb7040463, type: 3}
+      propertyPath: m_Color.b
+      value: 0.882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068494471700325953, guid: 1072ba481149a874c97c934cb7040463, type: 3}
+      propertyPath: m_Color.g
+      value: 0.95294124
+      objectReference: {fileID: 0}
+    - target: {fileID: 6068494471700325953, guid: 1072ba481149a874c97c934cb7040463, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7122282538617754482, guid: 1072ba481149a874c97c934cb7040463, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -1266,6 +1278,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8053951562586281357, guid: 1072ba481149a874c97c934cb7040463, type: 3}
       propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8433747854121426213, guid: 1072ba481149a874c97c934cb7040463, type: 3}
+      propertyPath: m_Color.b
+      value: 0.882353
+      objectReference: {fileID: 0}
+    - target: {fileID: 8433747854121426213, guid: 1072ba481149a874c97c934cb7040463, type: 3}
+      propertyPath: m_Color.g
+      value: 0.95294124
+      objectReference: {fileID: 0}
+    - target: {fileID: 8433747854121426213, guid: 1072ba481149a874c97c934cb7040463, type: 3}
+      propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -8568,6 +8592,7 @@ GameObject:
   - component: {fileID: 1330594168}
   - component: {fileID: 1330594170}
   - component: {fileID: 1330594169}
+  - component: {fileID: 1330594171}
   m_Layer: 0
   m_Name: GameSceneManager
   m_TagString: Untagged
@@ -8622,6 +8647,28 @@ MonoBehaviour:
   kitchenUIManager: {fileID: 1475216912}
   tutorialManager: {fileID: 483253670}
   _openingUIManager: {fileID: 461955263}
+  decorationAndCosmeticManager: {fileID: 1330594171}
+--- !u!114 &1330594171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330594166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c8bb7366c47a5b4db7adb9e8318be79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decorationAndCosmeticGameObjects:
+  - itemVisuals:
+    - {fileID: 1236452129}
+    - {fileID: 1109256733}
+    - {fileID: 2057256541}
+    subcategoryItemName: chair
+  - itemVisuals:
+    - {fileID: 811593771}
+    subcategoryItemName: poster
 --- !u!224 &1351886495 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8031494924247009852, guid: 1072ba481149a874c97c934cb7040463, type: 3}
@@ -12351,7 +12398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20bd6d789568ccb42914707bc885c875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayDuration: 40
+  dayDuration: 90
   timeOfDayText: {fileID: 639656133}
 --- !u!4 &2044725609
 Transform:

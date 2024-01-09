@@ -56,7 +56,10 @@ public class ShopItemComponent : MonoBehaviour
         {
             onSelect?.Invoke(shopItem);
         });
-        shopManager.OnShopUpdated += UpdateCard;
+        shopManager.OnShopUpdated += _ =>
+        {
+            UpdateCard();
+        };
     }
 
     public void SetupCard()

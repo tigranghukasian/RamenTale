@@ -36,7 +36,9 @@ public class ShopManager : PersistentSingleton<ShopManager>
     [SerializeField] private Color unSelectedCategoryButtonColor;
     
     
-    public Action OnShopUpdated { get; set; }
+    
+    public Action<List<ShopItem>> OnShopUpdated { get; set; }
+    public Action<List<ShopItem>> OnItemSelected { get; set; }
     public bool IsShopOpen { get; private set; }
     
     private int _callbacksCompleted = 0;
@@ -69,7 +71,10 @@ public class ShopManager : PersistentSingleton<ShopManager>
             
         }
 
-        GameManager.Instance.FirebaseManager.OnUserSetup += UpdateShop;
+        GameManager.Instance.FirebaseManager.OnUserSetup += () =>
+        {
+            UpdateShop();
+        };
 
     }
 
@@ -156,29 +161,39 @@ public class ShopManager : PersistentSingleton<ShopManager>
         itemsView.gameObject.SetActive(true);
     }
 
-    public void UpdateShop()
+    public void UpdateShop(Action<List<ShopItem>> shopItemsCallback = null)
     {
         _callbacksCompleted = 0;
         GameManager.Instance.FirebaseManager.GetUnlockedItems((unlockedItems) =>
         {
             UpdateUnlockedItems(unlockedItems);
-            CheckAndInvokeOnShopUpdated();
+            if (CheckAndInvokeOnShopUpdated())
+            {
+                shopItemsCallback?.Invoke(shopItems);
+            }
         });
         GameManager.Instance.FirebaseManager.GetShopItemSubcategorySelected((subcategorySelected) =>
         {
             GetShopItemSubCategorySelected(subcategorySelected);
-            CheckAndInvokeOnShopUpdated();
+            if (CheckAndInvokeOnShopUpdated())
+            {
+                shopItemsCallback?.Invoke(shopItems);
+            }
         });
     }
-    private void CheckAndInvokeOnShopUpdated()
+    
+    private bool CheckAndInvokeOnShopUpdated()
     {
         _callbacksCompleted++;
 
         if (_callbacksCompleted == 2) // Check if both callbacks have been completed
         {
-            OnShopUpdated?.Invoke();
+            OnShopUpdated?.Invoke(shopItems);
             EnableView();
+            return true;
         }
+
+        return false;
     }
 
     private void UpdateUnlockedItems(List<ShopItemData> unlockedShopItems)
@@ -240,5 +255,6 @@ public class ShopManager : PersistentSingleton<ShopManager>
         _shopItemComponents[shopItem.Id].component.UpdateCard();
         
         GameManager.Instance.FirebaseManager.SelectItem(shopItem);
+        OnItemSelected?.Invoke(shopItems);
     }
 }

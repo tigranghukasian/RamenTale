@@ -34,8 +34,8 @@ MonoBehaviour:
     - stepText: Fantastic choice! Let's walk through the basics together!
       beginStepActionFunction: 0
       confirmStepActionFunction: 2
-    - stepText: n this tutorial, you'll learn how to select your broth, cut and add
-        ingredients. Ready?
+    - stepText: In this tutorial, you'll learn how to select your broth, cut and
+        add ingredients. Ready?
       beginStepActionFunction: 0
       confirmStepActionFunction: 0
     - stepText: ' I am hungry for some classic Shio Ramen'
