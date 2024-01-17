@@ -80,7 +80,6 @@ public class DialogueManager : MonoBehaviour {
                     speechBubble.EnableOptionsButtons();
                     speechBubble.SetButtons(mainPathStep.GetOptionAText(), mainPathStep.GetOptionBText());
                }
-               
           }
           else
           {
@@ -156,6 +155,15 @@ public class DialogueManager : MonoBehaviour {
           if (step.ConfirmStepActionFunction == DialogueStep.ConfirmStepActionType.EnableTutorial)
           {
                GameManager.Instance.IsTutorialActive = true;
+          }
+
+          if (step.ConfirmStepActionFunction == DialogueStep.ConfirmStepActionType.SelectHanaPoster)
+          {
+               step.AddConfirmAction(() =>
+               {
+                    ShopManager.Instance.SelectHanaPoster();
+               });
+             
           }
      }
 

@@ -11,15 +11,17 @@ public class SpeechBubble : MonoBehaviour
     [SerializeField] private GameObject buttonsParent;
     [SerializeField] private TextMeshProUGUI buttonAText;
     [SerializeField] private TextMeshProUGUI buttonBText;
+    [SerializeField] private Image tapArea;
     private bool optionsEnabled = false;
 
     public void SetText(string message) {
         text.text = message;
     }
+    
 
-    private void Update()
+    public void OnTapAreaPressed()
     {
-        if (!optionsEnabled && Input.GetMouseButtonDown(0))
+        if (!optionsEnabled)
         {
             GameSceneManager.Instance.DialogueManager.NextStep();
         }
@@ -35,12 +37,14 @@ public class SpeechBubble : MonoBehaviour
     {
         optionsEnabled = false;
         buttonsParent.SetActive(false);
+        tapArea.gameObject.SetActive(true);
     }
 
     public void SetButtons(string optionAText, string optionBText)
     {
         buttonAText.text = optionAText;
         buttonBText.text = optionBText;
+        tapArea.gameObject.SetActive(false);
     }
 
     public void OptionA()

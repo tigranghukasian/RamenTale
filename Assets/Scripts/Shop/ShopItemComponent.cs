@@ -10,10 +10,16 @@ public class ShopItemComponent : MonoBehaviour
     [SerializeField] private Image img;
     [SerializeField] private TextMeshProUGUI title;
     [SerializeField] private TextMeshProUGUI description;
-    [SerializeField] private TextMeshProUGUI cost;
-    [SerializeField] private Button unlockButton;
+    [SerializeField] private TextMeshProUGUI costCoinText;
+    [SerializeField] private TextMeshProUGUI costDiamondText;
+    [SerializeField] private Button purchaseButtonCoin;
+    [SerializeField] private Button purchaseButtonDiamond;
     [SerializeField] private Button selectButton;
     [SerializeField] private TextMeshProUGUI unlocksOnDayText;
+
+
+    [SerializeField] private GameObject buyButtonCoinGameObject;
+    [SerializeField] private GameObject buyButtonDiamondGameObject;
 
     [Header("State Gameobjects")] 
 
@@ -48,7 +54,11 @@ public class ShopItemComponent : MonoBehaviour
     public void Setup(ShopItem shopItem, Action<ShopItem> onUnlock, Action<ShopItem> onSelect, ShopManager shopManager)
     {
         _shopItem = shopItem;
-        unlockButton.onClick.AddListener(() =>
+        purchaseButtonCoin.onClick.AddListener(() =>
+        {
+            onUnlock?.Invoke(shopItem);
+        });
+        purchaseButtonDiamond.onClick.AddListener(() =>
         {
             onUnlock?.Invoke(shopItem);
         });
@@ -69,8 +79,14 @@ public class ShopItemComponent : MonoBehaviour
         title.text = _shopItem.ItemName;
         description.text = _shopItem.ItemDescription;
         unlocksOnDayText.text = $"unlocks on day {_shopItem.UnlockDay}";
-        cost.text = _shopItem.CoinCost.ToString("F1");
+        costCoinText.text = _shopItem.CoinCost.ToString("F0");
+        costDiamondText.text = _shopItem.DiamondCost.ToString("F0");
         UpdateCard();
+    }
+
+    public GameObject GetBuyCoinGameObject()
+    {
+        return buyButtonCoinGameObject;
     }
 
     public void UpdateCard()
@@ -84,6 +100,20 @@ public class ShopItemComponent : MonoBehaviour
             else
             {
                 SetState(State.Purchased);
+            }
+        }
+        else
+        {
+            SetState(State.NotPurchased);
+            if (_shopItem.DiamondCost != 0)
+            {
+                buyButtonDiamondGameObject.SetActive(true);
+                buyButtonCoinGameObject.SetActive(false);
+            }
+            else
+            {
+                buyButtonDiamondGameObject.SetActive(false);
+                buyButtonCoinGameObject.SetActive(true);
             }
         }
         if (_shopItem.UnlockDay > GameManager.Instance.DayNumber)

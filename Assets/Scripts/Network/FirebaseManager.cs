@@ -154,7 +154,7 @@ public class FirebaseManager : MonoBehaviour
         });
     }
     
-    private void UpdateUserData()
+    public void UpdateUserData()
     {
         UserData userData = new UserData
         {

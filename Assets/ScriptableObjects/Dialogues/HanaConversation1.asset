@@ -54,7 +54,7 @@ MonoBehaviour:
   - stepText: But it looks a bit empty. I want to give you one of my art pieces to
       make this shop even more cosy!
     beginStepActionFunction: 0
-    confirmStepActionFunction: 0
+    confirmStepActionFunction: 3
     _choiceInfo:
       branches: 0
       optionAText: 

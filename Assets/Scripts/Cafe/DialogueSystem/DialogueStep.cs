@@ -20,7 +20,8 @@ public class DialogueStep
     {
         None,
         GetNextCustomer,
-        EnableTutorial
+        EnableTutorial,
+        SelectHanaPoster
     }
 
     [SerializeField] private BeginStepActionType beginStepActionFunction = BeginStepActionType.None;

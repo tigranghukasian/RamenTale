@@ -24,8 +24,14 @@ public class TutorialStep
         get => action;
         set => action = value;
     }
-    public GameObject Target1 => target1;
-    public GameObject Target2 => target2;
+    public GameObject Target1 { 
+        get => target1;
+        set => target1 = value;
+    }
+    public GameObject Target2 { 
+        get => target2;
+        set => target2 = value;
+    }
     public Sprite OverlaySprite => overlaySprite;
     public int Times => times;
     public float ShowHandAfterDelay => showHandAfterDelay;

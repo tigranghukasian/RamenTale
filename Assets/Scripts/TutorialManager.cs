@@ -12,6 +12,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private GameObject tutorialHand;
     [SerializeField] private Image overlayImage;
     [SerializeField] List<TutorialStep> tutorialSteps;
+    [SerializeField] private List<TutorialStep> customSteps;
     public Action OnTutorialStarted { get; set; }
     public Action OnTutorialEnded { get; set; }
     private int currentStepIndex = 0;
@@ -21,19 +22,32 @@ public class TutorialManager : MonoBehaviour
     private CanvasGroup tutorialHandCanvasGroup;
 
     private Tween moveTween;
+    
     public void StartTutorial()
     {
-        tutorialHandAnimator = tutorialHand.GetComponent<Animator>();
-        tutorialHandCanvasGroup = tutorialHand.GetComponent<CanvasGroup>();
-        overlayAnimator = overlayImage.GetComponent<Animator>();
-        tutorialHand.SetActive(true);
+        EnableTutorialGameObjects();
         ShowStep(tutorialSteps[currentStepIndex]);
         OnTutorialStarted?.Invoke();
+    }
+
+    private void EnableTutorialGameObjects()
+    {
+        tutorialHand.SetActive(true);
+        overlayImage.gameObject.SetActive(true);
+    }
+
+    private void DisableTutorialGameObjects()
+    {
+        tutorialHand.SetActive(false);
+        overlayImage.gameObject.SetActive(false);
     }
 
     private void Start()
     {
         tutorialHandCanvasGroup = tutorialHand.GetComponent<CanvasGroup>();
+        tutorialHandAnimator = tutorialHand.GetComponent<Animator>();
+        tutorialHandCanvasGroup = tutorialHand.GetComponent<CanvasGroup>();
+        overlayAnimator = overlayImage.GetComponent<Animator>();
     }
 
     private void Update()
@@ -69,6 +83,17 @@ public class TutorialManager : MonoBehaviour
 
         // Code to display the overlay and move the hand to the target object
         // Play animations or highlight the object as needed
+    }
+
+    public void ShowCustomStep(string customStepName)
+    {
+        TutorialStep step = customSteps.FirstOrDefault(s => s.Action == customStepName);
+        if (step != null)
+        {
+            ShowStep(step);
+        }
+        
+        EnableTutorialGameObjects();
     }
 
     IEnumerator ChangeOverlayAfterDelay(TutorialStep step,float delay)
@@ -150,6 +175,17 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    public void AddTargets(string stepAction, GameObject target1, GameObject target2)
+    {
+        var step = tutorialSteps.FirstOrDefault(s => s.Action == stepAction);
+        
+        if (step != null)
+        {
+            step.Target1 = target1;
+            step.Target2 = target2;
+        }
+    }
+
     public GameObject GetCurrentStepInteractableObject()
     {
         return tutorialSteps[currentStepIndex].InteractableObject;
@@ -176,8 +212,7 @@ public class TutorialManager : MonoBehaviour
 
     private void EndTutorial()
     {
-        tutorialHand.SetActive(false);
-        overlayImage.gameObject.SetActive(false);
+        DisableTutorialGameObjects();
         GameManager.Instance.IsTutorialActive = false;
         OnTutorialEnded?.Invoke();
         moveTween.Kill();

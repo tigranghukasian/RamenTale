@@ -12,6 +12,7 @@ public class ShopItem : ScriptableObject
    [SerializeField] private Sprite sprite;
    [SerializeField] private string itemDescription;
    [SerializeField] private float coinCost;
+   [SerializeField] private float diamondCost;
    [SerializeField] private bool isPurchased;
    [SerializeField] private int unlockDay;
    [SerializeField] private string subCategory;
@@ -30,6 +31,8 @@ public class ShopItem : ScriptableObject
    public String ItemDescription => itemDescription;
    public Sprite Sprite => sprite;
    public float CoinCost => coinCost;
+
+   public float DiamondCost => diamondCost;
 
    public Category ItemCategory => category;
 

@@ -94,6 +94,7 @@ public class ShopManager : PersistentSingleton<ShopManager>
 
         return cosmeticCategoryParent;
     }
+    
 
     public void ChangeCategory(int categoryIndex)
     {
@@ -144,6 +145,15 @@ public class ShopManager : PersistentSingleton<ShopManager>
         IsShopOpen = true;
     }
 
+    public void GoToItem(string shopItemId)
+    {
+        ShopItem shopItem = shopItems.FirstOrDefault(s => s.Id == shopItemId);
+        if (shopItem != null)
+        {
+            ChangeCategory((int)shopItem.ItemCategory);
+        }
+    }
+
     public void DisableShopView()
     {
         shopView.gameObject.SetActive(false);
@@ -165,7 +175,8 @@ public class ShopManager : PersistentSingleton<ShopManager>
     {
         _callbacksCompleted = 0;
         GameManager.Instance.FirebaseManager.GetUnlockedItems((unlockedItems) =>
-        {
+        {   
+            GameManager.Instance.FirebaseManager.UpdateUserData();
             UpdateUnlockedItems(unlockedItems);
             if (CheckAndInvokeOnShopUpdated())
             {
@@ -174,6 +185,7 @@ public class ShopManager : PersistentSingleton<ShopManager>
         });
         GameManager.Instance.FirebaseManager.GetShopItemSubcategorySelected((subcategorySelected) =>
         {
+            GameManager.Instance.FirebaseManager.UpdateUserData();
             GetShopItemSubCategorySelected(subcategorySelected);
             if (CheckAndInvokeOnShopUpdated())
             {
@@ -211,6 +223,8 @@ public class ShopManager : PersistentSingleton<ShopManager>
             }
         }
     }
+    
+    
 
     private void GetShopItemSubCategorySelected(List<ShopItemSubcategorySelectedData> unlockedShopItems)
     {
@@ -231,17 +245,45 @@ public class ShopManager : PersistentSingleton<ShopManager>
         
     }
 
+    public GameObject GetBuyCoinButtonOfShopItem(string shopItemId)
+    {
+        if (_shopItemComponents.TryGetValue(shopItemId, out Item item))
+        {
+            return item.component.GetBuyCoinGameObject();
+        }
+
+        return null;
+
+    }
+
     public void UnlockItem(ShopItem shopItem)
     {
-        if (CurrencyManager.Instance.HasCoin(shopItem.CoinCost))
+        if (shopItem.DiamondCost != 0)
         {
-            GameManager.Instance.FirebaseManager.UnlockItem(shopItem);
-            CurrencyManager.Instance.SubtractCoins(shopItem.CoinCost);
+            if (CurrencyManager.Instance.HasDiamonds(shopItem.DiamondCost))
+            {
+                GameManager.Instance.FirebaseManager.UnlockItem(shopItem);
+                CurrencyManager.Instance.SubtractDiamonds(shopItem.DiamondCost);
+            }
         }
+        else
+        {
+            if (CurrencyManager.Instance.HasCoin(shopItem.CoinCost))
+            {
+                GameManager.Instance.FirebaseManager.UnlockItem(shopItem);
+                CurrencyManager.Instance.SubtractCoins(shopItem.CoinCost);
+            }
+        }
+        
         
         //TODO: CHECK IF THIS CALL IS NEEDED
         //MAYBE THIS CALL IS NOT NEEDED
         UpdateShop();
+    }
+
+    public void SelectHanaPoster()
+    {
+        SelectItem(shopItems.FirstOrDefault(si => si.Id == "hanaPoster"));
     }
 
     public void SelectItem(ShopItem shopItem)
