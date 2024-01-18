@@ -52,7 +52,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
     private void IncreaseChapterIfLastChapterIsFinished()
     {
-        if (ChapterNumber < chapters.Count && ChapterPartNumber >= chapters[ChapterNumber-1].ChapterParts.Count)
+        if (ChapterNumber < chapters.Count && ChapterPartNumber > chapters[ChapterNumber-1].ChapterParts.Count)
         {
             ChapterNumber++;
             ChapterPartNumber = 1;
@@ -96,6 +96,7 @@ public class GameManager : PersistentSingleton<GameManager>
     {
         DayNumber++;
         ChapterPartNumber++;
+        IncreaseChapterIfLastChapterIsFinished();
 
         OnDayEnded?.Invoke();
         ChangeScene(StringConstants.DAY_SCENE_NAME, () =>

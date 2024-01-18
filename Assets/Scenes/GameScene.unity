@@ -12307,7 +12307,7 @@ GameObject:
   - component: {fileID: 2044725609}
   - component: {fileID: 2044725608}
   m_Layer: 0
-  m_Name: DayManager
+  m_Name: DayCycleManager
   m_TagString: Untagged
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -12325,7 +12325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20bd6d789568ccb42914707bc885c875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayDuration: 5
+  dayDuration: 15
   timeOfDayText: {fileID: 639656133}
 --- !u!4 &2044725609
 Transform:
