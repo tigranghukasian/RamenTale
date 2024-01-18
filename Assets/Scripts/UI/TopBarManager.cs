@@ -12,6 +12,8 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
     [SerializeField] private TextMeshProUGUI coinsIncreaseText;
     [SerializeField] private TextMeshProUGUI coinsDecreaseText;
     [SerializeField] private TextMeshProUGUI diamondsBalanceText;
+    [SerializeField] private TextMeshProUGUI diamondsIncreaseText;
+    [SerializeField] private TextMeshProUGUI diamondsDecreaseText;
     [SerializeField] private TextMeshProUGUI satisfactionText;
     [SerializeField] private GameObject satisfactionBar;
     [SerializeField] private GameObject timeOfDayBar;
@@ -41,7 +43,10 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
         CurrencyManager.Instance.OnCoinIncreased += ShowCoinIncrease;
         CurrencyManager.Instance.OnCoinDecreased += ShowCoinDecrease;
         CurrencyManager.Instance.OnDiamondsChanged += UpdateDiamondsBalanceText;
+        CurrencyManager.Instance.OnDiamondsIncreased += ShowDiamondsIncrease;
+        CurrencyManager.Instance.OnDiamondsDecreased += ShowDiamondsDecrease;
         topBarManagerAnimator = GetComponent<Animator>();
+        topBarManagerAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
     }
     public void SetTimeDisplay(string timeString)
     {
@@ -77,17 +82,12 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
     {
         canvasGroup.interactable = true;
     }
-    
 
-    private void ShowCoinIncrease(float amount)
+    private void Update()
     {
-        coinsIncreaseText.transform.parent.gameObject.SetActive(true);
-        coinsIncreaseText.text = "+" + amount.ToString("F1");
-        topBarManagerAnimator.Play("coinIncrease");
-        StopAllCoroutines();
-        StartCoroutine(DisableGameObjectAfterDelay(coinsIncreaseText.transform.parent.gameObject, 1f));
     }
 
+    
     public void UpdateCustomerSatisfactionText(float amount)
     {
         satisfactionText.text = $"{Mathf.RoundToInt(amount * 100f).ToString()}%";
@@ -96,18 +96,49 @@ public class TopBarManager : PersistentSingleton<TopBarManager>
         satisfactionFaceImage.color = color;
     }
 
-    private void ShowCoinDecrease(float amount)
+    private void ShowCoinIncrease(float amount)
     {
-        coinsDecreaseText.gameObject.SetActive(true);
-        coinsDecreaseText.text = "-" + amount.ToString("F1"); 
-        topBarManagerAnimator.Play("coinDecrease");
+        coinsIncreaseText.transform.parent.gameObject.SetActive(true);
+        coinsIncreaseText.text = "+" + amount.ToString("F1");
+        topBarManagerAnimator.Play("coinIncrease");
+        
         StopAllCoroutines();
-        StartCoroutine(DisableGameObjectAfterDelay(coinsDecreaseText.gameObject, 0.5f));
+        StartCoroutine(DisableGameObjectAfterDelay(coinsIncreaseText.transform.parent.gameObject, 1f));
     }
 
+    private void ShowCoinDecrease(float amount)
+    {
+        coinsDecreaseText.transform.parent.gameObject.SetActive(true);
+        coinsDecreaseText.text = "-" + amount.ToString("F1"); 
+        topBarManagerAnimator.Play("coinDecrease");
+        
+        StopAllCoroutines();
+        StartCoroutine(DisableGameObjectAfterDelay(coinsDecreaseText.transform.parent.gameObject, 1f));
+    }
+
+    
+    private void ShowDiamondsIncrease(float amount)
+    {
+        diamondsIncreaseText.transform.parent.gameObject.SetActive(true);
+        diamondsIncreaseText.text = "+" + amount.ToString("F0");
+        topBarManagerAnimator.Play("diamondIncrease");
+        
+        StopAllCoroutines();
+        StartCoroutine(DisableGameObjectAfterDelay(diamondsIncreaseText.transform.parent.gameObject, 1f));
+    }
+
+    private void ShowDiamondsDecrease(float amount)
+    {
+        diamondsDecreaseText.transform.parent.gameObject.SetActive(true);
+        diamondsDecreaseText.text = "-" + amount.ToString("F0"); 
+        topBarManagerAnimator.Play("diamondDecrease");
+        
+        StopAllCoroutines();
+        StartCoroutine(DisableGameObjectAfterDelay(diamondsDecreaseText.transform.parent.gameObject, 1f));
+    }
     IEnumerator DisableGameObjectAfterDelay(GameObject gameObjectToDisable, float seconds)
     {
-        yield return new WaitForSeconds(seconds);
+        yield return new WaitForSecondsRealtime(seconds);
         gameObjectToDisable.SetActive(false);
     }
     private void UpdateCoinsBalanceText(float amount)

@@ -11,8 +11,22 @@ public class DecorationAndCosmeticManager : MonoBehaviour
 
     private void OnEnable()
     {
+        if (!GameManager.Instance.FirebaseManager.Authenticated)
+        {
+            GameManager.Instance.FirebaseManager.OnUserSetup += () =>
+            {
+
+                ShopManager.Instance.UpdateShop(UpdateVisuals);
+            };
+        }
+        else
+        {
+            ShopManager.Instance.UpdateShop(UpdateVisuals);
+        }
+        
         ShopManager.Instance.OnShopUpdated += UpdateVisuals;
         ShopManager.Instance.OnItemSelected += UpdateVisuals;
+        
     }
 
     private void OnDisable()

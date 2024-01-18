@@ -800,6 +800,7 @@ MonoBehaviour:
   shopCanvas: {fileID: 307143160}
   dayNumberText: {fileID: 2106456848}
   endDayNumberText: {fileID: 1949340715}
+  chapterNumberText: {fileID: 774136244}
   customersServedTodayText: {fileID: 1360654339}
   revenueTodayText: {fileID: 1584082701}
   tipsTodayText: {fileID: 727633602}

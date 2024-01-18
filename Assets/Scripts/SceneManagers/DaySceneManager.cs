@@ -10,6 +10,7 @@ public class DaySceneManager : MonoBehaviour
     [SerializeField] private Canvas shopCanvas;
     [SerializeField] private TextMeshProUGUI dayNumberText;
     [SerializeField] private TextMeshProUGUI endDayNumberText;
+    [SerializeField] private TextMeshProUGUI chapterNumberText;
 
     [SerializeField] private TextMeshProUGUI customersServedTodayText;
     [SerializeField] private TextMeshProUGUI revenueTodayText;
@@ -33,14 +34,17 @@ public class DaySceneManager : MonoBehaviour
         {
             GameManager.Instance.FirebaseManager.OnUserSetup += () =>
             {
-                Debug.Log("LOADING CANVAS SET ACTIVE FALSE");
-                dayNumberText.text = $"Day {(GameManager.Instance.DayNumber).ToString()} Chapter {GameManager.Instance.ChapterNumber.ToString()} ChapterPart {GameManager.Instance.ChapterPartNumber.ToString()}";
+                //dayNumberText.text = $"Day {(GameManager.Instance.DayNumber).ToString()} Chapter {GameManager.Instance.ChapterNumber.ToString()} ChapterPart {GameManager.Instance.ChapterPartNumber.ToString()}";
+                dayNumberText.text = $"Day {GameManager.Instance.DayNumber}";
+                chapterNumberText.text = $"Chapter {GameManager.Instance.ChapterNumber}";
                 loadingCanvas.gameObject.SetActive(false);
             };
         }
         else
         {
-            dayNumberText.text = $"Day {(GameManager.Instance.DayNumber).ToString()} Chapter {GameManager.Instance.ChapterNumber.ToString()} ChapterPart {GameManager.Instance.ChapterPartNumber.ToString()}";
+            //dayNumberText.text = $"Day {(GameManager.Instance.DayNumber).ToString()} Chapter {GameManager.Instance.ChapterNumber.ToString()} ChapterPart {GameManager.Instance.ChapterPartNumber.ToString()}";
+            dayNumberText.text = $"Day {GameManager.Instance.DayNumber}";
+            chapterNumberText.text = $"Chapter {GameManager.Instance.ChapterNumber}";
             loadingCanvas.gameObject.SetActive(false);
         }
        
