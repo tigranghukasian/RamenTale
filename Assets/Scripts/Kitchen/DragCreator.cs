@@ -44,7 +44,12 @@ public class DragCreator : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         {
             return;
         }
-        _spawnedItemRectTransform.anchoredPosition += eventData.delta/ KitchenManager.Instance.DragCanvas.scaleFactor;
+
+        if (_isDragging)
+        {
+            _spawnedItemRectTransform.anchoredPosition += eventData.delta/ KitchenManager.Instance.DragCanvas.scaleFactor;
+        }
+        
 
     }
 
