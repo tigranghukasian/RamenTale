@@ -33,13 +33,14 @@ public class DaySceneManager : MonoBehaviour
         {
             GameManager.Instance.FirebaseManager.OnUserSetup += () =>
             {
-                dayNumberText.text = $"Day {(GameManager.Instance.DayNumber).ToString()}";
+                Debug.Log("LOADING CANVAS SET ACTIVE FALSE");
+                dayNumberText.text = $"Day {(GameManager.Instance.DayNumber).ToString()} Chapter {GameManager.Instance.ChapterNumber.ToString()} ChapterPart {GameManager.Instance.ChapterPartNumber.ToString()}";
                 loadingCanvas.gameObject.SetActive(false);
             };
         }
         else
         {
-            dayNumberText.text = $"Day {(GameManager.Instance.DayNumber).ToString()}";
+            dayNumberText.text = $"Day {(GameManager.Instance.DayNumber).ToString()} Chapter {GameManager.Instance.ChapterNumber.ToString()} ChapterPart {GameManager.Instance.ChapterPartNumber.ToString()}";
             loadingCanvas.gameObject.SetActive(false);
         }
        

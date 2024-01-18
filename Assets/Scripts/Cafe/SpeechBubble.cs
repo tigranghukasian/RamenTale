@@ -37,14 +37,20 @@ public class SpeechBubble : MonoBehaviour
     {
         optionsEnabled = false;
         buttonsParent.SetActive(false);
-        tapArea.gameObject.SetActive(true);
+        SetTapAreaActive(true);
     }
 
     public void SetButtons(string optionAText, string optionBText)
     {
         buttonAText.text = optionAText;
         buttonBText.text = optionBText;
-        tapArea.gameObject.SetActive(false);
+        SetTapAreaActive(false);
+
+    }
+
+    public void SetTapAreaActive(bool active)
+    {
+        tapArea.gameObject.SetActive(active);
     }
 
     public void OptionA()

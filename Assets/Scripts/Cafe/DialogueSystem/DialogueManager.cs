@@ -59,19 +59,8 @@ public class DialogueManager : MonoBehaviour {
      
      public void BeginCurrentStep()
      {
-          
           speechBubble.gameObject.SetActive(true);
           speechBubble.SetText(_currentStep.StepText);
-          if (_currentStep.StepText == string.Empty)
-          {
-               speechBubble.gameObject.SetActive(false);
-          }
-          else
-          {
-               customerBehaviour.SetMouthAnimate();
-               DayCycleManager.Instance.Enabled = false;
-          }
-
           if (_currentStep is DialogueMainPathStep)
           {
                DialogueMainPathStep mainPathStep = (DialogueMainPathStep)_currentStep;
@@ -80,13 +69,28 @@ public class DialogueManager : MonoBehaviour {
                     speechBubble.EnableOptionsButtons();
                     speechBubble.SetButtons(mainPathStep.GetOptionAText(), mainPathStep.GetOptionBText());
                }
+               else
+               {
+                    speechBubble.DisableOptionsButtons();
+               }
           }
           else
           {
                speechBubble.DisableOptionsButtons();
           }
-          
-          
+
+          if (_currentStep.StepText == string.Empty)
+          {
+               speechBubble.gameObject.SetActive(false);
+               speechBubble.SetTapAreaActive(false);
+
+          }
+          else
+          {
+               customerBehaviour.SetMouthAnimate();
+               DayCycleManager.Instance.EnableTime();
+          }
+
           if (_currentStep.OnBeginStepAction != null)
           {
                _currentStep.OnBeginStepAction?.Invoke();
@@ -94,12 +98,23 @@ public class DialogueManager : MonoBehaviour {
           
      }
 
-     private void OnDialogueFinished()
-     {
+     private void OnDialogueFinished(){
+
           if (DayCycleManager.Instance.DayEnded)
           {
-               DayCycleManager.Instance.EndDay();
+               if (GameManager.Instance.GetCurrentChapter() == null)
+               {
+                    DayCycleManager.Instance.EndDay();
+                    return;
+               }
+               if (GameSceneManager.Instance.CustomerManager.CustomerIndex >= GameManager.Instance.GetCurrentChapter().Visits.Count)
+               {
+                    DayCycleManager.Instance.EndDay();
+                    return;
+               }
+
           }
+
           StartCoroutine(GetNextCustomerAfterDelay(2f));
      }
 
@@ -114,6 +129,7 @@ public class DialogueManager : MonoBehaviour {
      {
           _currentDialogueQueue.Clear();
           GameSceneManager.Instance.DialogueManager.SpeechBubble.gameObject.SetActive(false);
+          GameSceneManager.Instance.DialogueManager.SpeechBubble.SetTapAreaActive(false);
           GameSceneManager.Instance.CustomerManager.DepartCustomer();
           GameSceneManager.Instance.CustomerManager.GetNextCustomer();
      }

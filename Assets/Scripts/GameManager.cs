@@ -11,6 +11,9 @@ public class GameManager : PersistentSingleton<GameManager>
 {
     public int DayNumber { get; set; }
     
+    public int ChapterNumber { get; set; }
+    public int ChapterPartNumber { get; set; }
+    
     public int CustomersServedToday { get; set; }
     public float RevenueToday { get; set; }
     public float TipsToday { get; set; }
@@ -22,7 +25,7 @@ public class GameManager : PersistentSingleton<GameManager>
     public bool IsAdsInitialized { get; set; }
     
 
-    [SerializeField] private List<Day> days = new List<Day>();
+    [SerializeField] private List<Chapter> chapters = new List<Chapter>();
     
     
     [Header("Scene Management")]
@@ -41,7 +44,22 @@ public class GameManager : PersistentSingleton<GameManager>
         base.Awake();
         QualitySettings.vSyncCount = 0;
         AdsInitializer = GetComponent<AdsInitializer>();
-        //LoadDayInfo();
+   
+        FirebaseManager.OnUserSetup += IncreaseChapterIfLastChapterIsFinished;
+        
+    }
+    
+
+    private void IncreaseChapterIfLastChapterIsFinished()
+    {
+        if (ChapterNumber < chapters.Count && ChapterPartNumber >= chapters[ChapterNumber-1].ChapterParts.Count)
+        {
+            ChapterNumber++;
+            ChapterPartNumber = 1;
+            FirebaseManager.UpdateUserData();
+        }
+
+ 
     }
 
     public void GoToGameScene()
@@ -65,11 +83,11 @@ public class GameManager : PersistentSingleton<GameManager>
     }
     
     
-    public Day CurrentDay()
+    public ChapterPart GetCurrentChapter()
     {
-        if (Utilities.IsIndexValid(days, DayNumber - 1))
+        if (Utilities.IsIndexValid(chapters[ChapterNumber-1].ChapterParts, ChapterPartNumber - 1))
         {
-            return days[DayNumber - 1];
+            return chapters[ChapterNumber - 1].ChapterParts[ChapterPartNumber - 1];
         }
         return null;
 
@@ -77,6 +95,8 @@ public class GameManager : PersistentSingleton<GameManager>
     public void EndDay()
     {
         DayNumber++;
+        ChapterPartNumber++;
+
         OnDayEnded?.Invoke();
         ChangeScene(StringConstants.DAY_SCENE_NAME, () =>
         {

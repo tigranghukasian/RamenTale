@@ -9,5 +9,11 @@ public struct UserData
     public float Diamonds { get; set; }
     [FirestoreProperty]
     public float Day { get; set; }
+    
+    [FirestoreProperty] 
+    public float Chapter { get; set; }
+    [FirestoreProperty]
+    public float ChapterPart { get; set; }
+
 
 }

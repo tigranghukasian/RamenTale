@@ -22,6 +22,8 @@ public class CustomerManager : MonoBehaviour
 
     private int _customerIndex;
 
+    public int CustomerIndex => _customerIndex;
+
     private void Start()
     {
         
@@ -90,7 +92,8 @@ public class CustomerManager : MonoBehaviour
 
     public void GetNextCustomer()
     {
-        DayCycleManager.Instance.Enabled = true;
+        DayCycleManager.Instance.EnableTime();
+      
         _satisfaction = 1f;
         _satisfactionTimer = 0;
         OnCustomerSatisfactionChanged?.Invoke(_satisfaction);
@@ -107,11 +110,11 @@ public class CustomerManager : MonoBehaviour
 
     private void CreateCustomer()
     {
-        if (GameManager.Instance.CurrentDay() != null)
+        if (GameManager.Instance.GetCurrentChapter() != null)
         {
-            if (Utilities.IsIndexValid(GameManager.Instance.CurrentDay().Visits, _customerIndex))
+            if (Utilities.IsIndexValid(GameManager.Instance.GetCurrentChapter().Visits, _customerIndex))
             {
-                Visit currentVisit = GameManager.Instance.CurrentDay().Visits[_customerIndex];
+                Visit currentVisit = GameManager.Instance.GetCurrentChapter().Visits[_customerIndex];
             
                 if (currentVisit.customer != null)
                 {

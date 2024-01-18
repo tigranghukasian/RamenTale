@@ -160,7 +160,9 @@ public class FirebaseManager : MonoBehaviour
         {
             Coins = (float)Decimal.Round((decimal)CurrencyManager.Instance.CoinBalance,2),
             Diamonds = (float)Decimal.Round((decimal)CurrencyManager.Instance.DiamondsBalance,2),
-            Day = GameManager.Instance.DayNumber
+            Day = GameManager.Instance.DayNumber,
+            Chapter = GameManager.Instance.ChapterNumber,
+            ChapterPart = GameManager.Instance.ChapterPartNumber
         };
         DocumentReference users = _db.Collection("users").Document(_userId);
         users.SetAsync(userData).ContinueWithOnMainThread(task =>
@@ -192,6 +194,8 @@ public class FirebaseManager : MonoBehaviour
                 CurrencyManager.Instance.CoinBalance = userData.Coins;
                 CurrencyManager.Instance.DiamondsBalance = userData.Diamonds;
                 GameManager.Instance.DayNumber = (int)userData.Day;
+                GameManager.Instance.ChapterNumber = (int)userData.Chapter;
+                GameManager.Instance.ChapterPartNumber = (int)userData.ChapterPart;
                 //KitchenManager.Instance.SetupUnlockedItems();
             
                 Debug.Log("--- Get User Data ---");
@@ -204,7 +208,9 @@ public class FirebaseManager : MonoBehaviour
                 {
                     Coins = 150, 
                     Diamonds = 10,
-                    Day = 1
+                    Day = 1,
+                    Chapter = 1,
+                    ChapterPart = 1
                 };
 
                 _db.Collection("users").Document(_userId).SetAsync(newUser).ContinueWithOnMainThread(createUserTask =>
@@ -216,6 +222,9 @@ public class FirebaseManager : MonoBehaviour
                         CurrencyManager.Instance.CoinBalance = newUser.Coins;
                     
                         GameManager.Instance.DayNumber = (int)newUser.Day;
+                        GameManager.Instance.ChapterNumber = (int)newUser.Chapter;
+                        GameManager.Instance.ChapterPartNumber = (int)newUser.ChapterPart;
+                        
 
                         OnUserSetup?.Invoke();
                     }

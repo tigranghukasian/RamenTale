@@ -9,11 +9,23 @@ public class DayCycleManager : Singleton<DayCycleManager>
     [SerializeField]
     private float dayDuration = 60; //this is speed of time, it can be adjusted according to the game. 
 
-    public bool Enabled { get; set; }
+    public bool Enabled { get; private set; }
     public bool DayEnded { get; set; }
     
     [SerializeField] private TextMeshProUGUI timeOfDayText;
 
+    public void EnableTime()
+    {
+        if (!DayEnded)
+        {
+            Enabled = true;
+        }
+    }
+
+    public void DisableTime()
+    {
+        Enabled = false;
+    }
     public void ResetGameTime()
     {
         gameTime = 0;

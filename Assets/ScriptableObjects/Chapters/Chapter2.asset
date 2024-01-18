@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 382137e5a2042ac428ce24c5030e4932, type: 3}
+  m_Name: Chapter2
+  m_EditorClassIdentifier: 
+  chapterParts:
+  - visits:
+    - customer: {fileID: 11400000, guid: ad209f9b3b1dc8f4e9f6ae058480d836, type: 2}
+      dialogue: {fileID: 11400000, guid: fd099958ea2560145ac853d1159293f4, type: 2}
+      order: {fileID: 11400000, guid: 64352aa28ad203848a39ba74f5a540da, type: 2}

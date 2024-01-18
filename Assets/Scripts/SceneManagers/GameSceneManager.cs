@@ -56,7 +56,7 @@ public class GameSceneManager : Singleton<GameSceneManager>
         StartCoroutine(DisableCanvasAfterDelay(cafeCanvas, AnimationConstants.KITCHEN_VIEW_OPEN_ANIMATION_DURATION)); // Assumes the animation takes 1 second
         KitchenManager.Instance.SetOrder();
         KitchenManager.Instance.PlateSpot.AddEmptyPlate(true);
-        DayCycleManager.Instance.Enabled = true;
+        DayCycleManager.Instance.EnableTime();
         CustomerManager.StartSatisfactionTimer();
     }
 
@@ -106,6 +106,6 @@ public class GameSceneManager : Singleton<GameSceneManager>
 
     public void EndDay()
     {
-        DayCycleManager.Instance.Enabled = false;
+        DayCycleManager.Instance.DisableTime();
     }
 }
