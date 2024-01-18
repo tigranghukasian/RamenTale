@@ -94,8 +94,13 @@ public class IngredientBoxCut : DragCreator
 
     public override void OnBeginDrag(PointerEventData eventData)
     {
+                
+        if (Count == 0)
+        {
+            return;
+        }
         base.OnBeginDrag(eventData);
-
+        
         
         if (GameManager.Instance.IsTutorialActive)
         {
