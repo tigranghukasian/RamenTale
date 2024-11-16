@@ -1,15 +1,97 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.0.2'
+       classpath 'com.google.gms:google-services:4.3.15' // Add if Firebase is used
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
 apply plugin: 'com.android.library'
-**APPLY_PLUGINS**
+apply plugin: 'com.google.gms.google-services'
 
 dependencies {
+
+// Android Resolver Dependencies Start
+    implementation 'com.google.android.gms:play-services-base:18.5.0' // Assets/Firebase/Editor/AppDependencies.xml:17
+    implementation 'com.google.firebase:firebase-analytics:22.1.2' // Assets/Firebase/Editor/FirestoreDependencies.xml:15
+    implementation 'com.google.firebase:firebase-app-unity:12.4.0' // Assets/Firebase/Editor/AppDependencies.xml:22
+    implementation 'com.google.firebase:firebase-auth:23.1.0' // Assets/Firebase/Editor/AuthDependencies.xml:13
+    implementation 'com.google.firebase:firebase-auth-unity:12.4.0' // Assets/Firebase/Editor/AuthDependencies.xml:20
+    implementation 'com.google.firebase:firebase-common:21.0.0' // Assets/Firebase/Editor/AppDependencies.xml:13
+    implementation 'com.google.firebase:firebase-firestore:25.1.1' // Assets/Firebase/Editor/FirestoreDependencies.xml:13
+    implementation 'com.google.firebase:firebase-firestore-unity:12.4.0' // Assets/Firebase/Editor/FirestoreDependencies.xml:20
+// Android Resolver Dependencies End
+// **DEPS** - Dependencies placeholder for Android Resolver
+
+// Android Resolver Dependencies Start
+    implementation 'com.google.android.gms:play-services-base:18.5.0' // Assets/Firebase/Editor/AppDependencies.xml:17
+    implementation 'com.google.firebase:firebase-analytics:22.1.2' // Assets/Firebase/Editor/FirestoreDependencies.xml:15
+    implementation 'com.google.firebase:firebase-app-unity:12.4.0' // Assets/Firebase/Editor/AppDependencies.xml:22
+    implementation 'com.google.firebase:firebase-auth:23.1.0' // Assets/Firebase/Editor/AuthDependencies.xml:13
+    implementation 'com.google.firebase:firebase-auth-unity:12.4.0' // Assets/Firebase/Editor/AuthDependencies.xml:20
+    implementation 'com.google.firebase:firebase-common:21.0.0' // Assets/Firebase/Editor/AppDependencies.xml:13
+    implementation 'com.google.firebase:firebase-firestore:25.1.1' // Assets/Firebase/Editor/FirestoreDependencies.xml:13
+    implementation 'com.google.firebase:firebase-firestore-unity:12.4.0' // Assets/Firebase/Editor/FirestoreDependencies.xml:20
+// Android Resolver Dependencies End
+
+
+// Android Resolver Dependencies Start
+    implementation 'com.google.android.gms:play-services-base:18.5.0' // Assets/Firebase/Editor/AppDependencies.xml:17
+    implementation 'com.google.firebase:firebase-analytics:22.1.2' // Assets/Firebase/Editor/FirestoreDependencies.xml:15
+    implementation 'com.google.firebase:firebase-app-unity:12.4.0' // Assets/Firebase/Editor/AppDependencies.xml:22
+    implementation 'com.google.firebase:firebase-auth:23.1.0' // Assets/Firebase/Editor/AuthDependencies.xml:13
+    implementation 'com.google.firebase:firebase-auth-unity:12.4.0' // Assets/Firebase/Editor/AuthDependencies.xml:20
+    implementation 'com.google.firebase:firebase-common:21.0.0' // Assets/Firebase/Editor/AppDependencies.xml:13
+    implementation 'com.google.firebase:firebase-firestore:25.1.1' // Assets/Firebase/Editor/FirestoreDependencies.xml:13
+    implementation 'com.google.firebase:firebase-firestore-unity:12.4.0' // Assets/Firebase/Editor/FirestoreDependencies.xml:20
+// Android Resolver Dependencies End
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-**DEPS**}
+    // Android Resolver Dependencies Start
+    //implementation 'com.android.billingclient:billing:6.0.1'
+    implementation 'com.google.android.gms:play-services-base:18.5.0' // Assets/Firebase/Editor/AppDependencies.xml:17
+    implementation 'com.google.firebase:firebase-analytics:22.1.2' // Assets/Firebase/Editor/FirestoreDependencies.xml:15
+    implementation 'com.google.firebase:firebase-app-unity:12.4.0' // Assets/Firebase/Editor/AppDependencies.xml:22
+    implementation 'com.google.firebase:firebase-auth:23.1.0' // Assets/Firebase/Editor/AuthDependencies.xml:13
+    implementation 'com.google.firebase:firebase-auth-unity:12.4.0' // Assets/Firebase/Editor/AuthDependencies.xml:20
+    implementation 'com.google.firebase:firebase-common:21.0.0' // Assets/Firebase/Editor/AppDependencies.xml:13
+    implementation 'com.google.firebase:firebase-firestore:25.1.1' // Assets/Firebase/Editor/FirestoreDependencies.xml:13
+    implementation 'com.google.firebase:firebase-firestore-unity:12.4.0' // Assets/Firebase/Editor/FirestoreDependencies.xml:20
 
+implementation 'com.google.firebase:firebase-core:21.1.0'
+    implementation 'com.google.firebase:firebase-analytics:21.2.0'
+    implementation 'com.google.firebase:firebase-firestore:24.4.1'
+    implementation 'com.google.firebase:firebase-auth:23.1.0'
+    implementation 'com.google.android.gms:play-services-base:18.5.0'
+    // Android Resolver Dependencies End
+}
+
+// Android Resolver Exclusions Start
 android {
-    ndkPath "**NDKPATH**"
-
-    compileSdkVersion **APIVERSION**
-    buildToolsVersion '**BUILDTOOLS**'
+  packagingOptions {
+      exclude ('/lib/armeabi/*' + '*')
+      exclude ('/lib/mips/*' + '*')
+      exclude ('/lib/mips64/*' + '*')
+      exclude ('/lib/x86/*' + '*')
+      exclude ('/lib/x86_64/*' + '*')
+  }
+}
+// Android Resolver Exclusions End
+android {
+    namespace "com.unity3d.player"
+    ndkPath "C:/Program Files/Unity/Hub/Editor/2022.3.52f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK"
+    compileSdkVersion 35
+    buildToolsVersion '34.0.0'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
@@ -17,14 +99,14 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion **MINSDKVERSION**
-        targetSdkVersion **TARGETSDKVERSION**
+        targetSdkVersion 35
+        minSdkVersion 24
         ndk {
-            abiFilters **ABIFILTERS**
+            abiFilters "armeabi-v7a", "arm64-v8a"
         }
-        versionCode **VERSIONCODE**
-        versionName '**VERSIONNAME**'
-        consumerProguardFiles 'proguard-unity.txt'**USER_PROGUARD**
+        versionCode 1
+        versionName '1.0.0'
+        consumerProguardFiles 'proguard-unity.txt'
     }
 
     lintOptions {
@@ -32,10 +114,11 @@ android {
     }
 
     aaptOptions {
-        noCompress = **BUILTIN_NOCOMPRESS** + unityStreamingAssets.tokenize(', ')
-        ignoreAssetsPattern = "!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~"
-    }**PACKAGING_OPTIONS**
+    noCompress = ['.unity3d', '.ress', '.resource', '.obb', '.bundle', '.unityexp'] + unityStreamingAssets.tokenize(', ')
+    ignoreAssetsPattern = "!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~"
 }
-**IL_CPP_BUILD_SETUP**
-**SOURCE_BUILD_SETUP**
-**EXTERNAL_SOURCES**
+compileOptions {
+    sourceCompatibility JavaVersion.VERSION_11
+    targetCompatibility JavaVersion.VERSION_11
+}
+}
